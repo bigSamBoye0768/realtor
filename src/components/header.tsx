@@ -10,16 +10,38 @@ import { Icons } from "./icons";
 const placeholder = "Search by address, city, neighbourhood or country";
 export const Header = () => {
 	const menuBtnRef = useRef<HTMLButtonElement>(null);
+	const menuLinks = useRef<HTMLDivElement>(null);
+	const headerRef = useRef<HTMLElement>(null);
+	const headerSearchRef = useRef<HTMLDivElement>(null);
+	const searchBtnRef = useRef<HTMLButtonElement>(null);
+
 	const [openMenuLinks, setOpenMenuLinks] = useState(false);
 	const [open, setOpen] = useState<boolean>(false);
 
 	const handleMenuOutsideClick = (event: MouseEvent) => {
+		console.log(event.target as Node);
+		console.log(headerRef.current);
+		// console.log(menuBtnRef.current?.contains(event.target as Node));
+		// console.log(headerSearchRef.current?.contains(event.target as Node));
+		console.log(headerRef.current !== event.target);
+
 		if (
-			menuBtnRef.current &&
-			!menuBtnRef.current.contains(event.target as Node)
+			!menuBtnRef.current?.contains(event.target as Node) &&
+			menuLinks.current !== event.target
 		) {
 			setOpenMenuLinks(false);
 		}
+
+		if (!headerSearchRef.current?.contains(event.target as Node)) {
+			setOpen(false);
+		}
+
+		// if (
+		// 	menuBtnRef.current &&
+		// 	!menuBtnRef.current.contains(event.target as Node)
+		// ) {
+		// 	setOpenMenuLinks(false);
+		// }
 	};
 	useEffect(() => {
 		document.addEventListener("mousedown", handleMenuOutsideClick);
@@ -28,24 +50,52 @@ export const Header = () => {
 		};
 	}, []);
 
+	let lastScroll = 0;
+	const handleWindowScroll = () => {
+		console.log("scollY", window.scrollY);
+		if (window.scrollY > lastScroll) {
+			setOpen(false);
+		}
+
+		lastScroll = window.scrollY;
+	};
+
+	useEffect(() => {
+		window.addEventListener("scroll", handleWindowScroll);
+
+		return () => window.addEventListener("scroll", handleWindowScroll);
+	}, []);
+
+	const handleLinkClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		// console.log(e);
+		// setOpenMenuLinks(true);
+		// Only close if clicking an actual link (<a> tag)
+		// if (e.target.tagName === "A") {
+		// 	setOpenMenuLinks(false);
+		// }
+	};
+
 	return (
-		<header className="mark h-[80px] w-full">
-			<div className="mark-b flex items-center w-full h-full">
-				<div className="mark lg:flex-1 flex">
+		<header className=" h-[80px] w-full" ref={headerRef}>
+			<div className=" flex items-center w-full h-full">
+				<div className=" lg:flex-1 flex">
 					<Link
 						href="/"
-						className="inline-flex items-center mark gap-1 text-black font-semibold text-base"
+						className="inline-flex items-center  gap-1 text-black font-semibold text-base"
 					>
 						{Icons.house()} nestQuest
 					</Link>
 				</div>
 
-				<div className="mark-b px-2 w-full max-w-[350px]">
+				<div
+					className=" px-2 w-full max-w-[350px] data-[state=notOpen]:opacity-100 data-[state=isOpen]:opacity-0 data-[state=notOpen]:visible data-[state=isOpen]:invisible transition-all duration-150"
+					data-state={open ? "isOpen" : "notOpen"}
+				>
 					<Button
 						variant="outline"
 						className="rounded-full hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between"
 						title="Search"
-						onClick={() => setOpen((val) => !val)}
+						onClick={() => setOpen(true)}
 					>
 						<div className="pl-6 truncate font-semibold">{placeholder}</div>
 						<div className="bg-black w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
@@ -71,20 +121,20 @@ export const Header = () => {
 					</Button>
 				</div>
 
-				<div className="flex-1 flex items-center justify-end mark gap-2">
+				<div className="flex-1 flex items-center justify-end  gap-2">
 					<Button
 						variant="ghost"
 						className="rounded-full h-10 font-semibold text-sm shadow-none"
 					>
 						Become a host
 					</Button>
-					<div>
+					<div className=" relative ">
 						<Button
 							variant="outline"
 							ref={menuBtnRef}
 							onClick={() => setOpenMenuLinks((val) => !val)}
 							className={cn(
-								"rounded-full flex items-center relative p-1.5 h-10 shadow-none hover:bg-transparent",
+								"rounded-full flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
 								`${
 									openMenuLinks
 										? "shadow-[#0000002e_0_2px_4px]"
@@ -145,54 +195,57 @@ export const Header = () => {
 									></path>
 								</svg>
 							</div>
-
-							{/* {openMenuLinks && ( */}
-							<div
-								data-state={openMenuLinks ? "toggleOpen" : "toggleClose"}
-								className={cn(
-									"bg-white mark rounded-[16px] z-[60] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] h-fit py-6 overflow-hidden absolute top-[50px] right-0 transition-all duration-150",
-									"data-[state=toggleOpen]:visible data-[state=toggleOpen]:opacity-100",
-									"data-[state=toggleClose]:invisible data-[state=toggleClose]:opacity-0"
-								)}
-							>
-								<ul className="w-full mark-b flex flex-col gap-1 py-5">
-									{/* <li>
+						</Button>
+						{/* {openMenuLinks && ( */}
+						<div
+							ref={menuLinks}
+							onClick={(e) => handleLinkClick(e)}
+							data-state={openMenuLinks ? "toggleOpen" : "toggleClose"}
+							className={cn(
+								"bg-white  rounded-[16px] z-[60] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] h-fit py-6 overflow-hidden absolute top-[50px] right-0 transition-all duration-150",
+								"data-[state=toggleOpen]:visible data-[state=toggleOpen]:opacity-100",
+								"data-[state=toggleClose]:invisible data-[state=toggleClose]:opacity-0"
+							)}
+						>
+							<ul className="w-full  flex flex-col gap-1 py-5">
+								{/* <li>
                                     <Button variant="outline" className='w-full border-0 border-b-1 justify-start rounded-none' size="lg">Login</Button>
                                 </li> */}
-									<li>
-										<Link href="login" className="flex">
-											<div className="w-full border-0 border-b-1 justify-start rounded-none">
-												Signup
-											</div>
-										</Link>
-									</li>
-									<li>
-										<Link href="" className="flex">
-											<div className="w-full border-0 last:border-b-0 justify-start rounded-none">
-												Account
-											</div>
-										</Link>
-									</li>
-								</ul>
-							</div>
-
-							{/* )} */}
-						</Button>
+								<li>
+									<Link href="/" className="flex">
+										<div className="w-full border-0 border-b-1 justify-start rounded-none">
+											Signup
+										</div>
+									</Link>
+								</li>
+								<li>
+									<Link href="/explore" className="flex">
+										<div className="w-full border-0 last:border-b-0 justify-start rounded-none">
+											Account
+										</div>
+									</Link>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div
+				ref={headerSearchRef}
 				data-state={open ? "isOpen" : "notOpen"}
 				className="bg-red-400 py-2 absolute left-0 right-0 w-full z-50 data-[state=notOpen]:opacity-0 data-[state=notOpen]:scale-x-0 data-[state=notOpen]:-translate-y-full data-[state=isOpen]:translate-y-0 data-[state=isOpen]:scale-x-100 data-[state=isOpen]:opacity-100 transition-all duration-200"
 			>
-				<div className="px-4 w-full mark-b max-w-screen-md mx-auto ">
+				<div className="px-4 w-full  max-w-screen-md mx-auto ">
 					<div className="flex bg-gray-300 rounded-full">
-						<div className="w-full flex-1 rounded-full h-16 mark-b relative overflow-hidden">
+						<div className="w-full flex-1 rounded-full h-16  relative overflow-hidden">
 							<div className="absolute inset-0 bg-white rounded-full shadow">
-								<label className="flex mark h-full items-center gap-x-2 flex-nowrap">
+								<label className="flex  h-full items-center gap-x-2 flex-nowrap">
 									<Input placeholder={placeholder} className="truncate" />
-									<Button className="rounded-full h-11 w-11 mr-2">
+									<Button
+										className="rounded-full h-11 w-11 mr-2"
+										ref={searchBtnRef}
+									>
 										<div className="flex items-center justify-center">
 											<svg
 												viewBox="0 0 32 32"
@@ -217,8 +270,8 @@ export const Header = () => {
 								</label>
 							</div>
 						</div>
-						{/* <div className="dates flex-1 mark rounded-full"></div>
-						<div className="guests flex-1 mark rounded-full"></div> */}
+						{/* <div className="dates flex-1  rounded-full"></div>
+						<div className="guests flex-1  rounded-full"></div> */}
 					</div>
 				</div>
 			</div>
@@ -230,3 +283,13 @@ export const Header = () => {
 // hover:box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 
 // btn hover:box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18)
+
+// shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.18)]
+
+// box-shadow: 0 3px 15px 7px rgba(0, 0, 0, 0.15)
+// box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+// box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+// box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+// box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+// box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+// 0 8px 28px rgba(0, 0, 0, 0.28)

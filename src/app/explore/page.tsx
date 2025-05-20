@@ -1,7 +1,11 @@
+import EmblaCarousel from "@/components/carousel/EmblaCarousel";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import React from "react";
 
+// const OPTIONS: EmblaOptionsType = {}
+const SLIDE_COUNT = 10;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 const Page = () => {
 	return (
 		<div className="min-h-svh h-full w-full">
@@ -22,6 +26,7 @@ const Page = () => {
 			  ))}
 			</div>
 		  </div> */}
+				<EmblaCarousel slides={SLIDES} />
 			</section>
 
 			{/* <MobileFooterBar /> */}
