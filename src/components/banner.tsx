@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Skeleton } from "./ui/skeleton";
 
 export const Banner = () => {
 	return (
@@ -30,4 +31,8 @@ export const Banner = () => {
 			</div>
 		</div>
 	);
+};
+
+export const BannerSkeleton = () => {
+	return <Skeleton className="w-full h-[300px] md:h-[70vh]" />;
 };

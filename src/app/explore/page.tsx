@@ -15,17 +15,18 @@ const Page = () => {
 			</div>
 
 			<section className="w-full h-full min-h-svh max-w-screen-xl mx-auto pb-[130px] pt-[130px] bg-green-300">
-				hello
-				{/* <div className="px-0 lg:px-4">
-		  <BannersCarousel />
-		  </div> */}
+				<div>hello</div>
+
 				{/* <div className="my-8 px-4">
-			<div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-6">
-			  {[...Array(16)].map((_, index) => (
-				<ProductCard key={index}/>
-			  ))}
-			</div>
-		  </div> */}
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-6">
+						{[...Array(16)].map((_, index) => (
+							<div key={index}>
+								<EmblaCarousel slides={SLIDES} />
+							</div>
+						))}
+					</div>
+				</div> */}
+
 				<EmblaCarousel slides={SLIDES} />
 			</section>
 

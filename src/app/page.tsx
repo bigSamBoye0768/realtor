@@ -1,8 +1,9 @@
-import { Banner } from "@/components/banner";
+import { Banner, BannerSkeleton } from "@/components/banner";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Suspense } from "react";
 
 const liveAnywhere = [
 	{
@@ -65,7 +66,9 @@ export default function Home() {
 				<Header />
 			</div>
 			<div className="min-h-svh h-full pb-20">
-				<Banner />
+				<Suspense fallback={<BannerSkeleton />}>
+					<Banner />
+				</Suspense>
 
 				<main className="max-w-screen-lg mark mx-auto px-4">
 					<section className="pt-8">
