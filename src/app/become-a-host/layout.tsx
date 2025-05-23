@@ -14,13 +14,13 @@ export default function BecomeAHostLayout({
 }>) {
 	return (
 		<div className="w-full min-h-svh relative">
-			<div className="mark-b w-full fixed top-0 px-12 bg-white">
+			{/* <div className="mark-b w-full fixed top-0 px-12 bg-white">
 				<Header />
-			</div>
-			<main className="w-full py-16 min-h-svh h-full mark">{children}</main>
-			<div className="mark-b w-full fixed bottom-0 bg-white">
+			</div> */}
+			<main className="w-full min-h-svh h-full mark">{children}</main>
+			{/* <div className="mark-b w-full fixed bottom-0 bg-white">
 				<Footer />
-			</div>
+			</div> */}
 		</div>
 	);
 }
