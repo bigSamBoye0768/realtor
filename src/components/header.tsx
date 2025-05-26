@@ -25,10 +25,7 @@ export const Header = () => {
 		// console.log(headerSearchRef.current?.contains(event.target as Node));
 		console.log(headerRef.current !== event.target);
 
-		if (
-			!menuBtnRef.current?.contains(event.target as Node) &&
-			menuLinks.current !== event.target
-		) {
+		if (!menuBtnRef.current?.contains(event.target as Node) && menuLinks.current !== event.target) {
 			setOpenMenuLinks(false);
 		}
 
@@ -76,13 +73,10 @@ export const Header = () => {
 	};
 
 	return (
-		<header className=" h-[80px] w-full" ref={headerRef}>
+		<header className=" h-[80px] w-full mark max-w-screen-2xl lg:px-16 md:px-8 px-4 mx-auto" ref={headerRef}>
 			<div className=" flex items-center w-full h-full">
 				<div className=" lg:flex-1 flex">
-					<Link
-						href="/"
-						className="inline-flex items-center  gap-1 text-black font-semibold text-base"
-					>
+					<Link href="/" className="inline-flex items-center  gap-1 text-black font-semibold text-base">
 						{Icons.house()} nestQuest
 					</Link>
 				</div>
@@ -93,7 +87,7 @@ export const Header = () => {
 				>
 					<Button
 						variant="outline"
-						className="rounded-full hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between"
+						className="rounded-full hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
 						title="Search"
 						onClick={() => setOpen(true)}
 					>
@@ -122,10 +116,7 @@ export const Header = () => {
 				</div>
 
 				<div className="flex-1 flex items-center justify-end  gap-2">
-					<Button
-						variant="ghost"
-						className="rounded-full h-10 font-semibold text-sm shadow-none"
-					>
+					<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
 						Become a host
 					</Button>
 					<div className=" relative ">
@@ -135,11 +126,7 @@ export const Header = () => {
 							onClick={() => setOpenMenuLinks((val) => !val)}
 							className={cn(
 								"rounded-full flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
-								`${
-									openMenuLinks
-										? "shadow-[#0000002e_0_2px_4px]"
-										: "hover:shadow-[#0000002e_0_2px_4px]"
-								}`
+								`${openMenuLinks ? "shadow-[#0000002e_0_2px_4px]" : "hover:shadow-[#0000002e_0_2px_4px]"}`
 							)}
 						>
 							<div className="flex items-center justify-center pl-1.5">
@@ -152,30 +139,10 @@ export const Header = () => {
 									role="presentation"
 									focusable="false"
 								>
-									<g
-										fill="none"
-										fillRule="nonzero"
-										stroke="#222222"
-										strokeWidth="3px"
-									>
-										<path
-											d="m2 16h28"
-											stroke="#222222"
-											fill="none"
-											strokeWidth="3px"
-										></path>
-										<path
-											d="m2 24h28"
-											stroke="#222222"
-											fill="none"
-											strokeWidth="3px"
-										></path>
-										<path
-											d="m2 8h28"
-											stroke="#222222"
-											fill="none"
-											strokeWidth="3px"
-										></path>
+									<g fill="none" fillRule="nonzero" stroke="#222222" strokeWidth="3px">
+										<path d="m2 16h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+										<path d="m2 24h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+										<path d="m2 8h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
 									</g>
 								</svg>
 							</div>
@@ -213,16 +180,12 @@ export const Header = () => {
                                 </li> */}
 								<li>
 									<Link href="/" className="flex">
-										<div className="w-full border-0 border-b-1 justify-start rounded-none">
-											Signup
-										</div>
+										<div className="w-full border-0 border-b-1 justify-start rounded-none">Signup</div>
 									</Link>
 								</li>
 								<li>
 									<Link href="/explore" className="flex">
-										<div className="w-full border-0 last:border-b-0 justify-start rounded-none">
-											Account
-										</div>
+										<div className="w-full border-0 last:border-b-0 justify-start rounded-none">Account</div>
 									</Link>
 								</li>
 							</ul>
@@ -234,18 +197,18 @@ export const Header = () => {
 			<div
 				ref={headerSearchRef}
 				data-state={open ? "isOpen" : "notOpen"}
-				className="bg-red-400 py-2 absolute left-0 right-0 w-full z-50 data-[state=notOpen]:opacity-0 data-[state=notOpen]:scale-x-0 data-[state=notOpen]:-translate-y-full data-[state=isOpen]:translate-y-0 data-[state=isOpen]:scale-x-100 data-[state=isOpen]:opacity-100 transition-all duration-200"
+				className="bg-white py-2 border-b shadow absolute left-0 right-0 w-full z-50 data-[state=notOpen]:opacity-0 data-[state=notOpen]:scale-x-0 data-[state=notOpen]:-translate-y-full data-[state=isOpen]:translate-y-0 data-[state=isOpen]:scale-x-100 data-[state=isOpen]:opacity-100 transition-all duration-200"
 			>
 				<div className="px-4 w-full  max-w-screen-md mx-auto ">
 					<div className="flex bg-gray-300 rounded-full">
-						<div className="w-full flex-1 rounded-full h-16  relative overflow-hidden">
-							<div className="absolute inset-0 bg-white rounded-full shadow">
+						<div className="w-full flex-1 rounded-full h-16  relative">
+							<div className="absolute inset-0 bg-white rounded-full shadow-[0_3px_15px_7px_rgba(0,0,0,0.15)] overflow-hidden">
 								<label className="flex  h-full items-center gap-x-2 flex-nowrap">
-									<Input placeholder={placeholder} className="truncate" />
-									<Button
-										className="rounded-full h-11 w-11 mr-2"
-										ref={searchBtnRef}
-									>
+									<Input
+										placeholder={placeholder}
+										className="pl-4 truncate shadow-none border-none outline-none focus-visible:outline-none focus-visible:ring-0"
+									/>
+									<Button className="rounded-full h-11 w-11 mr-2" ref={searchBtnRef}>
 										<div className="flex items-center justify-center">
 											<svg
 												viewBox="0 0 32 32"

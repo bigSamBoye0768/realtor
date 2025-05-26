@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 export const Footer = () => {
 	return (
 		<div className="bg-[#eee] w-full">
-			<section className="w-full py-[36px] px-4 max-w-screen-xl mx-auto">
+			<section className="w-full py-[36px] lg:px-16 md:px-8 px-4 max-w-screen-2xl mx-auto">
 				<div className="footerLinks__container">
 					<div className="footerLinks__wrap flex flex-col lg:flex-row">
 						<div className="footerSectionCover flex-1">
@@ -84,95 +84,40 @@ export const Footer = () => {
 					<div className="flex flex-col items-start md:flex-row gap-x-2">
 						<div>© 2023 Nestquest, Inc.</div>
 						<div className="flex items-center">
-							<Separator
-								orientation="vertical"
-								className="min-w-[2px] max-h-[2px] bg-black/80"
-							/>
+							<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
 							<span>
 								<ul className="flex gap-x-2 flex-wrap">
 									<li className="flex items-center gap-x-2 flex-nowrap">
-										<Separator
-											orientation="vertical"
-											className="min-w-[2px] max-h-[2px] bg-black/80"
-										/>
-										<a
-											href=""
-											className="hover:underline hover:underline-offset-3"
-										>
+										<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
+										<a href="" className="hover:underline hover:underline-offset-3">
 											Terms
 										</a>
 									</li>
 									<li className="flex items-center gap-x-2 flex-nowrap">
-										<Separator
-											orientation="vertical"
-											className="min-w-[2px] max-h-[2px] bg-black/80"
-										/>
-										<a
-											href=""
-											className="hover:underline hover:underline-offset-3"
-										>
+										<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
+										<a href="" className="hover:underline hover:underline-offset-3">
 											Sitemap
 										</a>
 									</li>
 									<li className="flex items-center gap-x-2 flex-nowrap">
-										<Separator
-											orientation="vertical"
-											className="min-w-[2px] max-h-[2px] bg-black/80"
-										/>
-										<a
-											href=""
-											className="hover:underline hover:underline-offset-3"
-										>
+										<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
+										<a href="" className="hover:underline hover:underline-offset-3">
 											Privacy
 										</a>
 									</li>
 									<li className="flex items-center gap-x-2">
-										<Separator
-											orientation="vertical"
-											className="min-w-[2px] max-h-[2px] bg-black/80"
-										/>
+										<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
 										<span>
-											<a
-												href=""
-												target="_blank"
-												className="flex items-center gap-1 group flex-nowrap whitespace-nowrap"
-											>
-												<span className="group-hover:underline group-hover:underline-offset-3">
-													Your Privacy Choices
-												</span>
+											<a href="" target="_blank" className="flex items-center gap-1 group flex-nowrap whitespace-nowrap">
+												<span className="group-hover:underline group-hover:underline-offset-3">Your Privacy Choices</span>
 
 												<span className="place__items_center">
 													<svg width="26" height="12" fill="none">
-														<rect
-															x="0.5"
-															y="0.5"
-															width="25"
-															height="11"
-															rx="5.5"
-															fill="#fff"
-														></rect>
-														<path
-															d="M14 1h7a5 5 0 010 10H11l3-10z"
-															fill="#06F"
-														></path>
-														<path
-															d="M4.5 6.5l1.774 1.774a.25.25 0 00.39-.049L9.5 3.5"
-															stroke="#06F"
-															strokeLinecap="round"
-														></path>
-														<path
-															d="M16.5 3.5L19 6m0 0l2.5 2.5M19 6l2.5-2.5M19 6l-2.5 2.5"
-															stroke="#fff"
-															strokeLinecap="round"
-														></path>
-														<rect
-															x="0.5"
-															y="0.5"
-															width="25"
-															height="11"
-															rx="5.5"
-															stroke="#06F"
-														></rect>
+														<rect x="0.5" y="0.5" width="25" height="11" rx="5.5" fill="#fff"></rect>
+														<path d="M14 1h7a5 5 0 010 10H11l3-10z" fill="#06F"></path>
+														<path d="M4.5 6.5l1.774 1.774a.25.25 0 00.39-.049L9.5 3.5" stroke="#06F" strokeLinecap="round"></path>
+														<path d="M16.5 3.5L19 6m0 0l2.5 2.5M19 6l2.5-2.5M19 6l-2.5 2.5" stroke="#fff" strokeLinecap="round"></path>
+														<rect x="0.5" y="0.5" width="25" height="11" rx="5.5" stroke="#06F"></rect>
 													</svg>
 												</span>
 											</a>
@@ -187,11 +132,7 @@ export const Footer = () => {
 
 					<div className="flex items-center gap-x-2 flex-wrap">
 						<span>
-							<Button
-								size="xs"
-								className="hover:underline hover:underline-offset-3 px-0"
-								variant="link"
-							>
+							<Button size="xs" className="hover:underline hover:underline-offset-3 px-0" variant="link">
 								<span className="flex items-center justify-center">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -211,12 +152,7 @@ export const Footer = () => {
 						<div className="">
 							<ul className="flex gap-2">
 								<li>
-									<a
-										href="http://"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="place__items_center"
-									>
+									<a href="http://" target="_blank" rel="noopener noreferrer" className="place__items_center">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="18"
@@ -235,12 +171,7 @@ export const Footer = () => {
 									</a>
 								</li>
 								<li>
-									<a
-										href="http://"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="place__items_center"
-									>
+									<a href="http://" target="_blank" rel="noopener noreferrer" className="place__items_center">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="18"
@@ -259,12 +190,7 @@ export const Footer = () => {
 									</a>
 								</li>
 								<li>
-									<a
-										href="http://"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="place__items_center"
-									>
+									<a href="http://" target="_blank" rel="noopener noreferrer" className="place__items_center">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="18"

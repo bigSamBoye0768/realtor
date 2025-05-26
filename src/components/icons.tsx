@@ -3,14 +3,7 @@ type IconProps = React.HTMLAttributes<SVGElement>;
 export const Icons = {
 	logo: (props: IconProps) => <svg {...props}></svg>,
 	shoppingBagBlack: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="24px"
-			height="24px"
-			fill="none"
-			viewBox="4.75 2.25 15.5 19.5"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" viewBox="4.75 2.25 15.5 19.5" {...props}>
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
@@ -30,14 +23,7 @@ export const Icons = {
 		</svg>
 	),
 	shoppingBagRed: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="28px"
-			height="28px"
-			fill="none"
-			viewBox="4.75 2.25 15.5 19.5"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" fill="none" viewBox="4.75 2.25 15.5 19.5" {...props}>
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
@@ -57,14 +43,7 @@ export const Icons = {
 		</svg>
 	),
 	shoppingBagWhite: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="28px"
-			height="28px"
-			fill="none"
-			viewBox="4.75 2.25 15.5 19.5"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" fill="none" viewBox="4.75 2.25 15.5 19.5" {...props}>
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
@@ -84,13 +63,7 @@ export const Icons = {
 		</svg>
 	),
 	search: () => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="40px"
-			height="40px"
-			fill="none"
-			viewBox="4.75 4.25 15.5 15.5"
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" fill="none" viewBox="4.75 4.25 15.5 15.5">
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
@@ -100,24 +73,11 @@ export const Icons = {
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			></path>
-			<path
-				d="M17.029 16.5295L19.5 19.0005"
-				stroke="#000000"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			></path>
+			<path d="M17.029 16.5295L19.5 19.0005" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
 		</svg>
 	),
 	leftArrow: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 32 32"
-			aria-hidden="true"
-			role="presentation"
-			focusable="false"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" {...props}>
 			<path fill="none" d="M20 28 8.7 16.7a1 1 0 0 1 0-1.4L20 4"></path>
 		</svg>
 	),
@@ -142,58 +102,8 @@ export const Icons = {
 			<path fill="none" d="m12 4 11.3 11.3a1 1 0 0 1 0 1.4L12 28"></path>
 		</svg>
 	),
-	plus: () => (
-		<svg
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 12 12"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			role="presentation"
-			focusable="false"
-			style={{
-				display: "block",
-				height: "12px",
-				width: "12px",
-				fill: "currentcolor",
-			}}
-			width="12"
-			height="12"
-		>
-			<path
-				d="m6.75.75v4.5h4.5v1.5h-4.5v4.5h-1.5v-4.5h-4.5v-1.5h4.5v-4.5z"
-				fill="#FFFFFF"
-			></path>
-		</svg>
-	),
-	minus: () => (
-		<svg
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			viewBox="0 0 12 12"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-			role="presentation"
-			focusable="false"
-			style={{
-				display: "block",
-				height: "12px",
-				width: "12px",
-				fill: "currentcolor",
-			}}
-			width="12"
-			height="12"
-		>
-			<path d="m.75 6.75h10.5v-1.5h-10.5z" fill="#FFFFFF"></path>
-		</svg>
-	),
 	home: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="30"
-			height="30"
-			viewBox="0 0 24 24"
-			id="home"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" id="home" {...props}>
 			<path
 				fill="none"
 				stroke="#000000"
@@ -206,14 +116,7 @@ export const Icons = {
 		</svg>
 	),
 	homeBlack: (props?: IconProps) => (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="30"
-			height="30"
-			viewBox="0 0 24 24"
-			id="home"
-			{...props}
-		>
+		<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" id="home" {...props}>
 			<path
 				fill="black"
 				stroke="#000000"
@@ -226,14 +129,7 @@ export const Icons = {
 		</svg>
 	),
 	cart: (props?: IconProps) => (
-		<svg
-			width="50px"
-			height="50px"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
+		<svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<path
 				d="M2 3L2.26491 3.0883C3.58495 3.52832 4.24497 3.74832 4.62248 4.2721C5 4.79587 5 5.49159 5 6.88304V9.5C5 12.3284 5 13.7426 5.87868 14.6213C6.75736 15.5 8.17157 15.5 11 15.5H19"
 				stroke="#000000"
@@ -260,14 +156,7 @@ export const Icons = {
 		</svg>
 	),
 	cartBlack: (props?: IconProps) => (
-		<svg
-			width="50px"
-			height="50px"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
+		<svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<path
 				d="M2 3L2.26491 3.0883C3.58495 3.52832 4.24497 3.74832 4.62248 4.2721C5 4.79587 5 5.49159 5 6.88304V9.5C5 12.3284 5 13.7426 5.87868 14.6213C6.75736 15.5 8.17157 15.5 11 15.5H19"
 				stroke="#000000"
@@ -313,14 +202,7 @@ export const Icons = {
 		</svg>
 	),
 	user: (props?: IconProps) => (
-		<svg
-			width="700px"
-			height="700px"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
+		<svg width="700px" height="700px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<circle cx="12" cy="6" r="4" stroke="#000000" strokeWidth="2" />
 			<path
 				opacity="1"
@@ -331,22 +213,8 @@ export const Icons = {
 		</svg>
 	),
 	userBlack: (props?: IconProps) => (
-		<svg
-			width="700px"
-			height="700px"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
-			<circle
-				cx="12"
-				fill="black"
-				cy="6"
-				r="4"
-				stroke="#000000"
-				strokeWidth="2"
-			/>
+		<svg width="700px" height="700px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+			<circle cx="12" fill="black" cy="6" r="4" stroke="#000000" strokeWidth="2" />
 			<path
 				opacity="1"
 				d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
@@ -357,14 +225,7 @@ export const Icons = {
 		</svg>
 	),
 	category: (props?: IconProps) => (
-		<svg
-			width="800px"
-			height="800px"
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
+		<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<path
 				d="M5 10H7C9 10 10 9 10 7V5C10 3 9 2 7 2H5C3 2 2 3 2 5V7C2 9 3 10 5 10Z"
 				stroke="#000000"
@@ -400,14 +261,7 @@ export const Icons = {
 		</svg>
 	),
 	categoryBlack: (props?: IconProps) => (
-		<svg
-			width="800px"
-			height="800px"
-			viewBox="0 0 24 24"
-			fill="#000000"
-			xmlns="http://www.w3.org/2000/svg"
-			{...props}
-		>
+		<svg width="800px" height="800px" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<path
 				d="M5 10H7C9 10 10 9 10 7V5C10 3 9 2 7 2H5C3 2 2 3 2 5V7C2 9 3 10 5 10Z"
 				stroke="#000000"
@@ -479,10 +333,7 @@ export const Icons = {
 			width="16"
 			height="16"
 		>
-			<path
-				d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm3 4L8 7 5 4 4 5l3 3-3 3 1 1 3-3 3 3 1-1-3-3 3-3-1-1z"
-				fill="#C13515"
-			></path>
+			<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm3 4L8 7 5 4 4 5l3 3-3 3 1 1 3-3 3 3 1-1-3-3 3-3-1-1z" fill="#C13515"></path>
 		</svg>
 	),
 	good: () => (
@@ -501,10 +352,7 @@ export const Icons = {
 			width="16"
 			height="16"
 		>
-			<path
-				d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm3.16 4.87L6.67 9.36 4.42 7.1 3.29 8.23l3.38 3.38L12.29 6z"
-				fill="#008A05"
-			></path>
+			<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm3.16 4.87L6.67 9.36 4.42 7.1 3.29 8.23l3.38 3.38L12.29 6z" fill="#008A05"></path>
 		</svg>
 	),
 	alert: () => (
@@ -540,10 +388,95 @@ export const Icons = {
 			width="12"
 			height="12"
 		>
-			<path
-				d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm0 10.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm.8-6.6H7.2v5.2h1.6z"
-				fill="#C13515"
-			></path>
+			<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm0 10.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm.8-6.6H7.2v5.2h1.6z" fill="#C13515"></path>
+		</svg>
+	),
+	plus: () => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{
+				display: "block",
+				fill: "none",
+				height: "12px",
+				width: "12px",
+				stroke: "currentcolor",
+				strokeWidth: "5.33333",
+				overflow: "visible",
+			}}
+			width="32"
+			height="32"
+		>
+			<path d="M2 16h28M16 2v28" stroke="#717171" fill="none" strokeWidth="5.33333px"></path>
+		</svg>
+	),
+	plusDisabled: () => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{
+				display: "block",
+				fill: "none",
+				height: "12px",
+				width: "12px",
+				stroke: "currentcolor",
+				strokeWidth: "5.33333",
+				overflow: "visible",
+			}}
+			width="32"
+			height="32"
+		>
+			<path d="M2 16h28M16 2v28" stroke="#EBEBEB" fill="none" strokeWidth="5.33333px"></path>
+		</svg>
+	),
+	minus: () => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{
+				display: "block",
+				fill: "none",
+				height: "12px",
+				width: "12px",
+				stroke: "currentcolor",
+				strokeWidth: "5.33333",
+				overflow: "visible",
+			}}
+			width="32"
+			height="32"
+		>
+			<path d="M2 16h28" stroke="#717171" fill="none" strokeWidth="5.33333px"></path>
+		</svg>
+	),
+	minusDisabled: () => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{
+				display: "block",
+				fill: "none",
+				height: "12px",
+				width: "12px",
+				stroke: "currentcolor",
+				strokeWidth: "5.33333",
+				overflow: "visible",
+			}}
+			width="32"
+			height="32"
+		>
+			<path d="M2 16h28" stroke="#EBEBEB" fill="none" strokeWidth="5.33333px"></path>
 		</svg>
 	),
 };

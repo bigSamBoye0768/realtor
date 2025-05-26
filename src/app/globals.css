@@ -323,14 +323,14 @@ a {
 }
 
 .animation_list {
-	animation-name: listAnimation-c1ag0067;
+	animation-name: listAnimation;
 	animation-duration: 600ms;
 	animation-iteration-count: 1;
 	animation-fill-mode: both;
 	animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 
-@keyframes listAnimation-c1ag0067 {
+@keyframes listAnimation {
 	0% {
 		opacity: 0;
 		transform: translate(0, 40%);

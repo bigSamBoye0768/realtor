@@ -9,12 +9,12 @@ const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 const Page = () => {
 	return (
 		<div className="min-h-svh h-full w-full">
-			<div className="w-full border-b shadow fixed top-0  px-4 bg-white z-50">
+			<div className="w-full border-b shadow fixed top-0 bg-white z-50">
 				<Header />
 				{/* //   <Categories category={categories} /> */}
 			</div>
 
-			<section className="w-full h-full min-h-svh max-w-screen-xl mx-auto pb-[130px] pt-[130px] bg-green-300">
+			<section className="w-full h-full min-h-svh max-w-screen-xl mx-auto pb-[130px] pt-[130px] bg-white">
 				<div>hello</div>
 
 				{/* <div className="my-8 px-4">
@@ -28,6 +28,15 @@ const Page = () => {
 				</div> */}
 
 				<EmblaCarousel slides={SLIDES} />
+
+				<div className="mt-8">
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_2px_6px_2px]"></div>
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]"></div>
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(0,0,0,0.18)_0px_2px_4px]"></div>
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(0,0,0,0.15)_0px_2px_8px]"></div>
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(0,0,0,0.25)_0px_0.0625em_0.0625em,rgba(0,0,0,0.25)_0px_0_125em_0.5em,rgba(255,255,255,0.1)_0px_0px_0px_1px_inset]"></div>
+					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[0_3px_15px_7px_rgba(0,0,0,0.15)]"></div>
+				</div>
 			</section>
 
 			{/* <MobileFooterBar /> */}

@@ -5,10 +5,9 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
 import { Icons } from "./_components/icons";
 
-const privacyOptions = [
-	{ title: "An entire place", description: "Guests have the whole place to themselves.", icon: Icons.house },
-	{ title: "A room", description: "Guests have their own room in a home, plus access to shared spaces.", icon: Icons.room },
-	{ title: "A shared room", description: "Guests sleep in a room or common area that may be shared with you or others.", icon: Icons.shared },
+const bookOptions = [
+	{ title: "Approve or decline requests", description: "Guests must ask if they can book  or rent.", icon: Icons.request },
+	{ title: "Use instant Book", description: "Guests can book automatically.", icon: Icons.instant },
 ];
 
 const Page = () => {
@@ -17,12 +16,12 @@ const Page = () => {
 	console.log(selected);
 
 	return (
-		<div className="w-full min-h-svh py-20 h-full px-4">
+		<div className="w-full min-h-svh py-20 h-full px-4 flex items-center justify-center">
 			<div className="max-w-screen-sm w-full mx-auto pt-2">
-				<h1 className="text-2xl md:text-3xl font-[550] py-4">Which type of place will guests have?</h1>
-				<div className="mt-3 pb-6">
+				<h1 className="text-2xl md:text-3xl font-[550] py-4">Decide how you&apos;ll confirm reservations</h1>
+				<div className="mt-3 pb-4">
 					<RadioGroup.Root className="grid grid-cols-1 gap-3" onValueChange={(v) => setSelected(v)}>
-						{privacyOptions.map((option, i) => (
+						{bookOptions.map((option, i) => (
 							<RadioGroup.Item
 								key={i}
 								value={option.title}

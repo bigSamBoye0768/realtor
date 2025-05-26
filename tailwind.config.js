@@ -58,6 +58,18 @@ module.exports = {
 					5: "hsl(var(--chart-5))",
 				},
 			},
+			keyframes: {
+				listAnimation: {
+					"0%": {
+						opacity: "0",
+						transform: "translate(0, 40%)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "none",
+					},
+				},
+			},
 		},
 	},
 	// eslint-disable-next-line @typescript-eslint/no-require-imports

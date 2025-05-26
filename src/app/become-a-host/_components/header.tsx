@@ -5,13 +5,11 @@ import React from "react";
 
 export const Header = () => {
 	return (
-		<header className="mark pt-5 pb-1 mx-auto  w-full">
-			<div className="flex items-center justify-between mark-b">
+		<header className=" pt-5 pb-1 mx-auto  w-full">
+			<div className="flex items-center justify-between ">
 				<div>
-					<Link href="/" className="mark flex">
-						<div className="flex items-center justify-center">
-							{Icons.house({ style: { width: "35px", height: "35px" } })}
-						</div>
+					<Link href="/" className=" flex">
+						<div className="flex items-center justify-center">{Icons.house({ style: { width: "35px", height: "35px" } })}</div>
 					</Link>
 				</div>
 				<div className="flex items-center  flex-nowrap gap-x-2">

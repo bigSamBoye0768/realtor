@@ -1,33 +1,119 @@
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
-	house: (props?: IconProps) => (
+	house: () => (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			width="45"
-			height="45"
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			width="35"
+			height="35"
+			className="snipcss0-9-15-16"
 			preserveAspectRatio="xMidYMid meet"
-			viewBox="0 0 45 45"
+			viewBox="0 0 35 35"
 			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
-			{...props}
 		>
-			<defs>
-				<clipPath id="__lottie_element_2273">
-					<path d="M0 0H45V45H0z"></path>
+			<defs className="snipcss0-10-16-17">
+				<clipPath id="__lottie_element_2210" className="snipcss0-11-17-18">
+					<path d="M0 0H35V35H0z"></path>
 				</clipPath>
+				<g id="__lottie_element_2218" className="snipcss0-11-17-19">
+					<g className="snipcss0-12-19-20" display="block" opacity="1" transform="translate(8.5 13.998)">
+						<path fill="red" fillOpacity="1" d="M5 17V5.99c0-.55.44-.99.99-.99H12c.11 0 .21.02.3.04.4.13.69.51.69.95V17"></path>
+						<g className="snipcss0-13-20-21" opacity="1" transform="translate(8.996 10.998)">
+							<path
+								fillOpacity="0"
+								stroke="#222"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeOpacity="1"
+								strokeWidth="2"
+								d="M-3.996 5.999V-5.008a.99.99 0 01.989-.991h6.014a.99.99 0 01.989.991V5.999"
+							></path>
+						</g>
+					</g>
+				</g>
+				<filter id="__lottie_element_2224" width="100%" height="100%" x="0%" y="0%" className="snipcss0-11-17-22" filterUnits="objectBoundingBox">
+					<feComponentTransfer className="snipcss0-12-22-23" in="SourceGraphic">
+						<feFuncA tableValues="1.0 0.0" type="table"></feFuncA>
+					</feComponentTransfer>
+				</filter>
+				<mask id="__lottie_element_2218_2" className="snipcss0-11-17-25">
+					<g className="snipcss0-12-25-26" filter="url(#__lottie_element_2224)">
+						<use className="snipcss0-13-26-27" xlinkHref="#__lottie_element_2218"></use>
+					</g>
+				</mask>
+				<g className="snipcss0-11-17-19">
+					<g className="snipcss0-12-19-20" display="block" opacity="1" transform="translate(8.5 13.998)">
+						<path fill="red" fillOpacity="1" d="M5 17V5.99c0-.55.44-.99.99-.99H12c.11 0 .21.02.3.04.4.13.69.51.69.95V17"></path>
+						<g className="snipcss0-13-20-21" opacity="1" transform="translate(8.996 10.998)">
+							<path
+								fillOpacity="0"
+								stroke="#222"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeOpacity="1"
+								strokeWidth="2"
+								d="M-3.996 5.999V-5.008a.99.99 0 01.989-.991h6.014a.99.99 0 01.989.991V5.999"
+							></path>
+						</g>
+					</g>
+				</g>
 			</defs>
-			<g clipPath="url(#__lottie_element_2273)">
-				<g display="block" opacity="1" transform="translate(.875 8)">
-					<g opacity="1" transform="translate(16 14.5)">
+			<g className="snipcss0-10-16-28" clipPath="url(#__lottie_element_2210)">
+				<g className="snipcss0-11-28-29" display="block" opacity="1" transform="translate(1.507 9.339)">
+					<g className="snipcss0-12-29-30" opacity="1" transform="translate(15.995 13.328)">
 						<path
-							fill="#222"
-							fillOpacity="1"
-							d="M1.954-13.719l.175.164L15.201-.713 13.799.713l-1.8-1.768L12 12.5a2 2 0 01-1.851 1.994L10 14.5h-20a2.001 2.001 0 01-1.995-1.851L-12 12.5l-.001-13.554-1.798 1.767-1.402-1.426 13.058-12.829a3 3 0 014.097-.177zm-2.586 1.504l-.096.087-9.273 9.109L-10 12.5l4.999-.001L-5 2.5C-5 1.446-4.184.582-3.149.505L-3 .5h6c1.054 0 1.918.816 1.995 1.851L5 2.5l-.001 9.999L10 12.5 9.999-3.02.7-12.156a1.001 1.001 0 00-1.332-.059zM3 2.5h-6l-.001 9.999h6L3 2.5z"
+							fillOpacity="0"
+							stroke="#222"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeOpacity="1"
+							strokeWidth="2"
+							d="M-10.995-8.328V7.44c0 .49.398.888.888.888h20.214a.888.888 0 00.888-.888V-8.328"
 						></path>
 					</g>
 				</g>
-				<g display="none">
-					<path fill="#FFF" d="M0 0H120V120H0z"></path>
+				<g className="snipcss0-11-28-31" display="block" mask="url(#__lottie_element_2218_2)">
+					<g className="snipcss0-12-31-32" opacity="1" transform="translate(8.5 13.998)">
+						<g className="snipcss0-13-32-33" opacity="1" transform="translate(8.996 10.998)">
+							<path
+								fillOpacity="0"
+								stroke="#222"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeOpacity="1"
+								strokeWidth="2"
+								d="M-.757-5.999h3.764a.99.99 0 01.989.991V5.999"
+							></path>
+						</g>
+					</g>
+				</g>
+				<g className="snipcss0-11-28-34" display="block" opacity="1" transform="translate(8.5 13.998)">
+					<g className="snipcss0-12-34-35" opacity="1" transform="translate(8.996 10.998)">
+						<path
+							fillOpacity="0"
+							stroke="#222"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeOpacity="1"
+							strokeWidth="2"
+							d="M-3.996 5.999V-5.008a.99.99 0 01.989-.991h6.014a.99.99 0 01.989.991V5.999"
+						></path>
+					</g>
+				</g>
+				<g className="snipcss0-11-28-36" display="block" opacity="1" transform="translate(-2 -1.128)">
+					<g className="snipcss0-12-36-37" opacity="1" transform="translate(19.5 11.814)">
+						<path
+							fillOpacity="0"
+							stroke="#222"
+							strokeLinecap="butt"
+							strokeLinejoin="miter"
+							strokeMiterlimit="10"
+							strokeOpacity="1"
+							strokeWidth="2"
+							d="M-14.5 6.814L-1.497-5.997a2.13 2.13 0 012.992 0L14.5 6.814"
+						></path>
+					</g>
 				</g>
 			</g>
 		</svg>

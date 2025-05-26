@@ -3,11 +3,11 @@ import React from "react";
 const Page = () => {
 	return (
 		<div className=" px-4 max-w-6xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
-			<div className="flex flex-col-reverse md:flex-row">
+			<div className="flex flex-col-reverse md:flex-row py-4">
 				<div className=" font-[550] text-sm md:text-base flex-1 flex flex-col justify-center items-start">
 					<h3>Step 1</h3>
 					<h1 className="md:text-4xl py-4 text-2xl">Tell us about your place</h1>
-					<p className="font-medium">
+					<p className="font-medium text-black/70">
 						In this step, we&apos;ll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know
 						the location and how many guests can stay.
 					</p>

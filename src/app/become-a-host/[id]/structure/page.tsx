@@ -17,9 +17,6 @@ const structures = [
 	{ name: "House", icon: Icons.house },
 	{ name: "Apartment", icon: Icons.apartment },
 	{ name: "House", icon: Icons.house },
-	{ name: "Apartment", icon: Icons.apartment },
-	{ name: "House", icon: Icons.house },
-	{ name: "Apartment", icon: Icons.apartment },
 ];
 
 const Page = () => {
@@ -31,7 +28,7 @@ const Page = () => {
 		<div className="w-full min-h-svh py-20 h-full px-4">
 			<div className="max-w-screen-sm w-full mx-auto pt-2">
 				<h1 className="text-2xl md:text-3xl font-semibold py-4">Which of these best describe your place?</h1>
-				<div className="mt-3 pb-6">
+				<div className="mt-3 pb-4">
 					<RadioGroup.Root className="grid grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] gap-3" onValueChange={(v) => setSelected(v)}>
 						{structures.map((option, i) => (
 							<RadioGroup.Item
