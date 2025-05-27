@@ -4,7 +4,7 @@ const Page = () => {
 	return (
 		<div className=" px-4 max-w-6xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
 			<div className="flex flex-col-reverse md:flex-row py-4">
-				<div className=" font-[550] text-sm md:text-base flex-1 flex flex-col justify-center items-start">
+				<div className=" font-[550] animate-list-stagger text-sm md:text-base flex-1 flex flex-col justify-center items-start">
 					<h3>Step 2</h3>
 					<h1 className="md:text-4xl py-4 text-2xl">Make your place stand out</h1>
 					<p className="font-medium">

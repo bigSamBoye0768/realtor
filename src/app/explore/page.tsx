@@ -14,18 +14,24 @@ const Page = () => {
 				{/* //   <Categories category={categories} /> */}
 			</div>
 
-			<section className="w-full h-full min-h-svh max-w-screen-xl mx-auto pb-[130px] pt-[130px] bg-white">
-				<div>hello</div>
-
-				{/* <div className="my-8 px-4">
-					<div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-6">
+			<section className="w-full h-full min-h-svh max-w-screen-2xl mx-auto pb-[130px] pt-[130px] bg-white">
+				<div className="my-8">
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-6">
 						{[...Array(16)].map((_, index) => (
-							<div key={index}>
-								<EmblaCarousel slides={SLIDES} />
+							<div key={index} className="mark-b ">
+								<div className="rounded-2xl overflow-hidden">
+									<EmblaCarousel slides={SLIDES} />
+								</div>
+								<div>
+									<div className="flex gap-x-2 justify-between">
+										<div className="font-bold line-clamp-1 text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro, voluptates.</div>
+										<div className="whitespace-nowrap text-sm">󰀄 New </div>
+									</div>
+								</div>
 							</div>
 						))}
 					</div>
-				</div> */}
+				</div>
 
 				<EmblaCarousel slides={SLIDES} />
 

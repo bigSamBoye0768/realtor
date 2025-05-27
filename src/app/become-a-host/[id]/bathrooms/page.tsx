@@ -65,12 +65,16 @@ const Page = () => {
 		<div className=" px-4 max-w-2xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
 			<div className="w-full py-6">
 				<div className="w-full pb-3">
-					<h1 className="font-semibold text-2xl md:text-3xl">What kind of bathrooms are available to guests?</h1>
+					<h1 className="font-semibold text-2xl animate-list-stagger md:text-3xl">What kind of bathrooms are available to guests?</h1>
 				</div>
 				<div className="w-full mt-4">
 					<div>
-						{counterConfig.map(({ type, label, minValue, maxValue, description }) => (
-							<div className="flex justify-between items-center flex-nowrap gap-x-3 text-base border-b py-4" key={type}>
+						{counterConfig.map(({ type, label, minValue, maxValue, description }, i) => (
+							<div
+								className="flex justify-between animate-list-stagger items-center flex-nowrap gap-x-3 text-base border-b py-4"
+								key={type}
+								style={{ animationDelay: `${500 + i * 20}ms` }}
+							>
 								<div className="flex-1">
 									<h3 className="font-semibold">{label}</h3>
 									<p className="text-sm text-black/70">{description}</p>

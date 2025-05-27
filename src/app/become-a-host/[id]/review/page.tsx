@@ -24,11 +24,13 @@ const Page = () => {
 	return (
 		<div className=" px-4 max-w-4xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
 			<div className="w-full py-4">
-				<h1 className="font-[550] text-4xl">Review your listing</h1>
-				<p className="py-3 text-base mb-2 tex-black/70">Here&apos;s what we&apos;ll show to guests. Make sure everything looks good.</p>
+				<h1 className="font-[550] text-4xl animate-list-stagger">Review your listing</h1>
+				<p className="py-3 text-base mb-2 tex-black/70 animate-list-stagger">
+					Here&apos;s what we&apos;ll show to guests. Make sure everything looks good.
+				</p>
 				<div className="flex flex-col md:flex-row">
 					<div className=" w-full md:w-[42%]">
-						<div className="rounded-xl p-4 shadow-[0_6px_16px_rgba(0,0,0,0.12)]">
+						<div className="rounded-xl  animate-list-stagger delay-[300ms] p-4 shadow-[0_6px_16px_rgba(0,0,0,0.12)]">
 							<div className="relative w-full aspect-square rounded-xl overflow-hidden">
 								<Image src="/assets/photos/522414603-accra.jpg" alt={`522414603-accra.jpg`} fill className="aspect-square object-cover" />
 								<div className="absolute top-4 left-4 bg-white text-sm p-1 rounded-md font-bold">Show preview</div>
@@ -46,11 +48,11 @@ const Page = () => {
 						<h2 className="text-xl font-semibold pb-5">What&apos;s next?</h2>
 						<div>
 							{next.map((item, i) => (
-								<div key={i} className="flex gap-x-4 mb-4">
+								<div key={i} className="flex gap-x-5 mb-5 animate-list-stagger" style={{ animationDelay: `${600 + i * 10}ms` }}>
 									<div>{item.icon()}</div>
 									<div>
-										<h2 className="font-semibold text-base">{item.title}</h2>
-										<p className="text-sm tex-black/70">{item.description}</p>
+										<h2 className="font-semibold text-lg">{item.title}</h2>
+										<p className="text-sm tex-black/60">{item.description}</p>
 									</div>
 								</div>
 							))}

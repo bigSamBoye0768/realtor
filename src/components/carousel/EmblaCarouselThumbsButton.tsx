@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type PropType = {
 	selected: boolean;
@@ -10,18 +12,14 @@ export const Thumb: React.FC<PropType> = (props) => {
 	const { selected, onClick } = props;
 
 	return (
-		<div
-			className={"embla-thumbs__slide mark rounded-full overflow-hidden".concat(
-				selected ? " embla-thumbs__slide--selected scale-x-110" : ""
-			)}
-		>
-			<button
+		<div className={"embla-thumbs__slide flex overflow-hidden".concat(selected ? " embla-thumbs__slide--selected " : "")}>
+			<Button
+				variant="outline"
 				onClick={onClick}
-				type="button"
-				className="embla-thumbs__slide__number w-full h-full aspect-square relative"
-			>
-				{/* <Image src='/assets/watch.jpg' fill alt='' className='object-cover aspect-square' /> */}
-			</button>
+				className={cn("h-2.5 w-2.5 p-0 rounded-full transition-all duration-500 bg-black/20", selected && "w-5 bg-black")}
+			></Button>
+			{/* <button onClick={onClick} type="button" className="embla-thumbs__slide__number w-12 h-12">
+			</button> */}
 		</div>
 	);
 };

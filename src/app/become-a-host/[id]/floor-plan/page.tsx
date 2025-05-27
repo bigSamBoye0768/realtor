@@ -52,13 +52,17 @@ const Page = () => {
 		<div className=" px-4 max-w-2xl mx-auto w-full min-h-svh py-20 h-full md:flex items-center justify-center">
 			<div className="w-full py-6">
 				<div className="w-full pb-3">
-					<h1 className="font-semibold text-2xl md:text-3xl">Let&apos;s start with the basics </h1>
+					<h1 className="font-semibold text-2xl animate-list-stagger md:text-3xl">Let&apos;s start with the basics </h1>
 				</div>
 				<div className="w-full mt-4">
-					<h3 className="font-semibold text-lg py-2">How many people can stay here?</h3>
+					<h3 className="font-semibold animate-list-stagger text-lg py-2">How many people can stay here?</h3>
 					<div>
-						{counterConfig.map(({ type, label, minValue, maxValue }) => (
-							<div className="flex justify-between items-center flex-nowrap gap-x-3 text-base border-b py-4" key={type}>
+						{counterConfig.map(({ type, label, minValue, maxValue }, i) => (
+							<div
+								className="flex justify-between items-center flex-nowrap gap-x-3 text-base border-b py-4 animate-list-stagger"
+								key={type}
+								style={{ animationDelay: `${500 + i * 20}ms` }}
+							>
 								<div>{label}</div>
 								<div className="flex items-center basis-[120px]">
 									<Button
@@ -79,9 +83,9 @@ const Page = () => {
 						))}
 					</div>
 				</div>
-				<div className="w-full mt-4">
+				{/* <div className="w-full mt-4">
 					<h3 className="font-semibold text-lg py-2">Does every bedroom have a lock?</h3>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

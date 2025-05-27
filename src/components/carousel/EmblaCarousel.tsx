@@ -7,6 +7,7 @@ import { Thumb } from "./EmblaCarouselThumbsButton";
 import "./embla.css";
 import { Icons } from "../icons";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 type PropType = {
 	slides: number[];
@@ -21,6 +22,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		containScroll: "keepSnaps",
 		dragFree: true,
 	});
+
+	// const [canScrollPrev, setCanScrollPrev] = useState(false);
+	// const [canScrollNext, setCanScrollNext] = useState(true);
 
 	const onThumbClick = useCallback(
 		(index: number) => {
@@ -52,12 +56,18 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 	}, [emblaMainApi]);
 
 	return (
-		<div className="embla w-full mark relative">
-			<div className="embla__viewport" ref={emblaMainRef}>
-				<div className="embla__container">
+		<div className="embla w-full mark group relative">
+			<div className="embla__viewport w-full" ref={emblaMainRef}>
+				<div className="embla__container w-full">
 					{slides.map((index) => (
-						<div className="embla__slide mark" key={index}>
-							<div className="embla__slide__number">{index + 1}</div>
+						<div className="embla__slide relative w-full h-full gap-0" key={index}>
+							<Image
+								src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
+								alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
+								className="aspect-square object-cover w-full mark"
+								width={800}
+								height={800}
+							/>
 						</div>
 					))}
 				</div>
@@ -65,7 +75,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
 			<Button
 				variant="ghost"
-				className="embla__prev absolute hover:bg-transparent top-1/2 z-10 left-0 -translate-y-1/2 h-full"
+				size="sm"
+				className="embla__prev absolute invisible mark-b opacity-0 group-hover:visible group-hover:opacity-100 duration-150 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 				onClick={scrollPrev}
 			>
 				{Icons.leftArrow({
@@ -82,7 +93,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 			</Button>
 			<Button
 				variant="ghost"
-				className="embla__next absolute hover:bg-transparent top-1/2 z-10 right-0 -translate-y-1/2 h-full"
+				size="sm"
+				className="embla__next absolute hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 				onClick={scrollNext}
 			>
 				{Icons.rightArrow({
@@ -98,16 +110,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 				})}
 			</Button>
 
-			<div className="embla-thumbs mark-b absolute bottom-0 left-1/2 -translate-x-1/2">
-				<div className="embla-thumbs__viewport max-w-sm" ref={emblaThumbsRef}>
+			<div className="embla-thumbs mark-b absolute bottom-2 left-1/2 -translate-x-1/2">
+				<div className="embla-thumbs__viewport w-full max-w-16" ref={emblaThumbsRef}>
 					<div className="embla-thumbs__container flex-nowrap">
 						{slides.map((index) => (
-							<Thumb
-								key={index}
-								onClick={() => onThumbClick(index)}
-								selected={index === selectedIndex}
-								index={index}
-							/>
+							<Thumb key={index} onClick={() => onThumbClick(index)} selected={index === selectedIndex} index={index} />
 						))}
 					</div>
 				</div>

@@ -18,7 +18,7 @@ const Page = () => {
 	return (
 		<div className="w-full min-h-svh py-20 h-full px-4 flex items-center justify-center">
 			<div className="max-w-screen-sm w-full mx-auto pt-2">
-				<h1 className="text-2xl md:text-3xl font-[550] py-4">Decide how you&apos;ll confirm reservations</h1>
+				<h1 className="text-2xl md:text-3xl font-[550] py-4 animate-list-stagger">Decide how you&apos;ll confirm reservations</h1>
 				<div className="mt-3 pb-4">
 					<RadioGroup.Root className="grid grid-cols-1 gap-3" onValueChange={(v) => setSelected(v)}>
 						{bookOptions.map((option, i) => (
@@ -26,9 +26,10 @@ const Page = () => {
 								key={i}
 								value={option.title}
 								className={cn(
-									"w-full cursor-pointer flex gap-3 justify-between items-start p-5 md:p-6 rounded-xl",
+									"w-full cursor-pointer  animate-list-stagger flex gap-3 justify-between items-start p-5 md:p-6 rounded-xl",
 									selected === option.title ? "bg-white box-shadow" : "bg-[#F7F7F7] text-black/70"
 								)}
+								style={{ animationDelay: `${500 + i * 20}ms` }}
 							>
 								<div className="w-full max-w-sm">
 									<div className="text-left font-semibold text-base pb-1">{option.title}</div>
