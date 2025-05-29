@@ -47,16 +47,26 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		emblaMainApi.on("select", onSelect).on("reInit", onSelect);
 	}, [emblaMainApi, onSelect]);
 
-	const scrollPrev = useCallback(() => {
-		if (emblaMainApi) emblaMainApi.scrollPrev();
-	}, [emblaMainApi]);
+	const scrollPrev = useCallback(
+		(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+			e.preventDefault();
 
-	const scrollNext = useCallback(() => {
-		if (emblaMainApi) emblaMainApi.scrollNext();
-	}, [emblaMainApi]);
+			if (emblaMainApi) emblaMainApi.scrollPrev();
+		},
+		[emblaMainApi]
+	);
+
+	const scrollNext = useCallback(
+		(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+			e.preventDefault();
+
+			if (emblaMainApi) emblaMainApi.scrollNext();
+		},
+		[emblaMainApi]
+	);
 
 	return (
-		<div className="embla w-full mark group relative">
+		<div className="embla w-full group relative">
 			<div className="embla__viewport w-full" ref={emblaMainRef}>
 				<div className="embla__container w-full">
 					{slides.map((index) => (
@@ -64,7 +74,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 							<Image
 								src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
 								alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
-								className="aspect-square object-cover w-full mark"
+								className="aspect-square object-cover w-full"
 								width={800}
 								height={800}
 							/>
@@ -76,7 +86,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 			<Button
 				variant="ghost"
 				size="sm"
-				className="embla__prev absolute invisible mark-b opacity-0 group-hover:visible group-hover:opacity-100 duration-150 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+				className="embla__prev absolute invisible mark-b opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 				onClick={scrollPrev}
 			>
 				{Icons.leftArrow({
@@ -94,7 +104,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 			<Button
 				variant="ghost"
 				size="sm"
-				className="embla__next absolute hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+				className="embla__next absolute invisible mark-b opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 				onClick={scrollNext}
 			>
 				{Icons.rightArrow({

@@ -69,6 +69,10 @@ module.exports = {
 						transform: "none",
 					},
 				},
+				loadingAnim: {
+					"0%, 80%, 100%": { opacity: "0" },
+					"30%, 50%": { opacity: "1" },
+				},
 			},
 			animation: {
 				"list-stagger": "listAnimation 500ms cubic-bezier(0.2, 0, 0, 1) both",

@@ -38,7 +38,9 @@ const Page = () => {
 							<div className="flex gap-x-2 mt-4 justify-between">
 								<div className="w-full max-w-[270px]">
 									<div className="font-bold line-clamp-1 text-sm">Lorem ipsum dolor sit amet consec adipis elit. Alias, temporibus.</div>
-									<div className="text-sm pt-1">₵22 / month</div>
+									<div className="text-sm pt-1">
+										<strong className="">₵139</strong> / month
+									</div>
 								</div>
 								<div className="whitespace-nowrap text-sm">New 󰀄</div>
 							</div>

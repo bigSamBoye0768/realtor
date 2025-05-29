@@ -5,8 +5,8 @@ import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "./EmblaCarouselThumbsButton";
 import "./embla.css";
-import { Icons } from "../icons";
-import { Button } from "../ui/button";
+// import { Icons } from "../icons";
+import { Button } from "../button";
 
 type PropType = {
 	slides: number[];
@@ -43,13 +43,13 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		emblaMainApi.on("select", onSelect).on("reInit", onSelect);
 	}, [emblaMainApi, onSelect]);
 
-    const scrollPrev = useCallback(() => {
-    if (emblaMainApi) emblaMainApi.scrollPrev()
-  }, [emblaMainApi])
+	const scrollPrev = useCallback(() => {
+		if (emblaMainApi) emblaMainApi.scrollPrev();
+	}, [emblaMainApi]);
 
-  const scrollNext = useCallback(() => {
-    if (emblaMainApi) emblaMainApi.scrollNext()
-  }, [emblaMainApi])
+	const scrollNext = useCallback(() => {
+		if (emblaMainApi) emblaMainApi.scrollNext();
+	}, [emblaMainApi]);
 
 	return (
 		<div className="embla w-full mark relative">
@@ -63,23 +63,18 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 				</div>
 			</div>
 
-      <Button variant="ghost" className="embla__prev absolute hover:bg-transparent top-1/2 z-10 left-0 -translate-y-1/2 h-full" onClick={scrollPrev}>
-        {Icons.leftArrow({style:{ display: "block", fill: "none", height: "16px", width: "16px", stroke: "currentcolor", strokeWidth: "4.33333", overflow: "visible" }})}
-      </Button>
-      <Button variant="ghost" className="embla__next absolute hover:bg-transparent top-1/2 z-10 right-0 -translate-y-1/2 h-full" onClick={scrollNext}>
-        {Icons.rightArrow({style:{ display: "block", fill: "none", height: "16px", width: "16px", stroke: "currentcolor", strokeWidth: "4.33333", overflow: "visible" }})}
-      </Button>
+			<Button variant="ghost" className="embla__prev absolute hover:bg-transparent top-1/2 z-10 left-0 -translate-y-1/2 h-full" onClick={scrollPrev}>
+				{/* {Icons.leftArrow({style:{ display: "block", fill: "none", height: "16px", width: "16px", stroke: "currentcolor", strokeWidth: "4.33333", overflow: "visible" }})} */}
+			</Button>
+			<Button variant="ghost" className="embla__next absolute hover:bg-transparent top-1/2 z-10 right-0 -translate-y-1/2 h-full" onClick={scrollNext}>
+				{/* {Icons.rightArrow({style:{ display: "block", fill: "none", height: "16px", width: "16px", stroke: "currentcolor", strokeWidth: "4.33333", overflow: "visible" }})} */}
+			</Button>
 
 			<div className="embla-thumbs mark-b absolute bottom-0 left-1/2 -translate-x-1/2">
 				<div className="embla-thumbs__viewport max-w-xs" ref={emblaThumbsRef}>
 					<div className="embla-thumbs__container flex-nowrap">
 						{slides.map((index) => (
-							<Thumb
-								key={index}
-								onClick={() => onThumbClick(index)}
-								selected={index === selectedIndex}
-								index={index}
-							/>
+							<Thumb key={index} onClick={() => onThumbClick(index)} selected={index === selectedIndex} index={index} />
 						))}
 					</div>
 				</div>

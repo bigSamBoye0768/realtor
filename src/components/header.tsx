@@ -8,7 +8,8 @@ import Link from "next/link";
 import { Icons } from "./icons";
 
 const placeholder = "Search by address, city, neighbourhood or country";
-export const Header = () => {
+
+export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 	const menuBtnRef = useRef<HTMLButtonElement>(null);
 	const menuLinks = useRef<HTMLDivElement>(null);
 	const headerRef = useRef<HTMLElement>(null);
@@ -63,7 +64,8 @@ export const Header = () => {
 		return () => window.addEventListener("scroll", handleWindowScroll);
 	}, []);
 
-	const handleLinkClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const handleLinkClick = (_e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		// console.log(e);
 		// setOpenMenuLinks(true);
 		// Only close if clicking an actual link (<a> tag)
@@ -73,7 +75,7 @@ export const Header = () => {
 	};
 
 	return (
-		<header className=" h-[80px] w-full mark max-w-screen-2xl lg:px-16 md:px-8 px-4 mx-auto" ref={headerRef}>
+		<header className=" h-[80px] w-full max-w-screen-2xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto" ref={headerRef}>
 			<div className=" flex items-center w-full h-full">
 				<div className=" lg:flex-1 flex">
 					<Link href="/" className="inline-flex items-center  gap-1 text-black font-semibold text-base">
@@ -81,39 +83,41 @@ export const Header = () => {
 					</Link>
 				</div>
 
-				<div
-					className=" px-2 w-full max-w-[350px] data-[state=notOpen]:opacity-100 data-[state=isOpen]:opacity-0 data-[state=notOpen]:visible data-[state=isOpen]:invisible transition-all duration-150"
-					data-state={open ? "isOpen" : "notOpen"}
-				>
-					<Button
-						variant="outline"
-						className="rounded-full hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
-						title="Search"
-						onClick={() => setOpen(true)}
+				{showSearch && (
+					<div
+						className="px-2 w-full max-w-[350px] data-[state=notOpen]:opacity-100 data-[state=isOpen]:opacity-0 data-[state=notOpen]:visible data-[state=isOpen]:invisible transition-all duration-150"
+						data-state={open ? "isOpen" : "notOpen"}
 					>
-						<div className="pl-6 truncate font-semibold">{placeholder}</div>
-						<div className="bg-black w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
-							<svg
-								viewBox="0 0 32 32"
-								xmlns="http://www.w3.org/2000/svg"
-								width="12"
-								height="12"
-								aria-hidden="true"
-								role="presentation"
-								focusable="false"
-							>
-								<g fill="none" stroke="#FFFFFF" strokeWidth="5.33333px">
-									<path
-										d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"
-										stroke="#FFFFFF"
-										fill="none"
-										strokeWidth="5.33333px"
-									></path>
-								</g>
-							</svg>
-						</div>
-					</Button>
-				</div>
+						<Button
+							variant="outline"
+							className="rounded-full bg-transparent hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+							title="Search"
+							onClick={() => setOpen(true)}
+						>
+							<div className="pl-6 truncate font-semibold">{placeholder}</div>
+							<div className="bg-black w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
+								<svg
+									viewBox="0 0 32 32"
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									aria-hidden="true"
+									role="presentation"
+									focusable="false"
+								>
+									<g fill="none" stroke="#FFFFFF" strokeWidth="5.33333px">
+										<path
+											d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"
+											stroke="#FFFFFF"
+											fill="none"
+											strokeWidth="5.33333px"
+										></path>
+									</g>
+								</svg>
+							</div>
+						</Button>
+					</div>
+				)}
 
 				<div className="flex-1 flex items-center justify-end  gap-2">
 					<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
@@ -125,7 +129,7 @@ export const Header = () => {
 							ref={menuBtnRef}
 							onClick={() => setOpenMenuLinks((val) => !val)}
 							className={cn(
-								"rounded-full flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
+								"rounded-full bg-transparent flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
 								`${openMenuLinks ? "shadow-[#0000002e_0_2px_4px]" : "hover:shadow-[#0000002e_0_2px_4px]"}`
 							)}
 						>

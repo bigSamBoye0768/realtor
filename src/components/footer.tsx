@@ -1,11 +1,12 @@
 import React from "react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export const Footer = () => {
 	return (
 		<div className="bg-[#eee] w-full">
-			<section className="w-full py-[36px] lg:px-16 md:px-8 px-4 max-w-screen-2xl mx-auto">
+			<section className="w-full py-[36px] 2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-2xl mx-auto">
 				<div className="footerLinks__container">
 					<div className="footerLinks__wrap flex flex-col lg:flex-row">
 						<div className="footerSectionCover flex-1">
@@ -36,7 +37,7 @@ export const Footer = () => {
 							<h3 className="font-semibold">Nestquest host</h3>
 							<ul className="footerSectionList flex lg:flex-col flex-wrap">
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
-									<a href="">List your property</a>
+									<Link href="/become-a-host/434545464/overview">List your property</Link>
 								</li>
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
 									<a href="">Advertise on Nestquest</a>
@@ -79,7 +80,7 @@ export const Footer = () => {
 				</div>
 			</section>
 
-			<section className="px-4 max-w-screen-xl mx-auto">
+			<section className="2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-2xl mx-auto">
 				<div className="flex items-start justify-center border-t-2  py-[18px] gap-2 flex-col md:items-center lg:flex-row lg:justify-between">
 					<div className="flex flex-col items-start md:flex-row gap-x-2">
 						<div>© 2023 Nestquest, Inc.</div>
