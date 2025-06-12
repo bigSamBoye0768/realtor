@@ -134,7 +134,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 			)}
 
 			<div className="embla-thumbs absolute bottom-2 left-1/2 -translate-x-1/2">
-				<div className="embla-thumbs__viewport w-full max-w-20" ref={emblaThumbsRef}>
+				<div className="embla-thumbs__viewport w-full max-w-16" ref={emblaThumbsRef}>
 					<div className="embla-thumbs__container flex-nowrap">
 						{slides.map((index) => (
 							<Thumb key={index} onClick={() => onThumbClick(index)} selected={index === selectedIndex} index={index} />

@@ -16,7 +16,7 @@ export const Thumb: React.FC<PropType> = (props) => {
 			<Button
 				variant="ghost"
 				onClick={onClick}
-				className={cn("h-2.5 w-2.5 p-0 rounded-full transition-all duration-500 bg-black/30", selected && "w-5 bg-black")}
+				className={cn("h-2 w-2 p-0 rounded-full transition-all duration-500 bg-white/60", selected && "w-4 bg-white")}
 			></Button>
 			{/* <button onClick={onClick} type="button" className="embla-thumbs__slide__number w-12 h-12">
 			</button> */}
