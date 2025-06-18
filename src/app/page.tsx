@@ -61,8 +61,8 @@ const explore = [
 
 export default function Home() {
 	return (
-		<div className="min-h-[100vh] h-full w-full">
-			<div className="w-full fixed top-0 bg-transparent z-50">
+		<div className="min-h-[100vh] w-full">
+			<div className="w-full fixed left-0 right-0 top-0 bg-transparent z-50">
 				<Header />
 			</div>
 			<div className="min-h-svh h-full pb-20">

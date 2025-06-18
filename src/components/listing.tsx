@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import EmblaCarousel from "./carousel/EmblaCarousel";
 import Link from "next/link";
 import { Skeleton } from "./ui/skeleton";
@@ -6,9 +6,21 @@ import { Skeleton } from "./ui/skeleton";
 const SLIDE_COUNT = 10;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
+export const Listings = () => {
+	return (
+		<div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-6">
+			{[...Array(16)].map((_, index) => (
+				<Suspense fallback={<ListingSkeleton />} key={index}>
+					<Listing />
+				</Suspense>
+			))}
+		</div>
+	);
+};
+
 export const Listing = () => {
 	return (
-		<Link href="/" className="">
+		<Link href="/bedroom-apartment-osu/65445454567457" className="">
 			<div className="">
 				<div className="rounded-2xl overflow-hidden">
 					<EmblaCarousel slides={SLIDES} options={{ containScroll: "trimSnaps", dragFree: false, loop: false, align: "start" }} />
@@ -28,6 +40,16 @@ export const Listing = () => {
 				</div>
 			</div>
 		</Link>
+	);
+};
+
+export const ListingsSkeleton = () => {
+	return (
+		<div className="grid mark grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-6">
+			{[...Array(16)].map((_, index) => (
+				<ListingSkeleton key={index} />
+			))}
+		</div>
 	);
 };
 

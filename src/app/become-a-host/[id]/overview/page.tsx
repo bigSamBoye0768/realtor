@@ -28,7 +28,7 @@ const Page = () => {
 				</div>
 				<div className="flex-1">
 					{overview.map((item, i) => (
-						<div key={i} className="flex flex-nowrap border-b py-5 md:py-8 gap-x-3">
+						<div key={i} className="flex flex-nowrap border-b last:border-b-0 py-5 md:py-8 gap-x-3">
 							<div className="flex items-baseline gap-x-3 flex-nowrap">
 								<div className="font-semibold text-lg md:text-xl">{i + 1}</div>
 								<div className="flex-1">

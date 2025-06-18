@@ -77,7 +77,7 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 
 	return (
 		<>
-			<header className="h-[80px] w-full hidden md:block max-w-screen-2xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto" ref={headerRef}>
+			<header className="h-[80px] w-full hidden md:block max-w-screen-3xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto" ref={headerRef}>
 				<div className=" flex  items-center w-full h-full">
 					<div className=" lg:flex-1 flex">
 						<Link href="/" className="inline-flex items-center  gap-1 text-black font-semibold text-base">
@@ -295,6 +295,153 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 								></path>
 							</svg>
 						</div> */}
+					</Button>
+					<Filter
+						trigger={
+							<Button
+								variant="outline"
+								className="rounded-full bg-transparent items-center justify-center hover:bg-transparent overflow-hidden ml-2 h-[48px] w-[48px] border-[#DDDDDD] border aspect-square shadow-[0_3px_10px_rgba(0,0,0,0.1)]"
+								title="Filter"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 16 16"
+									aria-hidden="true"
+									role="presentation"
+									focusable="false"
+									style={{ display: "block", height: "16px", width: "16px", fill: "#2222222" }}
+									width="16"
+									height="16"
+								>
+									<path
+										d="M5 8a3 3 0 0 1 2.83 2H14v2H7.83A3 3 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.83 4H2V4h6.17A3 3 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+										fill="#222222"
+									></path>
+								</svg>
+							</Button>
+						}
+					/>
+				</div>
+			</header>
+		</>
+	);
+};
+
+export const HeaderSkeleton = () => {
+	return (
+		<>
+			<header className="h-[80px] w-full hidden md:block max-w-screen-3xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto">
+				<div className=" flex  items-center w-full h-full">
+					<div className=" lg:flex-1 flex">
+						<div className="inline-flex items-center  gap-1 text-black font-semibold text-base">{Icons.house()} nestQuest</div>
+					</div>
+
+					<div className="px-2 w-full max-w-[350px]">
+						<Button
+							variant="outline"
+							className="rounded-full bg-transparent hover:bg-transparent overflow-hidden h-[48px] border-black/40 py-0 px-2 w-full justify-between shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.05)]"
+							title="Search"
+						>
+							<div className="pl-6 truncate font-semibold">{placeholder}</div>
+							<div className="bg-black w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
+								<svg
+									viewBox="0 0 32 32"
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									aria-hidden="true"
+									role="presentation"
+									focusable="false"
+								>
+									<g fill="none" stroke="#FFFFFF" strokeWidth="5.33333px">
+										<path
+											d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"
+											stroke="#FFFFFF"
+											fill="none"
+											strokeWidth="5.33333px"
+										></path>
+									</g>
+								</svg>
+							</div>
+						</Button>
+					</div>
+
+					<div className="flex-1 flex items-center justify-end  gap-2">
+						<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
+							Become a host
+						</Button>
+						<div className=" relative ">
+							<Button
+								variant="outline"
+								className={cn(
+									"rounded-full bg-transparent flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
+									`shadow-[#0000002e_0_2px_4px] hover:shadow-[#0000002e_0_2px_4px]`
+								)}
+							>
+								<div className="flex items-center justify-center pl-1.5">
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 32 32"
+										xmlns="http://www.w3.org/2000/svg"
+										aria-hidden="true"
+										role="presentation"
+										focusable="false"
+									>
+										<g fill="none" fillRule="nonzero" stroke="#222222" strokeWidth="3px">
+											<path d="m2 16h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+											<path d="m2 24h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+											<path d="m2 8h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+										</g>
+									</svg>
+								</div>
+								<div className="flex items-center justify-center">
+									<svg
+										viewBox="0 0 32 32"
+										width="28"
+										height="28"
+										xmlns="http://www.w3.org/2000/svg"
+										aria-hidden="true"
+										role="presentation"
+										focusable="false"
+									>
+										<path
+											d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"
+											fill="#717171"
+										></path>
+									</svg>
+								</div>
+							</Button>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<header className="h-[70px]  w-full md:hidden max-w-screen-2xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto">
+				<div className=" w-full h-full flex flex-nowrap items-center justify-center">
+					<Button
+						variant="outline"
+						className="rounded-full bg-transparent hover:bg-transparent overflow-hidden h-[48px] border-[#DDDDDD] border py-0 px-2 w-full justify-between shadow-[0_3px_10px_rgba(0,0,0,0.1)]"
+						title="Search"
+					>
+						<div className="pl-2.5 ">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="32"
+								height="32"
+								viewBox="0 0 32 32"
+								aria-hidden="true"
+								role="presentation"
+								focusable="false"
+								style={{ display: "block", height: "16px", width: "16px", fill: "currentcolor" }}
+							>
+								<path
+									d="M13 0a13 13 0 0 1 10.5 20.67l7.91 7.92-2.82 2.82-7.92-7.91A12.94 12.94 0 0 1 13 26a13 13 0 1 1 0-26zm0 4a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+									fill="#222222"
+								></path>
+							</svg>
+						</div>
+						<div className="truncate font-semibold flex-1 text-left mr-4">{placeholder}</div>
 					</Button>
 					<Filter
 						trigger={

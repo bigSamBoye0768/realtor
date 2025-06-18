@@ -59,7 +59,7 @@ const Page = () => {
 					<div className="mt-2 md:mt-0">
 						{counterConfig.map(({ type, label, minValue, maxValue }, i) => (
 							<div
-								className="flex justify-between items-center flex-nowrap gap-x-3 text-base border-b py-4 animate-list-stagger"
+								className="flex justify-between items-center flex-nowrap gap-x-3 text-base border-b last:border-b-0 py-4 animate-list-stagger"
 								key={type}
 								style={{ animationDelay: `${500 + i * 20}ms` }}
 							>

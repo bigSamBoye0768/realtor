@@ -5,12 +5,12 @@ import { Progress } from "@/components/ui/progress";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
-const startPages = ["overview", "about-your-place", "stand-out", "final"];
+const startPages = ["overview", "about-your-place", "stand-out", "finish-setup"];
 
 const steps = [
 	["about-your-place", "structure", "privacy-type", "location", "floor-plan", "bathrooms", "occupancy"], // Step 0
 	["stand-out", "amenities", "photos", "title", "description"], // Step 1
-	["final", "instant-book", "pricing", "review", "publish"], // Step 2
+	["finish-setup", "instant-book", "pricing", "review", "publish"], // Step 2
 ];
 
 export const Footer = () => {
@@ -86,7 +86,7 @@ export const Footer = () => {
 		<footer className="flex mx-auto h-[80px] px-3.5 lg:px-12 w-full">
 			<div className="w-full absolute top-0 left-0 flex items-center gap-x-1 right-0">
 				{progressValues.map((value, i) => (
-					<Progress value={value} className="w-full rounded-none h-1.5 transition-all duration-300" key={i} />
+					<Progress value={value} className="w-full rounded-none h-1.5 transition-all duration-1000" key={i} />
 				))}
 				{/* <Progress value={0} className="w-full rounded-none h-1.5" />
                 <Progress value={0} className="w-full rounded-none h-1.5" /> */}

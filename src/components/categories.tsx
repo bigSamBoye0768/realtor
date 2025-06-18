@@ -2,7 +2,7 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 import { Button } from "./ui/button";
 import { Icons } from "./icons";
 import Image from "next/image";
@@ -229,58 +229,62 @@ export const Categories = () => {
 
 	return (
 		<div className="">
-			<div className="embla relative">
+			<div className="embla relative h-[65px]">
 				<div className="embla__viewport h-full w-full" ref={emblaRef}>
-					<div className="embla__container gap-6 md:gap-10">
+					<div className="flex flex-nowrap h-full gap-6 md:gap-10">
 						{categoriesOptions.map((category, i) => (
-							<CategorySkeleton key={i} />
-							// <Suspense fallback={<CategorySkeleton />} key={i}>
-							// 	<Category category={category} />
-							// </Suspense>
+							// <CategorySkeleton key={i} />
+							<Suspense fallback={<CategorySkeleton />} key={i}>
+								<Category category={category} />
+							</Suspense>
 						))}
 					</div>
 				</div>
 
 				{canScrollPrev && (
-					<Button
-						variant="ghost"
-						className="embla__prev absolute top-1/2 z-20 left-0 -translate-y-1/2 rounded-full aspect-square w-fit h-fit p-3"
-						onClick={scrollPrev}
-						title="Prev"
-					>
-						{Icons.leftArrow({
-							style: {
-								display: "block",
-								fill: "none",
-								height: "12px",
-								width: "12px",
-								stroke: "currentcolor",
-								strokeWidth: "5.33333",
-								overflow: "visible",
-							},
-						})}
-					</Button>
+					<div className="absolute z-20 left-0 top-0 bottom-0 bg-gradient-to-l from-transparent via-white to-white pr-4 flex items-center">
+						<Button
+							variant="ghost"
+							className="embla__prev rounded-full aspect-square w-fit h-fit p-2 bg-white shadow-md hover:bg-white"
+							onClick={scrollPrev}
+							title="Prev"
+						>
+							{Icons.leftArrow({
+								style: {
+									display: "block",
+									fill: "none",
+									height: "12px",
+									width: "12px",
+									stroke: "currentcolor",
+									strokeWidth: "5.33333",
+									overflow: "visible",
+								},
+							})}
+						</Button>
+					</div>
 				)}
 
 				{canScrollNext && (
-					<Button
-						variant="ghost"
-						className="embla__next absolute top-1/2 z-20 right-0 -translate-y-1/2 rounded-full aspect-square w-fit h-fit p-2"
-						onClick={scrollNext}
-						title="Next"
-					>
-						{Icons.rightArrow({
-							style: {
-								display: "block",
-								fill: "none",
-								height: "12px",
-								width: "12px",
-								stroke: "currentcolor",
-								strokeWidth: "5.33333",
-								overflow: "visible",
-							},
-						})}
-					</Button>
+					<div className="absolute z-20 right-0 top-0 bottom-0 bg-gradient-to-r from-transparent via-white to-white pl-4 flex items-center">
+						<Button
+							variant="ghost"
+							className="embla__next rounded-full aspect-square w-fit h-fit p-2 bg-white shadow-md hover:bg-white"
+							onClick={scrollNext}
+							title="Next"
+						>
+							{Icons.rightArrow({
+								style: {
+									display: "block",
+									fill: "none",
+									height: "12px",
+									width: "12px",
+									stroke: "currentcolor",
+									strokeWidth: "5.33333",
+									overflow: "visible",
+								},
+							})}
+						</Button>
+					</div>
 				)}
 			</div>
 		</div>
@@ -289,10 +293,10 @@ export const Categories = () => {
 
 export const Category = ({ category }: { category: Category }) => {
 	return (
-		<Link href={`/${category.name.toLowerCase()}`} className="flex-grow-0 text-sm shrink-0 basis-auto max-w-[100%] min-w-0">
+		<Link href={`/${category.name.toLowerCase()}`} className="flex-grow-0 flex text-sm shrink-0 basis-auto max-w-[100%] min-w-0">
 			<Button
 				className={cn(
-					"w-full flex-col px-0 select-none font-semibold text-black transition-all rounded-none duration-200 ease-in-out hover:bg-transparent h-full py-1.5",
+					"w-full flex-col px-0 gap-1 select-none justify-between font-semibold text-black transition-all rounded-none duration-200 ease-in-out hover:bg-transparent h-full py-2.5",
 					category.name === "Countryside" ? "border-x-0 border-t-0 border-b-2 border-black" : "border-none opacity-70 hover:opacity-100"
 				)}
 				size="sm"
@@ -309,10 +313,10 @@ export const Category = ({ category }: { category: Category }) => {
 
 export const CategorySkeleton = () => {
 	return (
-		<div className="flex-grow-0 text-sm shrink-0 basis-auto max-w-[100%] min-w-0">
+		<div className="flex-grow-0 text-sm flex shrink-0 basis-auto max-w-[100%] min-w-0">
 			<div
 				className={cn(
-					"w-full flex-col gap-2 items-center flex px-0 select-none h-full py-1.5"
+					"w-full flex-col gap-1 justify-between items-center flex px-0 select-none h-full py-2.5"
 					// category.name === "Countryside" ? "border-x-0 border-t-0 border-b-2 border-black" : "border-none opacity-70 hover:opacity-100"
 				)}
 			>
