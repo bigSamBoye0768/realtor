@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 const MAX_FILES = 3;
 
 export const Upload = () => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [files, setFiles] = useState(Array<{ name: string }>);
 
 	const onDrop = useCallback(async (acceptedFiles: File[]) => {

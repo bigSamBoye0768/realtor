@@ -3,14 +3,13 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { MobileFooterBar } from "@/components/mobile-footer-bar";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Listings, ListingsSkeleton } from "@/components/listing";
 import { Suspense } from "react";
 // import { Filter } from "@/components/filter";
 
 const Page = () => {
 	return (
-		<div className="min-h-svh w-full relative mark">
+		<div className="min-h-svh w-full relative">
 			<div className="w-full border-b left-0 right-0 shadow fixed top-0 bg-white z-[100]">
 				<Header />
 				<div className="w-full md:border-t">
@@ -38,7 +37,7 @@ const Page = () => {
 						<Listings />
 					</Suspense>
 				</div>
-
+				{/* 
 				<div className="mt-8">
 					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_2px_6px_2px]"></div>
 					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]"></div>
@@ -46,9 +45,7 @@ const Page = () => {
 					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(0,0,0,0.15)_0px_2px_8px]"></div>
 					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[rgba(0,0,0,0.25)_0px_0.0625em_0.0625em,rgba(0,0,0,0.25)_0px_0_125em_0.5em,rgba(255,255,255,0.1)_0px_0px_0px_1px_inset]"></div>
 					<div className="w-52 mt-8 aspect-square rounded-lg shadow-[0_3px_15px_7px_rgba(0,0,0,0.15)]"></div>
-				</div>
-
-				<Skeleton className="w-full  aspect-video mt-8" />
+				</div> */}
 
 				{/* <ListingDrawer /> */}
 			</section>

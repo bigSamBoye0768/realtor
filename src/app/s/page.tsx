@@ -1,15 +1,4 @@
-// import React from "react";
-
-// const Page = () => {
-// 	return (
-// 		<div className="flex items-start">
-// 			<div className="w-[60%] h-[2000px] bg-red-200">Main content</div>
-// 			<div className="w-[40%] h-screen sticky top-0 bg-green-300">Sticky sidebar</div>
-// 		</div>
-// 	);
-// };
-
-// export default Page;
+"use client";
 
 import { Categories } from "@/components/categories";
 import { Footer } from "@/components/footer";
@@ -17,7 +6,11 @@ import { Header } from "@/components/header";
 import { MobileFooterBar } from "@/components/mobile-footer-bar";
 import { Button } from "@/components/ui/button";
 import { ListingSkeleton } from "@/components/listing";
+import Map from "@/components/map";
 
+// import dynamic from "next/dynamic";
+
+// const Map = dynamic(() => import("@/components/map"), { ssr: false });
 const Page = () => {
 	return (
 		<div className="min-h-svh w-full">
@@ -38,7 +31,7 @@ const Page = () => {
 
 			<section className="w-full h-full min-h-svh mx-auto pt-[calc(70px_+_65px)] md:pt-[calc(80px_+_65px)] bg-white">
 				<div className="w-full flex items-start h-full">
-					<div className="md:w-[60%] w-full min-h-svh bg-fuchsia-200 2xl:px-20 lg:px-10 md:px-8 px-4 pt-10 pb-20">
+					<div className="md:w-[60%] w-full min-h-svh 2xl:px-20 lg:px-10 md:px-8 px-4 pt-10 pb-20">
 						<div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-6">
 							{[...Array(16)].map((_, index) => (
 								// <Suspense fallback={<ListingSkeleton />} key={index}>
@@ -49,7 +42,9 @@ const Page = () => {
 							))}
 						</div>
 					</div>
-					<div className="bg-amber-200 w-[40%] h-[calc(100vh_-_(80px_+_65px))] sticky top-[calc(80px_+_65px)] hidden md:block"></div>
+					<div className="w-[40%] h-[calc(100vh_-_(80px_+_65px))] sticky top-[calc(80px_+_65px)] hidden md:block">
+						<Map />
+					</div>
 				</div>
 			</section>
 
