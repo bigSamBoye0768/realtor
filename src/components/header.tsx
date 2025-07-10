@@ -122,16 +122,18 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 					)}
 
 					<div className="flex-1 flex items-center justify-end  gap-2">
-						<Filter
+						{/* <Filter
 							trigger={
 								<Button variant="outline" className="rounded-full h-10 font-semibold text-sm shadow-none">
 									Filter
 								</Button>
 							}
-						/>
-						<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
-							Become a host
-						</Button>
+						/> */}
+						<Link href={"/become-a-host/434545464/overview"} className="rounded-full">
+							<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
+								Become a host
+							</Button>
+						</Link>
 						<div className=" relative ">
 							<Button
 								variant="outline"
@@ -182,23 +184,23 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 								onClick={(e) => handleLinkClick(e)}
 								data-state={openMenuLinks ? "toggleOpen" : "toggleClose"}
 								className={cn(
-									"bg-white  rounded-[16px] z-[60] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] h-fit py-6 overflow-hidden absolute top-[50px] right-0 transition-all duration-150",
+									"bg-white  rounded-[16px] z-[60] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] h-fit overflow-hidden absolute top-[50px] right-0 transition-all duration-150",
 									"data-[state=toggleOpen]:visible data-[state=toggleOpen]:opacity-100",
 									"data-[state=toggleClose]:invisible data-[state=toggleClose]:opacity-0"
 								)}
 							>
-								<ul className="w-full  flex flex-col gap-1 py-5">
+								<ul className="w-full  flex flex-col py-3">
 									{/* <li>
                                     <Button variant="outline" className='w-full border-0 border-b-1 justify-start rounded-none' size="lg">Login</Button>
                                 </li> */}
-									<li>
-										<Link href="/" className="flex">
+									<li className="border-b last:border-none">
+										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
 											<div className="w-full border-0 border-b-1 justify-start rounded-none">Signup</div>
 										</Link>
 									</li>
-									<li>
-										<Link href="/explore" className="flex">
-											<div className="w-full border-0 last:border-b-0 justify-start rounded-none">Account</div>
+									<li className="border-b last:border-none">
+										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
+											<div className="w-full border-b-2 last:border-b-0 justify-start rounded-none">Account</div>
 										</Link>
 									</li>
 								</ul>

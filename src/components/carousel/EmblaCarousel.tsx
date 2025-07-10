@@ -86,6 +86,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 								width={800}
 								height={800}
 							/>
+							<div className="absolute top-0 right-0 m-4">
+								<Button className="rounded-full aspect-square p-1 shadow-none bg-transparent border-none outline-none h-fit hover:bg-transparent">
+									{Icons.wish()}
+								</Button>
+							</div>
 						</div>
 					))}
 				</div>

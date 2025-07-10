@@ -210,11 +210,26 @@ export const Icons = {
 		</svg>
 	),
 	userBlack: () => (
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" width="24" height="24">
-			<path
-				d="M16 1a15 15 0 1 1 0 30 15 15 0 0 1 0-30zm0 8a5 5 0 0 0-2 9.58v2.1l-.15.03a11 11 0 0 0-6.94 4.59C9.26 27.59 12.46 29 16 29s6.74-1.41 9.09-3.7a11 11 0 0 0-6.93-4.59l-.16-.03v-2.1a5 5 0 0 0 3-4.35V14a5 5 0 0 0-5-5zm0-6A13 13 0 0 0 5.56 23.75a13.02 13.02 0 0 1 5.54-4.3l.35-.13-.02-.02A7 7 0 0 1 9 14.27L9 14a7 7 0 1 1 11.78 5.12l-.23.2.04.02c2.33.88 4.36 2.41 5.85 4.4A13 13 0 0 0 16 3z"
-				fill="#000000"
-			></path>
+		<svg
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{ display: "block", fill: "none", height: "24px", width: "24px", stroke: "currentcolor", strokeWidth: 2.66667, overflow: "visible" }}
+			width="24"
+			height="24"
+		>
+			<g fill="none" stroke="#000000" stroke-width="2.66667px">
+				<circle cx="16" cy="16" r="14" stroke="#000000" fill="none" strokeWidth="2.66667px" />
+				<path
+					d="m26.46 25.62c-1.58-2.81-4.26-4.9-7.46-5.73v-.72c1.79-1.04 3-2.96 3-5.17 0-3.31-2.69-6-6-6s-6 2.69-6 6c0 2.22 1.21 4.14 3 5.17v.72c-3.16.82-5.83 2.87-7.42 5.64"
+					stroke="#000000"
+					fill="none"
+					strokeWidth="2.66667px"
+				/>
+			</g>
 		</svg>
 	),
 	category: (props?: IconProps) => (
@@ -503,14 +518,44 @@ export const Icons = {
 			<path fill="none" d="M13 24a11 11 0 1 0 0-22 11 11 0 0 0 0 22zm8-3 9 9" stroke="#000000" strokeWidth="4px"></path>
 		</svg>
 	),
-	wishlists: () => (
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" width="24" height="24">
+	wishlists: (props?: IconProps) => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			width="24"
+			height="24"
+			{...props}
+		>
 			<path
 				d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"
 				stroke="#B0B0B0"
 				fill="none"
 				strokeWidth="2.66667px"
 			></path>
+		</svg>
+	),
+	wish: () => (
+		<svg
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 32 32"
+			aria-hidden="true"
+			role="presentation"
+			focusable="false"
+			style={{ display: "block", fill: "rgba(0, 0, 0, 0.5)", height: "24px", width: "24px", strokeWidth: 2, overflow: "visible" }}
+			width="24"
+			height="24"
+		>
+			<path
+				d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"
+				stroke="#FFFFFF"
+				fillOpacity="0.5"
+				fill="#000000"
+				strokeWidth="2px"
+			/>
 		</svg>
 	),
 	inbox: () => (

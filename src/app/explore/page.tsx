@@ -5,6 +5,7 @@ import { MobileFooterBar } from "@/components/mobile-footer-bar";
 import { Button } from "@/components/ui/button";
 import { Listings, ListingsSkeleton } from "@/components/listing";
 import { Suspense } from "react";
+import { Filter } from "@/components/filter";
 // import { Filter } from "@/components/filter";
 
 const Page = () => {
@@ -18,14 +19,7 @@ const Page = () => {
 							<Categories />
 						</div>
 						<div className="md:flex pl-10 hidden">
-							{/* <Filter
-								trigger={
-									<Button variant="outline" className="rounded-full h-10 font-semibold text-sm shadow-none">
-										Filter
-									</Button>
-								}
-							/> */}
-							<Button>Filter</Button>
+							<Filter trigger={<Button className="rounded-xlh-10 font-semibold text-sm shadow-none">Filter</Button>} />
 						</div>
 					</div>
 				</div>

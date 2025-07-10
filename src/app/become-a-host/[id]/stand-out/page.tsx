@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const Page = () => {
@@ -13,7 +15,16 @@ const Page = () => {
 					</p>
 				</div>
 				<div className=" flex-1">
-					<video className="w-full h-full" autoPlay muted src="/assets/videos/standOut.mp4"></video>
+					<video
+						className="w-full h-full"
+						autoPlay
+						muted
+						playsInline
+						loop={false}
+						controls={false}
+						onEnded={(e) => e.currentTarget.pause()}
+						src="/assets/videos/standOut.mp4"
+					></video>
 				</div>
 			</div>
 		</div>
