@@ -1,35 +1,62 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import StepLayout from "../../_components/stepLayout";
+import { usePathname, useRouter } from "next/navigation";
+import { useStepNavigation } from "@/hooks/use-step-navigation";
 
 const Page = () => {
+	const pathname = usePathname();
+	const [isLoading, setIsLoading] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(false);
+	const navigations = useStepNavigation();
+	const router = useRouter();
+
+	const handleNext = async () => {
+		setIsLoading(true);
+		setIsDisabled(true);
+
+		try {
+			console.log("inside", isLoading);
+
+			if (navigations.next) {
+				router.push(`/become-a-host/${pathname.split("/")[2]}/${navigations.next}`);
+			}
+		} catch (err) {
+			console.log(err);
+		} finally {
+			// optional: only reset loading if navigation failed
+		}
+	};
+
 	return (
-		<div className=" px-4 max-w-6xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
-			<div className="flex flex-col-reverse md:flex-row py-4">
-				<div className=" font-[550] animate-list-stagger text-sm md:text-base flex-1 flex flex-col justify-center items-start">
-					<h3>Step 2</h3>
-					<h1 className="md:text-4xl py-4 text-2xl">Make your place stand out</h1>
-					<p className="font-medium">
-						In this step, we&apos;ll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know
-						the location and how many guests can stay.
-					</p>
-				</div>
-				<div className=" flex-1">
-					<video
-						className="w-full h-full"
-						autoPlay
-						muted
-						playsInline
-						loop={false}
-						controls={false}
-						onEnded={(e) => e.currentTarget.pause()}
-						src="/assets/videos/standOut.mp4"
-					></video>
+		<StepLayout onNext={handleNext} isNextLoading={isLoading} isNextDisabled={isDisabled}>
+			<div className=" px-4 max-w-6xl mx-auto w-full min-h-svh py-20 h-full flex items-center justify-center">
+				<div className="flex flex-col-reverse md:flex-row py-4">
+					<div className=" font-[550] animate-list-stagger text-sm md:text-base flex-1 flex flex-col justify-center items-start">
+						<h3>Step 2</h3>
+						<h1 className="md:text-4xl py-4 text-2xl">Make your place stand out</h1>
+						<p className="font-medium">
+							In this step, we&apos;ll ask you which type of property you have and if guests will book the entire place or just a room. Then let us
+							know the location and how many guests can stay.
+						</p>
+					</div>
+					<div className=" flex-1">
+						<video
+							className="w-full h-full"
+							autoPlay
+							muted
+							playsInline
+							loop={false}
+							controls={false}
+							onEnded={(e) => e.currentTarget.pause()}
+							src="/assets/videos/standOut.mp4"
+						></video>
+					</div>
 				</div>
 			</div>
-		</div>
+		</StepLayout>
 	);
 };
 
 export default Page;
-// py-16

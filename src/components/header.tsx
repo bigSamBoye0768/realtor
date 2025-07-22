@@ -10,7 +10,7 @@ import { Filter } from "./filter";
 
 const placeholder = "Search by address, city, or neighbourhood";
 
-export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
+export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { showSearch?: boolean; maxWidth?: string }) => {
 	const menuBtnRef = useRef<HTMLButtonElement>(null);
 	const menuLinks = useRef<HTMLDivElement>(null);
 	const headerRef = useRef<HTMLElement>(null);
@@ -77,7 +77,7 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 
 	return (
 		<>
-			<header className="h-[80px] w-full hidden md:block max-w-screen-3xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto" ref={headerRef}>
+			<header className={cn("h-[80px] w-full hidden md:block max-w-screen-3xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto", maxWidth)} ref={headerRef}>
 				<div className=" flex  items-center w-full h-full">
 					<div className=" lg:flex-1 flex">
 						<Link href="/" className="inline-flex items-center  gap-1 text-black font-semibold text-base">

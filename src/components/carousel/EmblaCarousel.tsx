@@ -86,13 +86,13 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 								width={800}
 								height={800}
 							/>
-							<div className="absolute top-0 right-0 m-4">
-								<Button className="rounded-full aspect-square p-1 shadow-none bg-transparent border-none outline-none h-fit hover:bg-transparent">
-									{Icons.wish()}
-								</Button>
-							</div>
 						</div>
 					))}
+				</div>
+				<div className="absolute top-0 right-0 m-4">
+					<Button className="rounded-full aspect-square p-1 shadow-none bg-transparent border-none outline-none h-fit hover:bg-transparent">
+						{Icons.wish()}
+					</Button>
 				</div>
 			</div>
 
@@ -100,7 +100,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 				<Button
 					variant="ghost"
 					size="sm"
-					className="embla__prev bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+					className="embla__prev bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-white top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 					onClick={scrollPrev}
 				>
 					{Icons.leftArrow({
@@ -121,7 +121,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 				<Button
 					variant="ghost"
 					size="sm"
-					className="embla__next bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+					className="embla__next bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-white top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
 					onClick={scrollNext}
 				>
 					{Icons.rightArrow({

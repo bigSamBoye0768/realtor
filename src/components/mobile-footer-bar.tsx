@@ -19,7 +19,7 @@ const routes = [
 		title: "Wishlists",
 		url: `/wishlists`,
 		icon: Icons.wishlists(),
-		activeIcon: Icons.wishlists(),
+		activeIcon: Icons.wishlistsBlack(),
 	},
 	{
 		title: "Categories",

@@ -4,29 +4,34 @@ import { MobileFooter } from "./_components/mobile-footer";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import EmblaCarousel from "./_components/carousel/EmblaCarousel";
+import { DoubleSlider } from "@/components/ui/double-slider";
 
+const SLIDE_COUNT = 10;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 const Page = () => {
 	return (
 		<div className="min-h-svh w-full">
 			<div className="w-full border-b shadow fixed top-0 bg-white z-[100] hidden md:block">
-				<Header />
+				<Header maxWidth="max-w-[1180px]" />
 			</div>
 
-			<section className="w-full relative mark h-full min-h-svh max-w-[1180px] mx-auto md:pt-[calc(80px_+_0px)] pb-[130px] bg-white">
-				<div className="mark w-full md:mt-6 2xl:px-20 lg:px-10 md:px-8">
-					<div className="mark-b overflow-hidden rounded-2xl relative grid grid-cols-4 grid-rows-2 min-h-[400px] max-h-[calc(60vh_-_64px)] h-full gap-2">
+			<section className="w-full relative h-full min-h-svh max-w-[1180px] mx-auto md:pt-[calc(80px_+_0px)] pb-[130px] bg-white">
+				<div className="w-full md:mt-6 2xl:px-20 lg:px-10 md:px-8">
+					<div className="overflow-hidden rounded-2xl hidden relative md:grid grid-cols-4 grid-rows-2 min-h-[400px] max-h-[calc(60vh_-_64px)] h-full gap-2">
 						{[...Array(5)].map((_, index) => (
-							<div className={cn("mark w-full relative h-full", index === 0 && "col-span-2 row-span-2")} key={index}>
+							<div className={cn("w-full relative h-full", index === 0 && "col-span-2 row-span-2")} key={index}>
 								<Image
 									src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
 									alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
-									className="object-cover w-full"
+									className="object-cover w-full hover:brightness-90 transition-all duration-150"
 									fill
 								/>
+								{/* <div className="bg-black absolute inset-0"></div>*/}
 							</div>
 						))}
 						<div className="absolute bottom-4 right-4">
-							<Button variant={"outline"} className="font-semibold text-[0.8rem] h-8 border-black border-2 rounded-lg px-3">
+							<Button variant={"outline"} className="font-bold text-xs h-8 border-black border-2 rounded-lg px-3">
 								<div>
 									<svg
 										xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -49,11 +54,10 @@ const Page = () => {
 								Show all photos
 							</Button>
 						</div>
-						{/* <div className="mark w-full h-full col-span-2 row-span-2"></div>
-						<div className="mark w-full h-full"></div>
-						<div className="mark w-full h-full"></div>
-						<div className="mark w-full h-full"></div>
-						<div className="mark w-full h-full"></div> */}
+					</div>
+
+					<div className="w-full md:hidden">
+						<EmblaCarousel slides={SLIDES} options={{ containScroll: "trimSnaps", dragFree: false, loop: false, align: "start" }} />
 					</div>
 				</div>
 
@@ -73,9 +77,13 @@ const Page = () => {
 									Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci dolores iure sit perspiciatis alias aspernatur cumque sunt
 								</h2>
 							</div>
+
+							<div className="mark mt-36 p-8">
+								<DoubleSlider />
+							</div>
 						</div>
 					</div>
-					<div className="mark-b w-[400px] h-[50vh] sticky top-[calc(80px_+_0px+_24px)] hidden md:block"></div>
+					<div className="w-[400px] h-[50vh] shadow-[0_3px_15px_7px_rgba(0,0,0,0.15)] rounded-xl sticky top-[calc(80px_+_0px+_24px)] hidden md:block"></div>
 				</div>
 
 				<div className="2xl:px-20 lg:px-10 md:px-8 px-4">
@@ -141,7 +149,7 @@ const Page = () => {
 			</section>
 
 			<MobileFooter />
-			<Footer />
+			<Footer maxWidth="max-w-[1180px]" />
 		</div>
 	);
 };

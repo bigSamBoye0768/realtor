@@ -2,11 +2,12 @@ import React from "react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export const Footer = () => {
+export const Footer = ({ maxWidth = "max-w-screen-3xl" }: { maxWidth?: string }) => {
 	return (
 		<div className="bg-[#eee] w-full">
-			<section className="w-full py-[36px] 2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-3xl mx-auto">
+			<section className={cn("w-full py-[36px] 2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-3xl mx-auto", maxWidth)}>
 				<div className="footerLinks__container">
 					<div className="footerLinks__wrap flex flex-col lg:flex-row">
 						<div className="footerSectionCover flex-1">
@@ -80,7 +81,7 @@ export const Footer = () => {
 				</div>
 			</section>
 
-			<section className="2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-3xl mx-auto">
+			<section className={cn("2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-3xl mx-auto", maxWidth)}>
 				<div className="flex items-start justify-center border-t-2  py-[18px] gap-2 flex-col md:items-center lg:flex-row lg:justify-between">
 					<div className="flex flex-col items-start md:flex-row gap-x-2">
 						<div>© 2023 Nestquest, Inc.</div>

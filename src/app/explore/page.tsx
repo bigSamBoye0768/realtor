@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Listings, ListingsSkeleton } from "@/components/listing";
 import { Suspense } from "react";
 import { Filter } from "@/components/filter";
+import { Drawer } from "./_components/drawer";
 // import { Filter } from "@/components/filter";
 
 const Page = () => {
@@ -43,6 +44,8 @@ const Page = () => {
 
 				{/* <ListingDrawer /> */}
 			</section>
+
+			<Drawer />
 
 			<MobileFooterBar />
 			<Footer />

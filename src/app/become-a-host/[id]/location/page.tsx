@@ -1,7 +1,39 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import StepLayout from "../../_components/stepLayout";
+import { usePathname, useRouter } from "next/navigation";
+import { useStepNavigation } from "@/hooks/use-step-navigation";
 
 const Page = () => {
-    return <div>Location</div>;
+	const pathname = usePathname();
+	const [isLoading, setIsLoading] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(false);
+	const navigations = useStepNavigation();
+	const router = useRouter();
+
+	const handleNext = async () => {
+		setIsLoading(true);
+		setIsDisabled(true);
+
+		try {
+			console.log("inside", isLoading);
+
+			if (navigations.next) {
+				router.push(`/become-a-host/${pathname.split("/")[2]}/${navigations.next}`);
+			}
+		} catch (err) {
+			console.log(err);
+		} finally {
+			// optional: only reset loading if navigation failed
+		}
+	};
+
+	return (
+		<StepLayout onNext={handleNext} isNextLoading={isLoading} isNextDisabled={isDisabled}>
+			<div>Location</div>;
+		</StepLayout>
+	);
 };
 
 export default Page;

@@ -12,7 +12,7 @@ export default function AccountLayout({ children }: Readonly<{ children: React.R
 	return (
 		<div className="min-h-[100vh] h-full w-full">
 			<div className="w-full border-b shadow fixed hidden md:block top-0 bg-white z-40">
-				<Header showSearch={false} />
+				<Header showSearch={false} maxWidth="max-w-[1180px]" />
 			</div>
 
 			<section className="w-full h-full min-h-[100vh] max-w-screen-md mx-auto px-4 md:pt-[70px] pb-[70px]">
@@ -21,7 +21,7 @@ export default function AccountLayout({ children }: Readonly<{ children: React.R
 
 			<MobileFooterBar />
 			<div className="hidden md:block w-full">
-				<Footer />
+				<Footer maxWidth="max-w-[1180px]" />
 			</div>
 		</div>
 	);

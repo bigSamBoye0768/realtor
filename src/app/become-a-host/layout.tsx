@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Header } from "./_components/header";
-import { Footer } from "./_components/footer";
 
 export const metadata: Metadata = {
 	title: "Become a host",
@@ -12,39 +10,5 @@ export default function BecomeAHostLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return (
-		<div className="w-full min-h-svh relative">
-			<div className="w-full fixed top-0 px-3.5 lg:px-12 bg-white z-50">
-				<Header />
-			</div>
-			<main className="w-full min-h-svh h-full ">{children}</main>
-			<div className="w-full fixed bottom-0 bg-white">
-				<Footer />
-			</div>
-		</div>
-	);
+	return <>{children}</>;
 }
-
-// import Header from "@/components/header";
-// import Main from "@/components/main";
-// import type { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//     title: "seller.smart.com",
-//     description: "Login into your account",
-// };
-
-// export default function DashboardLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
-//     return (
-//         <div className="bg-[#1a1a1a] h-[100svh] w-full relative overflow-hidden">
-//             <div className="h-[3.5rem] w-full fixed top-0 left-0 right-0">
-//                 <Header />
-//             </div>
-//             <div className="h-[calc(100svh_-_3.5rem)] bg-white fixed bottom-0 w-full left-0 right-0 rounded-t-xl overflow-hidden">
-//                 <Main>
-//                     {children}
-//                 </Main>
-//             </div>
-//         </div>
-//     );
-// }

@@ -5,6 +5,9 @@ import { cn } from "@/lib/utils";
 import { Amenity, AmenityItem } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons/amenities.icons";
+import StepLayout from "../../_components/stepLayout";
+import { usePathname, useRouter } from "next/navigation";
+import { useStepNavigation } from "@/hooks/use-step-navigation";
 
 type AmenityGroup = {
 	title?: string;
@@ -52,6 +55,29 @@ const amenityGroups: AmenityGroup[] = [
 ];
 
 const Page = () => {
+	const pathname = usePathname();
+	const [isLoading, setIsLoading] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(false);
+	const navigations = useStepNavigation();
+	const router = useRouter();
+
+	const handleNext = async () => {
+		setIsLoading(true);
+		setIsDisabled(true);
+
+		try {
+			console.log("inside", isLoading);
+
+			if (navigations.next) {
+				router.push(`/become-a-host/${pathname.split("/")[2]}/${navigations.next}`);
+			}
+		} catch (err) {
+			console.log(err);
+		} finally {
+			// optional: only reset loading if navigation failed
+		}
+	};
+
 	const [selected, setSelected] = useState<Amenity[]>([]);
 
 	console.log(selected);
@@ -61,37 +87,39 @@ const Page = () => {
 	};
 
 	return (
-		<div className="w-full min-h-svh py-20 h-full px-4">
-			<div className="max-w-screen-sm w-full mx-auto pt-2">
-				<h1 className="text-2xl md:text-3xl font-semibold py-4 animate-list-stagger">Tell guests what your place has to offer </h1>
-				<div>
-					{amenityGroups.map((group, index) => (
-						<div key={index} className="mb-8 mt-3">
-							{group.title && <h2 className="text-lg font-semibold mt-6 mb-4">{group.title}</h2>}
-							<div className="grid grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] gap-3">
-								{group.items.map((item, i) => {
-									const isActive = selected.includes(item.value);
-									return (
-										<Button
-											variant={"ghost"}
-											key={i}
-											className={cn(
-												"w-full h-full cursor-pointer flex flex-col justify-between items-start gap-1 p-4 rounded-xl",
-												isActive ? "bg-white box-shadow hover:bg-white" : "bg-[#F7F7F7] text-black/70"
-											)}
-											onClick={() => toggleAmenity(item.value)}
-										>
-											<div>{item.icon}</div>
-											<div className="text-left font-[550] text-sm">{item.label}</div>
-										</Button>
-									);
-								})}
+		<StepLayout onNext={handleNext} isNextLoading={isLoading} isNextDisabled={isDisabled}>
+			<div className="w-full min-h-svh py-20 h-full px-4">
+				<div className="max-w-screen-sm w-full mx-auto pt-2">
+					<h1 className="text-2xl md:text-3xl font-semibold py-4 animate-list-stagger">Tell guests what your place has to offer </h1>
+					<div>
+						{amenityGroups.map((group, index) => (
+							<div key={index} className="mb-8 mt-3">
+								{group.title && <h2 className="text-lg font-semibold mt-6 mb-4">{group.title}</h2>}
+								<div className="grid grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] gap-3">
+									{group.items.map((item, i) => {
+										const isActive = selected.includes(item.value);
+										return (
+											<Button
+												variant={"ghost"}
+												key={i}
+												className={cn(
+													"w-full h-full cursor-pointer flex flex-col justify-between items-start gap-1 p-4 rounded-xl",
+													isActive ? "bg-white box-shadow hover:bg-white" : "bg-[#F7F7F7] text-black/70"
+												)}
+												onClick={() => toggleAmenity(item.value)}
+											>
+												<div>{item.icon}</div>
+												<div className="text-left font-[550] text-sm whitespace-normal">{item.label}</div>
+											</Button>
+										);
+									})}
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
-		</div>
+		</StepLayout>
 	);
 };
 
