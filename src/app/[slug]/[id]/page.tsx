@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import EmblaCarousel from "./_components/carousel/EmblaCarousel";
 import { DoubleSlider } from "@/components/ui/double-slider";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SLIDE_COUNT = 10;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
@@ -72,10 +74,105 @@ const Page = () => {
 								<div className="mark w-full h-full"></div>
 							</div> */}
 
-							<div className="mark">
-								<h2 className="font-bold text-xl line-clamp-2">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci dolores iure sit perspiciatis alias aspernatur cumque sunt
-								</h2>
+							<div className="mark-b pb-6 border-b border-black/20">
+								<h2 className="font-semibold text-xl line-clamp-2">Entire condo in Accra, Ghana</h2>
+
+								<div className="mt-1 flex items-center gap-2 text-sm">
+									<span>2 guests</span>
+									<Separator orientation="vertical" className="min-w-[4px] max-h-[4px] bg-black/80" />
+									<span>1 bed</span>
+									<Separator orientation="vertical" className="min-w-[4px] max-h-[4px] bg-black/80" />
+									<span>1 bath</span>
+								</div>
+							</div>
+
+							<div className="border-b border-black/20 py-6">
+								<div className="flex gap-6">
+									<div className="relative w-[40px] h-[40px] aspect-square rounded-full overflow-hidden">
+										<Image
+											src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
+											alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
+											className="object-cover"
+											fill
+										/>
+									</div>
+									<div>
+										<div className="text-base font-semibold">Hosted by Ariadna</div>
+										<div className="text-sm">1 year hosting</div>
+									</div>
+								</div>
+							</div>
+
+							<div className="border-b border-black/20 py-6">
+								<div className="flex flex-col gap-y-4">
+									{[...Array(3)].map((_, index) => (
+										<div className="flex gap-6" key={index}>
+											<div className="relative w-[40px] h-[40px] aspect-square flex justify-center overflow-hidden">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													viewBox="0 0 32 32"
+													aria-hidden="true"
+													role="presentation"
+													focusable="false"
+													width="32"
+													height="32"
+													style={{ display: "block", height: "24px", width: "24px", fill: "currentcolor" }}
+												>
+													<path
+														d="M24.33 1.67a2 2 0 0 1 2 1.85v24.81h3v2H2.67v-2h3V3.67a2 2 0 0 1 1.85-2h.15zm-4 2H7.67v24.66h12.66zm4 0h-2v24.66h2zm-7 11a1.33 1.33 0 1 1 0 2.66 1.33 1.33 0 0 1 0-2.66z"
+														fill="#222222"
+													></path>
+												</svg>
+											</div>
+											<div className="w-full">
+												<div className="text-base font-semibold">Self check-in</div>
+												<div className="text-sm">Check yorself in with the lockbox.</div>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+
+							<div className="border-b border-black/20 py-6">
+								<h2 className="font-semibold text-xl">Meet your Host</h2>
+
+								<div className="bg-[#f0efe9] rounded-3xl mark mt-6">
+									<div className="w-full px-4 py-6">
+										<div className="mark-b w-full max-w-sm mx-auto">
+											<div className="bg-white rounded-3xl w-full shadow-[0_6px_20px_rgba(0,0,0,0.2)] p-4 flex">
+												<div className="mark">
+													<div className="mark-b relative  w-[90px] h-[90px] aspect-square rounded-full">
+														<div className="relative w-full h-full rounded-full overflow-hidden">
+															<Image
+																src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
+																alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
+																className="object-cover"
+																fill
+															/>
+														</div>
+														<div className="w-7 h-7 aspect-square flex items-center justify-center absolute bottom-0 right-0 bg-green-500 rounded-full">
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 32 32"
+																aria-label="Verified host"
+																role="img"
+																focusable="false"
+																style={{ display: "block", height: "16px", width: "16px", fill: "white" }}
+															>
+																<path d="m16 .8.56.37C20.4 3.73 24.2 5 28 5h1v12.5C29 25.57 23.21 31 16 31S3 25.57 3 17.5V5h1c3.8 0 7.6-1.27 11.45-3.83L16 .8zm7 9.08-9.5 9.5-4.5-4.5L6.88 17l6.62 6.62L25.12 12 23 9.88z"></path>
+															</svg>
+														</div>
+													</div>
+													<div className="text-center">
+														<h2 className="font-semibold text-lg">Ariadna Donovan</h2>
+														<div>Host</div>
+													</div>
+												</div>
+												<div className="w-full mark"></div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 
 							<div className="mark mt-36 p-8">
@@ -145,6 +242,15 @@ const Page = () => {
 						neque earum accusantium, provident itaque, dolore eum animi aut odit nulla ad soluta. Enim quia veritatis repudiandae quisquam laudantium
 						sed cumque quis neque? Voluptatibus ut dolor nulla cumque consectetur quasi.
 					</p>
+				</div>
+
+				<div className="2xl:px-20 lg:px-10 md:px-8 border-t border-black/20 py-6">
+					<h2 className="font-semibold text-xl">Location</h2>
+					<div>Accra, Ghana</div>
+
+					<div>
+						<Skeleton className="w-full h-[400px]" />
+					</div>
 				</div>
 			</section>
 

@@ -19,7 +19,7 @@ const Page = () => {
 							<div className="grid grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] md:grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 md:gap-6">
 								{[...Array(2)].map((_, index) => (
 									<div key={index} className="">
-										<div className="w-full grid grid-cols-2 grid-rows-2 w-full aspect-square rounded-3xl overflow-hidden gap-1.5">
+										<div className="w-full grid grid-cols-2 grid-rows-2 aspect-square rounded-3xl overflow-hidden gap-1.5">
 											{[...Array(4)].map((_, index) => (
 												<div key={index} className="bg-gray-400"></div>
 											))}
