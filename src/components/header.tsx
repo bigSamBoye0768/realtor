@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Icons } from "./icons";
 import { Filter } from "./filter";
+import { useNavLinks } from "@/hooks/use-nav-links";
+import { useUser } from "@clerk/nextjs";
+import { Skeleton } from "./ui/skeleton";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
 const placeholder = "Search by address, city, or neighbourhood";
 
@@ -16,6 +20,8 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 	const headerRef = useRef<HTMLElement>(null);
 	const headerSearchRef = useRef<HTMLDivElement>(null);
 	const searchBtnRef = useRef<HTMLButtonElement>(null);
+
+	const items = useNavLinks();
 
 	const [openMenuLinks, setOpenMenuLinks] = useState(false);
 	const [open, setOpen] = useState<boolean>(false);
@@ -161,7 +167,7 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 										</g>
 									</svg>
 								</div>
-								<div className="flex items-center justify-center">
+								{/* <div className="flex items-center justify-center ">
 									<svg
 										viewBox="0 0 32 32"
 										width="28"
@@ -176,7 +182,8 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 											fill="#717171"
 										></path>
 									</svg>
-								</div>
+								</div> */}
+								<UserIcon />
 							</Button>
 							{/* {openMenuLinks && ( */}
 							<div
@@ -190,10 +197,23 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 								)}
 							>
 								<ul className="w-full  flex flex-col py-3">
+									{items.map((item, i) => (
+										<li key={i} className="border-b last:border-none">
+											{"href" in item ? (
+												<Link href={item.href} className="flex py-2 px-3 text-sm hover:bg-black/5">
+													<div className="w-full border-0 border-b-1 justify-start rounded-none">{item.label}</div>
+												</Link>
+											) : (
+												<button className="flex py-2 px-3 text-sm hover:bg-black/5 w-full" type="button" onClick={item.onClick}>
+													<div className="w-full border-0 border-b-1 text-left justify-start rounded-none">{item.label}</div>{" "}
+												</button>
+											)}
+										</li>
+									))}
 									{/* <li>
                                     <Button variant="outline" className='w-full border-0 border-b-1 justify-start rounded-none' size="lg">Login</Button>
                                 </li> */}
-									<li className="border-b last:border-none">
+									{/* <li className="border-b last:border-none">
 										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
 											<div className="w-full border-0 border-b-1 justify-start rounded-none">Signup</div>
 										</Link>
@@ -202,7 +222,7 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
 											<div className="w-full border-b-2 last:border-b-0 justify-start rounded-none">Account</div>
 										</Link>
-									</li>
+									</li> */}
 								</ul>
 							</div>
 						</div>
@@ -490,3 +510,48 @@ export const HeaderSkeleton = () => {
 // box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 // box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 // 0 8px 28px rgba(0, 0, 0, 0.28)
+
+export function UserIcon() {
+	const { isLoaded, isSignedIn, user } = useUser();
+
+	// While Clerk loads: show circular skeleton at 28×28
+	if (!isLoaded) {
+		return (
+			<div className="flex h-7 w-7 items-center justify-center " aria-busy="true">
+				<Skeleton className="h-7 w-7 rounded-full" />
+			</div>
+		);
+	}
+
+	// Same size as your SVG: 28x28 => h-7 w-7
+	if (!isSignedIn) {
+		return (
+			<div className="flex h-7 w-7 items-center justify-center ">
+				<svg viewBox="0 0 32 32" width="28" height="28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false">
+					<path
+						d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"
+						fill="#717171"
+					></path>
+				</svg>
+			</div>
+		);
+	}
+
+	const initials = (user?.firstName?.[0] ?? "") + (user?.lastName?.[0] ?? "");
+
+	return (
+		<Avatar className="h-7 w-7">
+			<AvatarImage src={user?.imageUrl ?? ""} alt={user?.fullName ?? "Account"} />
+			<AvatarFallback className="text-[10px] text-neutral-500">
+				{initials || (
+					<svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden="true">
+						<path
+							d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"
+							fill="currentColor"
+						/>
+					</svg>
+				)}
+			</AvatarFallback>
+		</Avatar>
+	);
+}

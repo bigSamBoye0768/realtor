@@ -1,32 +1,51 @@
 "use client";
 
-import React from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { useEffect, useRef } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { Skeleton } from "../ui/skeleton";
 import { Loader } from "../ui/loader";
 
-const containerStyle = {
-	width: "100%",
-	height: "400px",
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN as string;
+
+type Props = {
+	initialLng?: number;
+	initialLat?: number;
+	initialZoom?: number;
+	styleUrl?: string;
 };
 
-const center = {
-	lat: 5.614818, // Example: Accra
-	lng: -0.205874,
-};
+export default function Map({
+	initialLng = -74.5,
+	initialLat = 40,
+	initialZoom = 9,
+	styleUrl = "mapbox://styles/sam-boi0768/cmc62esbk026z01sd74eng2ts", // e.g. 'mapbox://styles/mapbox/streets-v12'
+}: Props) {
+	const containerRef = useRef<HTMLDivElement | null>(null);
+	const mapRef = useRef<mapboxgl.Map | null>(null);
 
-export default function Map() {
-	const { isLoaded } = useJsApiLoader({
-		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!, // Don't forget the !
-	});
+	useEffect(() => {
+		if (!containerRef.current || mapRef.current) return;
 
-	if (!isLoaded) return <MapLoading />;
+		mapRef.current = new mapboxgl.Map({
+			container: containerRef.current,
+			// If you omit style, v3 defaults to the Mapbox Standard style.
+			style: styleUrl ?? undefined,
+			center: [initialLng, initialLat],
+			zoom: initialZoom,
+		});
 
-	return (
-		<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-			{/* Children like Marker can go here */}
-		</GoogleMap>
-	);
+		// Optional controls
+		mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+		mapRef.current.addControl(new mapboxgl.GeolocateControl({ trackUserLocation: true }));
+
+		return () => {
+			mapRef.current?.remove();
+			mapRef.current = null;
+		};
+	}, [initialLng, initialLat, initialZoom, styleUrl]);
+
+	return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
 }
 
 export const MapLoading = () => {
@@ -39,3 +58,126 @@ export const MapLoading = () => {
 		</div>
 	);
 };
+
+// "use client";
+
+// import { useEffect, useRef, useState } from "react";
+// import mapboxgl from "mapbox-gl";
+// import "mapbox-gl/dist/mapbox-gl.css";
+// import { Skeleton } from "../ui/skeleton";
+// import { Loader } from "../ui/loader";
+
+// mapboxgl.accessToken = process.env.MAPBOX_TOKEN as string; // make sure this is exposed to the client
+
+// type Props = {
+//   initialLng?: number;
+//   initialLat?: number;
+//   initialZoom?: number;
+//   styleUrl?: string;
+// };
+
+// export default function Map({
+//   initialLng = -74.5,
+//   initialLat = 40,
+//   initialZoom = 9,
+//   styleUrl = "mapbox://styles/sam-boi0768/cmc62esbk026z01sd74eng2ts", // e.g. 'mapbox://styles/mapbox/streets-v12'
+// }: Props) {
+//   const wrapperRef = useRef<HTMLDivElement | null>(null);
+//   const containerRef = useRef<HTMLDivElement | null>(null);
+//   const mapRef = useRef<mapboxgl.Map | null>(null);
+
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     if (!containerRef.current || mapRef.current) return;
+
+//     if (!mapboxgl.accessToken) {
+//       setErrorMsg("Missing MAPBOX_TOKEN.");
+//       setIsLoading(false);
+//       return;
+//     }
+//     if (!mapboxgl.supported()) {
+//       setErrorMsg("Your browser does not support Mapbox GL.");
+//       setIsLoading(false);
+//       return;
+//     }
+
+//     const map = new mapboxgl.Map({
+//       container: containerRef.current,
+//       style: styleUrl ?? undefined,
+//       center: [initialLng, initialLat],
+//       zoom: initialZoom,
+//     });
+//     mapRef.current = map;
+
+//     // Optional controls
+//     map.addControl(new mapboxgl.NavigationControl(), "top-right");
+//     map.addControl(new mapboxgl.GeolocateControl({ trackUserLocation: true }));
+
+//     const onLoad = () => setIsLoading(false);
+//     const onError = (e: any) => {
+//       // Mapbox fires lots of tile errors; only show blocking errors before style loads
+//       if (!map.isStyleLoaded()) {
+//         const msg =
+//           e?.error?.message ||
+//           e?.error?.statusText ||
+//           "Failed to load the map.";
+//         setErrorMsg(msg);
+//         setIsLoading(false);
+//       }
+//     };
+
+//     map.on("load", onLoad);
+//     map.on("error", onError);
+
+//     return () => {
+//       map.off("load", onLoad);
+//       map.off("error", onError);
+//       map.remove();
+//       mapRef.current = null;
+//     };
+//   }, [initialLng, initialLat, initialZoom, styleUrl]);
+
+//   return (
+//     <div ref={wrapperRef} className="relative w-full h-full">
+//       {/* Map fills parent */}
+//       <div ref={containerRef} className="absolute inset-0" />
+
+//       {/* Loading overlay */}
+//       {isLoading && !errorMsg && (
+//         <div className="absolute inset-0">
+//           <Skeleton className="w-full h-full rounded-none" />
+//           <div className="absolute rounded-3xl bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-4 shadow-[rgba(0,0,0,0.15)_0px_2px_8px]">
+//             <Loader className="w-1.5 h-1.5" />
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Error overlay */}
+//       {errorMsg && (
+//         <div className="absolute inset-0 grid place-items-center">
+//           <div className="max-w-sm rounded-md border bg-white p-4 text-center shadow-sm">
+//             <p className="text-sm text-red-600 font-medium">Map error</p>
+//             <p className="mt-1 text-sm text-black/80">{errorMsg}</p>
+//             <p className="mt-2 text-xs text-black/60">
+//               Check your <code>MAPBOX_TOKEN</code> and <code>styleUrl</code>.
+//             </p>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// /** Skeleton-only version you can use as a Suspense/dynamic import fallback elsewhere */
+// export const MapLoading = () => {
+//   return (
+//     <div className="w-full h-full relative">
+//       <Skeleton className="w-full h-full rounded-none" />
+//       <div className="absolute rounded-3xl bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-4 shadow-[rgba(0,0,0,0.15)_0px_2px_8px]">
+//         <Loader className="w-1.5 h-1.5" />
+//       </div>
+//     </div>
+//   );
+// };

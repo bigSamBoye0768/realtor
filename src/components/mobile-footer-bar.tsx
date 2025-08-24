@@ -1,14 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 // import Image from 'next/image';
 import { usePathname } from "next/navigation";
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import { Skeleton } from "./ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-const routes = [
+type RouteItem = {
+	title: string;
+	url: string;
+	icon?: React.ReactNode;
+	activeIcon?: React.ReactNode;
+	kind?: "normal" | "account"; // special render logic for the last item
+};
+
+const baseRoutes: RouteItem[] = [
 	{
 		title: "Explore",
 		url: `/explore`,
@@ -33,17 +44,41 @@ const routes = [
 		icon: Icons.inbox(),
 		activeIcon: Icons.inbox(),
 	},
-	{
-		title: "Log in",
-		url: `/account-settings`,
-		icon: Icons.user(),
-		activeIcon: Icons.userBlack(),
-	},
 ];
 
 export const MobileFooterBar = () => {
 	const pathname = usePathname();
 	console.log(pathname);
+
+	const { isLoaded, isSignedIn, user } = useUser();
+
+	// Build the last item based on auth state
+	const accountRoute: RouteItem = useMemo(() => {
+		if (!isLoaded) {
+			// Placeholder while loading; URL won’t be used, but keep structure consistent
+			return {
+				title: " ",
+				url: "#",
+				kind: "account",
+			};
+		}
+		if (isSignedIn) {
+			return {
+				title: "Account",
+				url: "/account-settings",
+				kind: "account",
+			};
+		}
+		return {
+			title: "Log in",
+			url: "/sign-in",
+			icon: Icons.user(),
+			activeIcon: Icons.userBlack(),
+			kind: "account",
+		};
+	}, [isLoaded, isSignedIn]);
+
+	const routes = [...baseRoutes, accountRoute];
 
 	const matches = useIsMobile();
 	const [isVisible, setIsVisible] = useState(true);
@@ -68,6 +103,8 @@ export const MobileFooterBar = () => {
 
 	if (!matches) return null;
 
+	const initials = (user?.firstName?.[0] ?? "") + (user?.lastName?.[0] ?? "");
+
 	return (
 		<footer
 			className={`w-full h-[60px] flex border-t fixed bottom-0 z-20 bg-white left-0 right-0 transition-all duration-250 ease-in-out ${
@@ -75,27 +112,43 @@ export const MobileFooterBar = () => {
 			}`}
 		>
 			<div className="flex max-w-[500px] w-full mx-auto items-center flex-nowrap">
-				{routes.map((route, index) => (
-					<Link
-						href={route.url}
-						key={index}
-						className={cn(
-							"flex border-t-2 border-transparent h-full flex-col w-[25%] items-center justify-between py-1",
-							pathname === route.url && "border-black"
-						)}
-					>
-						{pathname === route.url ? route.activeIcon : route.icon}
-						{/* <Image src={`${pathname === '/' ? "/home-black.svg" : "/home.svg"}`} alt='user svg' width={25} height={25} /> */}
-						<span
+				{routes.map((route, index) => {
+					const isActive = pathname === route.url;
+					return (
+						<Link
+							href={route.url}
+							key={index}
 							className={cn(
-								"text-[11px] overflow-hidden text-black/80 text-ellipsis whitespace-nowrap",
-								pathname === route.url && "font-bold text-black"
+								"flex border-t-2 border-transparent h-full flex-col w-[25%] items-center justify-between py-1",
+								isActive && "border-black"
 							)}
 						>
-							{route.title}
-						</span>
-					</Link>
-				))}
+							{/* Icon/Avatar area */}
+							{route.kind !== "account" ? (
+								isActive ? (
+									route.activeIcon
+								) : (
+									route.icon
+								)
+							) : !isLoaded ? (
+								<Skeleton className="h-6 w-6 rounded-full" />
+							) : isSignedIn ? (
+								<Avatar className="h-6 w-6">
+									<AvatarImage src={user?.imageUrl ?? ""} alt={user?.fullName ?? "Account"} />
+									<AvatarFallback className="text-[9px]">{initials || "👤"}</AvatarFallback>
+								</Avatar>
+							) : isActive ? (
+								Icons.userBlack()
+							) : (
+								Icons.user()
+							)}
+
+							<span className={cn("text-[11px] overflow-hidden text-black/80 text-ellipsis whitespace-nowrap", isActive && "font-bold text-black")}>
+								{route.title}
+							</span>
+						</Link>
+					);
+				})}
 			</div>
 		</footer>
 	);
