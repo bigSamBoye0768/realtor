@@ -35,27 +35,27 @@ export const Footer = ({ maxWidth = "max-w-screen-3xl" }: { maxWidth?: string })
 							</ul>
 						</div>
 						<div className="footerSectionCover flex-1 footerLinks__wrap--child mt-4 lg:mt-0">
-							<h3 className="font-semibold">Nestquest host</h3>
+							<h3 className="font-semibold">Rentout host</h3>
 							<ul className="footerSectionList flex lg:flex-col flex-wrap">
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
-									<Link href="/become-a-host/434545464/overview">List your property</Link>
+									<Link href="/host-homes">List your property</Link>
 								</li>
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
-									<a href="">Advertise on Nestquest</a>
+									<a href="">Advertise on Rentout</a>
 								</li>
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
-									<a href="">Explore host resources</a>
+									<Link href="/host-homes">Explore host resources</Link>
 								</li>
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
 									<a href="">Visit our community forum</a>
 								</li>
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
-									<a href="">How to host responsibly</a>
+									<Link href="/host-homes">How to host responsibly</Link>
 								</li>
 							</ul>
 						</div>
 						<div className="footerSectionCover flex-1 footerLinks__wrap--child  footerLinksLastChild mt-4 lg:mt-0">
-							<h3 className="font-semibold">Nestquest</h3>
+							<h3 className="font-semibold">Rentout</h3>
 							<ul className="footerSectionList flex lg:flex-col flex-wrap">
 								<li className="basis-[100%] md:basis-[33.33333333333%]">
 									<a href="">Newsroom</a>
@@ -84,7 +84,7 @@ export const Footer = ({ maxWidth = "max-w-screen-3xl" }: { maxWidth?: string })
 			<section className={cn("2xl:px-20 lg:px-10 md:px-8 px-4 max-w-screen-3xl mx-auto", maxWidth)}>
 				<div className="flex items-start justify-center border-t-2  py-[18px] gap-2 flex-col md:items-center lg:flex-row lg:justify-between">
 					<div className="flex flex-col items-start md:flex-row gap-x-2">
-						<div>© 2023 Nestquest, Inc.</div>
+						<div>© {new Date().getFullYear()} Rentout, Inc.</div>
 						<div className="flex items-center">
 							<Separator orientation="vertical" className="min-w-[2px] max-h-[2px] bg-black/80" />
 							<span>

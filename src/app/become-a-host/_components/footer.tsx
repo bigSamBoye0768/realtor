@@ -303,6 +303,8 @@ export const Footer = ({ onNext, isNextDisabled, isNextLoading, backStep }: Step
 
 	const buildPath = (slug: string) => `/become-a-host/${id}/${slug}`;
 
+	if (pathname === "/become-a-host") return null;
+
 	return (
 		<footer className="flex mx-auto h-[80px] px-3.5 lg:px-12 w-full">
 			<div className="w-full absolute top-0 left-0 flex items-center gap-x-1 right-0">

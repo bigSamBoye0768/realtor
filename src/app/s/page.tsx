@@ -7,11 +7,15 @@ import { MobileFooterBar } from "@/components/mobile-footer-bar";
 import { Button } from "@/components/ui/button";
 import { ListingSkeleton } from "@/components/listing";
 import Map from "@/components/map";
+import ErrorBoundary from "@/components/map/error-boundary";
+import { MapErrorFallback } from "@/components/map/map-error-fallback";
+import { useState } from "react";
 
 // import dynamic from "next/dynamic";
 
 // const Map = dynamic(() => import("@/components/map"), { ssr: false });
 const Page = () => {
+	const [mapKey, setMapKey] = useState(0);
 	return (
 		<div className="min-h-svh w-full">
 			<div className="w-full border-b shadow fixed left-0 right-0 top-0 bg-white z-[100]">
@@ -42,8 +46,10 @@ const Page = () => {
 							))}
 						</div>
 					</div>
-					<div className="w-[40%] h-[calc(100vh_-_(80px_+_65px))] sticky top-[calc(80px_+_65px)] hidden md:block">
-						<Map />
+					<div className="w-[40%] h-[calc(100vh_-_(80px_+_65px))] sticky top-[calc(80px_+_65px)] hidden md:block bg-primary/10">
+						<ErrorBoundary fallback={<MapErrorFallback onRetry={() => setMapKey((k) => k + 1)} />} resetKeys={[mapKey]}>
+							<Map key={mapKey} />
+						</ErrorBoundary>
 					</div>
 				</div>
 			</section>

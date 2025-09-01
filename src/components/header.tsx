@@ -11,49 +11,18 @@ import { useNavLinks } from "@/hooks/use-nav-links";
 import { useUser } from "@clerk/nextjs";
 import { Skeleton } from "./ui/skeleton";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const placeholder = "Search by address, city, or neighbourhood";
 
 export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { showSearch?: boolean; maxWidth?: string }) => {
-	const menuBtnRef = useRef<HTMLButtonElement>(null);
-	const menuLinks = useRef<HTMLDivElement>(null);
+	// const { isLoaded, isSignedIn, sessionClaims, } = useAuth();
+
 	const headerRef = useRef<HTMLElement>(null);
 	const headerSearchRef = useRef<HTMLDivElement>(null);
 	const searchBtnRef = useRef<HTMLButtonElement>(null);
 
-	const items = useNavLinks();
-
-	const [openMenuLinks, setOpenMenuLinks] = useState(false);
 	const [open, setOpen] = useState<boolean>(false);
-
-	const handleMenuOutsideClick = (event: MouseEvent) => {
-		console.log(event.target as Node);
-		console.log(headerRef.current);
-		// console.log(menuBtnRef.current?.contains(event.target as Node));
-		// console.log(headerSearchRef.current?.contains(event.target as Node));
-		console.log(headerRef.current !== event.target);
-
-		if (!menuBtnRef.current?.contains(event.target as Node) && menuLinks.current !== event.target) {
-			setOpenMenuLinks(false);
-		}
-
-		if (!headerSearchRef.current?.contains(event.target as Node)) {
-			setOpen(false);
-		}
-
-		// if (
-		// 	menuBtnRef.current &&
-		// 	!menuBtnRef.current.contains(event.target as Node)
-		// ) {
-		// 	setOpenMenuLinks(false);
-		// }
-	};
-	useEffect(() => {
-		document.addEventListener("mousedown", handleMenuOutsideClick);
-		return () => {
-			document.removeEventListener("mousedown", handleMenuOutsideClick);
-		};
-	}, []);
 
 	let lastScroll = 0;
 	const handleWindowScroll = () => {
@@ -71,23 +40,13 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 		return () => window.addEventListener("scroll", handleWindowScroll);
 	}, []);
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const handleLinkClick = (_e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		// console.log(e);
-		// setOpenMenuLinks(true);
-		// Only close if clicking an actual link (<a> tag)
-		// if (e.target.tagName === "A") {
-		// 	setOpenMenuLinks(false);
-		// }
-	};
-
 	return (
 		<>
 			<header className={cn("h-[80px] w-full hidden md:block max-w-screen-3xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto", maxWidth)} ref={headerRef}>
 				<div className=" flex  items-center w-full h-full">
 					<div className=" lg:flex-1 flex">
 						<Link href="/" className="inline-flex items-center  gap-1 text-black font-semibold text-base">
-							{Icons.house()} nestQuest
+							{Icons.house()} rentOut
 						</Link>
 					</div>
 
@@ -127,106 +86,7 @@ export const Header = ({ showSearch = true, maxWidth = "max-w-screen-3xl" }: { s
 						</div>
 					)}
 
-					<div className="flex-1 flex items-center justify-end  gap-2">
-						{/* <Filter
-							trigger={
-								<Button variant="outline" className="rounded-full h-10 font-semibold text-sm shadow-none">
-									Filter
-								</Button>
-							}
-						/> */}
-						<Link href={"/become-a-host/434545464/overview"} className="rounded-full">
-							<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
-								Become a host
-							</Button>
-						</Link>
-						<div className=" relative ">
-							<Button
-								variant="outline"
-								ref={menuBtnRef}
-								onClick={() => setOpenMenuLinks((val) => !val)}
-								className={cn(
-									"rounded-full bg-transparent flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
-									`${openMenuLinks ? "shadow-[#0000002e_0_2px_4px]" : "hover:shadow-[#0000002e_0_2px_4px]"}`
-								)}
-							>
-								<div className="flex items-center justify-center pl-1.5">
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 32 32"
-										xmlns="http://www.w3.org/2000/svg"
-										aria-hidden="true"
-										role="presentation"
-										focusable="false"
-									>
-										<g fill="none" fillRule="nonzero" stroke="#222222" strokeWidth="3px">
-											<path d="m2 16h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
-											<path d="m2 24h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
-											<path d="m2 8h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
-										</g>
-									</svg>
-								</div>
-								{/* <div className="flex items-center justify-center ">
-									<svg
-										viewBox="0 0 32 32"
-										width="28"
-										height="28"
-										xmlns="http://www.w3.org/2000/svg"
-										aria-hidden="true"
-										role="presentation"
-										focusable="false"
-									>
-										<path
-											d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"
-											fill="#717171"
-										></path>
-									</svg>
-								</div> */}
-								<UserIcon />
-							</Button>
-							{/* {openMenuLinks && ( */}
-							<div
-								ref={menuLinks}
-								onClick={(e) => handleLinkClick(e)}
-								data-state={openMenuLinks ? "toggleOpen" : "toggleClose"}
-								className={cn(
-									"bg-white  rounded-[16px] z-[60] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] h-fit overflow-hidden absolute top-[50px] right-0 transition-all duration-150",
-									"data-[state=toggleOpen]:visible data-[state=toggleOpen]:opacity-100",
-									"data-[state=toggleClose]:invisible data-[state=toggleClose]:opacity-0"
-								)}
-							>
-								<ul className="w-full  flex flex-col py-3">
-									{items.map((item, i) => (
-										<li key={i} className="border-b last:border-none">
-											{"href" in item ? (
-												<Link href={item.href} className="flex py-2 px-3 text-sm hover:bg-black/5">
-													<div className="w-full border-0 border-b-1 justify-start rounded-none">{item.label}</div>
-												</Link>
-											) : (
-												<button className="flex py-2 px-3 text-sm hover:bg-black/5 w-full" type="button" onClick={item.onClick}>
-													<div className="w-full border-0 border-b-1 text-left justify-start rounded-none">{item.label}</div>{" "}
-												</button>
-											)}
-										</li>
-									))}
-									{/* <li>
-                                    <Button variant="outline" className='w-full border-0 border-b-1 justify-start rounded-none' size="lg">Login</Button>
-                                </li> */}
-									{/* <li className="border-b last:border-none">
-										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
-											<div className="w-full border-0 border-b-1 justify-start rounded-none">Signup</div>
-										</Link>
-									</li>
-									<li className="border-b last:border-none">
-										<Link href="/account-settings" className="flex py-2 px-3 text-sm hover:bg-black/5">
-											<div className="w-full border-b-2 last:border-b-0 justify-start rounded-none">Account</div>
-										</Link>
-									</li> */}
-								</ul>
-							</div>
-						</div>
-					</div>
+					<RightSide />
 				</div>
 
 				<div
@@ -514,7 +374,6 @@ export const HeaderSkeleton = () => {
 export function UserIcon() {
 	const { isLoaded, isSignedIn, user } = useUser();
 
-	// While Clerk loads: show circular skeleton at 28×28
 	if (!isLoaded) {
 		return (
 			<div className="flex h-7 w-7 items-center justify-center " aria-busy="true">
@@ -542,7 +401,7 @@ export function UserIcon() {
 	return (
 		<Avatar className="h-7 w-7">
 			<AvatarImage src={user?.imageUrl ?? ""} alt={user?.fullName ?? "Account"} />
-			<AvatarFallback className="text-[10px] text-neutral-500">
+			<AvatarFallback className="text-[10px] text-neutral-500 uppercase">
 				{initials || (
 					<svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden="true">
 						<path
@@ -555,3 +414,79 @@ export function UserIcon() {
 		</Avatar>
 	);
 }
+
+export const RightSide = () => {
+	const items = useNavLinks();
+	// const { isLoaded, isSignedIn, sessionClaims } = useAuth();
+
+	return (
+		<div className="flex-1 flex items-center justify-end  gap-2">
+			<Link href={"/host-homes"} className="rounded-full">
+				<Button variant="ghost" className="rounded-full h-10 font-semibold text-sm shadow-none">
+					Become a host
+				</Button>
+			</Link>
+
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button
+						variant="outline"
+						className={cn(
+							"rounded-full bg-transparent flex items-center p-1.5 h-10 shadow-none hover:bg-transparent",
+							`data-[state=open]:shadow-[#0000002e_0_2px_4px] hover:shadow-[#0000002e_0_2px_4px] aria-[expanded=true]:shadow-md`
+						)}
+					>
+						<div className="flex items-center justify-center pl-1.5">
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 32 32"
+								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
+								role="presentation"
+								focusable="false"
+							>
+								<g fill="none" fillRule="nonzero" stroke="#222222" strokeWidth="3px">
+									<path d="m2 16h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+									<path d="m2 24h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+									<path d="m2 8h28" stroke="#222222" fill="none" strokeWidth="3px"></path>
+								</g>
+							</svg>
+						</div>
+						<UserIcon />
+					</Button>
+				</DropdownMenuTrigger>
+
+				<DropdownMenuContent
+					align="end"
+					sideOffset={8}
+					className="bg-white px-0 rounded-[16px] z-[100] max-h-[calc(100vh_-_150px)] shadow-[#0000001a_0_3px_6px_4px] w-[240px] transition-all duration-150"
+				>
+					{items.map((item, i) =>
+						"href" in item ? (
+							<DropdownMenuItem
+								asChild
+								key={i}
+								className="px-3 cursor-pointer capitalize py-2 text-sm hover:bg-black/5 focus:bg-black/5 border-b last:border-b-0 rounded-none"
+							>
+								<Link href={item.href} className="w-full">
+									{item.label}
+								</Link>
+							</DropdownMenuItem>
+						) : (
+							<DropdownMenuItem
+								asChild
+								key={i}
+								className="px-3 cursor-pointer py-2 text-sm hover:bg-black/5 focus:bg-black/5 border-b last:border-b-0 rounded-none"
+							>
+								<button type="button" onClick={item.onClick} className="w-full text-left">
+									{item.label}
+								</button>
+							</DropdownMenuItem>
+						)
+					)}
+				</DropdownMenuContent>
+			</DropdownMenu>
+		</div>
+	);
+};

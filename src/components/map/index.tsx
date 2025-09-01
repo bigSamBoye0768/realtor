@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Skeleton } from "../ui/skeleton";
 import { Loader } from "../ui/loader";
 
-mapboxgl.accessToken = process.env.MAPBOX_TOKEN as string;
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN as string; // Prefer NEXT_PUBLIC_MAPBOX_TOKEN for client-side
 
 type Props = {
 	initialLng?: number;
@@ -19,33 +19,68 @@ export default function Map({
 	initialLng = -74.5,
 	initialLat = 40,
 	initialZoom = 9,
-	styleUrl = "mapbox://styles/sam-boi0768/cmc62esbk026z01sd74eng2ts", // e.g. 'mapbox://styles/mapbox/streets-v12'
+	styleUrl = "mapbox://styles/sam-boi0768/cmc62esbk026z01sd74eng2ts",
 }: Props) {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const mapRef = useRef<mapboxgl.Map | null>(null);
+	const [error, setError] = useState<Error | null>(null);
+	const [isLoaded, setIsLoaded] = useState(false);
+
+	// Surface init errors to the ErrorBoundary
+	if (error) throw error;
 
 	useEffect(() => {
 		if (!containerRef.current || mapRef.current) return;
 
-		mapRef.current = new mapboxgl.Map({
-			container: containerRef.current,
-			// If you omit style, v3 defaults to the Mapbox Standard style.
-			style: styleUrl ?? undefined,
-			center: [initialLng, initialLat],
-			zoom: initialZoom,
-		});
+		try {
+			if (!mapboxgl.accessToken) {
+				throw new Error("Missing Mapbox access token");
+			}
 
-		// Optional controls
-		mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-		mapRef.current.addControl(new mapboxgl.GeolocateControl({ trackUserLocation: true }));
+			// ✅ Proactively detect WebGL support (and major perf caveats)
+			const supported = mapboxgl.supported({ failIfMajorPerformanceCaveat: true });
+			if (!supported) {
+				throw new Error("WebGL is not available or disabled in this browser");
+			}
 
-		return () => {
-			mapRef.current?.remove();
-			mapRef.current = null;
-		};
+			const map = new mapboxgl.Map({
+				container: containerRef.current,
+				style: styleUrl ?? undefined,
+				center: [initialLng, initialLat],
+				zoom: initialZoom,
+			});
+			mapRef.current = map;
+
+			map.addControl(new mapboxgl.NavigationControl(), "top-right");
+			map.addControl(new mapboxgl.GeolocateControl({ trackUserLocation: true }));
+
+			const onLoad = () => setIsLoaded(true);
+			map.once("load", onLoad);
+
+			// If Mapbox emits an error after init, surface it
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const onError = (e: any) => {
+				setError(new Error(e?.error?.message || "Mapbox encountered an error"));
+			};
+			map.on("error", onError);
+
+			return () => {
+				map.off("error", onError);
+				map.remove();
+				mapRef.current = null;
+				setIsLoaded(false);
+			};
+		} catch (e) {
+			setError(e instanceof Error ? e : new Error("Failed to initialize map"));
+		}
 	}, [initialLng, initialLat, initialZoom, styleUrl]);
 
-	return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+	return (
+		<div className="relative w-full h-full">
+			<div ref={containerRef} className="absolute inset-0" />
+			{!isLoaded && !error && <MapLoading />}
+		</div>
+	);
 }
 
 export const MapLoading = () => {
