@@ -3,7 +3,8 @@ import prisma from "@/lib/prisma";
 import { listingPatchSchema, toPrismaUpdate } from "@/lib/schemas/listingPatch";
 import { NextResponse } from "next/server";
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+	const { id } = await params;
 	const user = await getCurrentUser();
 
 	if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -21,7 +22,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 
 	// Verify ownership (use your own user lookup if needed)
 	const listing = await prisma.listing.findUnique({
-		where: { id: params.id },
+		where: { id: id },
 		include: { host: true },
 	});
 	if (!listing) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -69,7 +70,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 	}
 
 	const updated = await prisma.listing.update({
-		where: { id: params.id },
+		where: { id: id },
 		data: { ...data, ...(locationIdToSet ? { locationId: locationIdToSet } : {}) },
 		include: { location: true },
 	});
@@ -77,9 +78,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 	return NextResponse.json(updated);
 }
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+	const { id } = await params;
 	const listing = await prisma.listing.findUnique({
-		where: { id: params.id },
+		where: { id: id },
 		include: { location: true, host: { include: { user: true } } },
 	});
 
