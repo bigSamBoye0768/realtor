@@ -16,8 +16,8 @@ type Props = {
 };
 
 export default function Map({
-	initialLng = -74.5,
-	initialLat = 40,
+	initialLng = -0.186964,
+	initialLat = 5.603717,
 	initialZoom = 9,
 	styleUrl = "mapbox://styles/sam-boi0768/cmc62esbk026z01sd74eng2ts",
 }: Props) {

@@ -36,7 +36,7 @@ export default async function HostHomesPage() {
 
 						<h1 className="mt-4 text-5xl font-black leading-tight tracking-tight sm:text-6xl md:text-7xl">
 							Turn your <span className="underline decoration-neutral-300">place</span> into income with{" "}
-							<span className="bg-gradient-to-r from-black to-neutral-600 bg-clip-text text-transparent">ed rentout</span>.
+							<span className="bg-gradient-to-r from-black to-neutral-600 bg-clip-text text-transparent"> rentout</span>.
 						</h1>
 
 						<p className="mt-4 max-w-prose text-base text-neutral-600 md:text-lg">
@@ -157,7 +157,7 @@ export default async function HostHomesPage() {
 				<section id="get-started" className="mx-auto max-w-6xl px-4 py-10">
 					<div className="rounded-2xl border border-neutral-200 bg-neutral-100/60 p-8 md:p-10">
 						<h3 className="text-2xl font-bold md:text-3xl">
-							Ready to list on <span className="lowercase">ed rentout</span>?
+							Ready to list on <span className="lowercase"> rentout</span>?
 						</h3>
 						<p className="mt-2 text-neutral-600">Start with a title, a few photos, and your nightly price. You can finish later.</p>
 						<div className="mt-5 flex flex-wrap gap-3">
@@ -174,9 +174,9 @@ export default async function HostHomesPage() {
 					<h2 className="text-2xl font-semibold md:text-3xl">Frequently asked questions</h2>
 					<Accordion type="single" collapsible className="mt-4 max-w-3xl">
 						<AccordionItem value="q0">
-							<AccordionTrigger>Can locals book and host on ed rentout?</AccordionTrigger>
+							<AccordionTrigger>Can locals book and host on  rentout?</AccordionTrigger>
 							<AccordionContent>
-								Yes — ed rentout is for locals and travelers. Host your spare room, guesthouse or hotel and welcome people visiting for work, school,
+								Yes —  rentout is for locals and travelers. Host your spare room, guesthouse or hotel and welcome people visiting for work, school,
 								or events.
 							</AccordionContent>
 						</AccordionItem>
@@ -205,7 +205,7 @@ export default async function HostHomesPage() {
 			{/* FOOTER */}
 			<footer className="border-t border-neutral-200">
 				<div className="mx-auto max-w-6xl px-4 py-8 text-sm text-neutral-600">
-					<div>© {new Date().getFullYear()} ed rentout</div>
+					<div>© {new Date().getFullYear()}  rentout</div>
 					<div className="mt-2 flex flex-wrap gap-3">
 						<Link href="/about" className="hover:underline">
 							About

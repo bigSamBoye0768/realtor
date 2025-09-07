@@ -27,22 +27,6 @@ export const Header = ({ isHost, isLoggedIn }: { isHost: boolean; isLoggedIn: bo
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// const startHosting = async () => {
-	// 	setIsLoading(true);
-	// 	try {
-	// 		const res = await api.post("/host", {});
-	// 		const data = res.data;
-	// 		console.log(data);
-
-	// 		startTransition(() => router.push("/become-a-host"));
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 		toast.error("Something went wrong");
-	// 	} finally {
-	// 		setIsLoading(false);
-	// 	}
-	// };
-
 	return (
 		<header
 			className={`fixed inset-x-0 bottom-0 z-40 border-t border-neutral-200 bg-white/90 backdrop-blur transition-transform duration-300 ${
@@ -51,10 +35,9 @@ export const Header = ({ isHost, isLoggedIn }: { isHost: boolean; isLoggedIn: bo
 		>
 			{" "}
 			<div className="mx-auto flex h-12 max-w-6xl items-center justify-between px-3 sm:px-4">
-				{/* Logo + pill shown on md+ */}
 				<div className="hidden md:flex items-center gap-2 font-extrabold lowercase">
 					{/* <span className="inline-block h-6 w-6 rounded-md bg-black" /> */}
-					ed rentout
+					rentout
 					<span className="hidden lg:inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100/60 px-2 py-0.5 text-xs text-neutral-600">
 						Ghana &amp; Africa
 					</span>

@@ -1,6 +1,9 @@
 "use client";
 
+import { Loader } from "@/components/ui/loader";
 import { api } from "@/lib/axios-instance";
+import { cn } from "@/lib/utils";
+import { Listing } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
@@ -12,7 +15,7 @@ export const BahOptions = () => {
 	const createNewListing = () => {
 		startTransition(async () => {
 			try {
-				const res = await api.post("/listings", {});
+				const res = await api.post<Listing>("/listings", {});
 				const listing = res.data;
 				router.push(`/become-a-host/${listing.id}/overview`);
 			} catch {
@@ -21,16 +24,8 @@ export const BahOptions = () => {
 		});
 	};
 
-	// const res = await fetch("/api/listings", {
-	// 	method: "POST",
-	// 	headers: { "Content-Type": "application/json" },
-	// 	body: JSON.stringify({ userId: currentUser.id }),
-	// });
-	// const listing = await res.json();
-	// };
-
 	return (
-		<div className="start-new-listings w-full mt-[75px]">
+		<div className="start-new-listings w-full">
 			<h2 className="ucl-header font-semibold text-[22px] mt-[10px] mb-4 text-left text-neutral-700">Start a new listing</h2>
 
 			<div className="snl-options-container mb-[10px]">
@@ -52,10 +47,13 @@ export const BahOptions = () => {
 					</div>
 					<button
 						disabled={isPending}
-						className="snl-option-type flex items-center justify-between py-1 w-full cursor-pointer"
+						className="snl-option-type relative flex items-center justify-between py-1 w-full cursor-pointer"
 						onClick={createNewListing}
 					>
-						<div className="snl-opt-desc text-[16px] font-medium text-neutral-700">Create a new listing</div>
+						<div className={cn(isPending && "invisible", "snl-opt-desc text-[16px] font-medium text-neutral-700")}>Create a new listing</div>
+						<div className={cn("absolute inset-0 flex items-center justify-center opacity-0", isPending && "opacity-100")}>
+							<Loader className="bg-black" />
+						</div>
 						<div className="snl-opt-desc-svg flex items-center justify-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

@@ -113,6 +113,8 @@ export const steps = [
 
 export const flatPages = ["overview", ...steps.flat()];
 
+export type Step = (typeof flatPages)[number];
+
 export type Category = {
 	name: string;
 	image: string;
