@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import StepLayout from "../../_components/stepLayout";
 import { usePathname, useRouter } from "next/navigation";
 import { useStepNavigation } from "@/hooks/use-step-navigation";
@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { api } from "@/lib/axios-instance";
 import { toast } from "sonner";
+import debounce from "lodash.debounce";
+import { useQuery } from "@tanstack/react-query";
 
 type FormData = {
 	title: string;
@@ -21,68 +23,139 @@ const Page = () => {
 	const router = useRouter();
 	const navigations = useStepNavigation();
 
+	const [isSaving, setIsSaving] = useState(false);
+	const [formValid, setFormValid] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
 		watch,
 		reset,
-		formState: { errors, isSubmitting },
+		formState: { errors },
 	} = useForm<FormData>({
 		defaultValues: { title: "" },
 	});
 
 	const title = watch("title");
+	const lastSavedTitle = useRef<string>(""); // Track last saved value
+	const debouncedSave = useRef<ReturnType<typeof debounce> | null>(null);
 
-	// 🔹 Prefill with existing listing data
+	const { data, isLoading, isError, error, refetch } = useQuery({
+		queryKey: ["listing-structure", listingId],
+		queryFn: async () => {
+			const res = await api.get(`/listings/${listingId}`);
+			return res.data;
+		},
+		enabled: !!listingId,
+	});
+
+	// Prefill form
 	useEffect(() => {
-		const fetchListing = async () => {
-			try {
-				const res = await api.get(`/listings/${listingId}`);
-				if (res.data?.title) {
-					reset({ title: res.data.title });
+		if (data?.title) {
+			reset({ title: data.title });
+			lastSavedTitle.current = data.title;
+		}
+	}, [data, reset]);
+
+	// Form validation
+	useEffect(() => {
+		setFormValid(Boolean(title?.trim()));
+	}, [title]);
+
+	// Debounced Autosave
+	useEffect(() => {
+		if (!listingId || title === undefined) return;
+
+		// Initialize debounced save function once
+		if (!debouncedSave.current) {
+			debouncedSave.current = debounce(async (newTitle: string) => {
+				if (!newTitle.trim()) return;
+				if (newTitle === lastSavedTitle.current) return;
+
+				try {
+					setIsSaving(true);
+					await api.patch(`/listings/${listingId}`, {
+						title: newTitle,
+						currentStep: navigations.current,
+					});
+					lastSavedTitle.current = newTitle;
+				} catch (err) {
+					console.error("[AUTOSAVE] Failed", err);
+				} finally {
+					setIsSaving(false);
 				}
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			} catch (err: any) {
-				console.error("Failed to fetch listing", err);
-				toast.error("Could not load saved data");
-			}
-		};
-		if (listingId) fetchListing();
-	}, [listingId, reset]);
+			}, 800);
+		}
 
-	// 🔹 Autosave on typing
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			if (title) {
-				api.patch(`/listings/${listingId}`, { title }).catch((err) => {
-					console.error("Autosave failed", err);
-				});
-			}
-		}, 800); // debounce
+		// Cancel any running debounce and schedule a new one
+		debouncedSave.current.cancel();
+		debouncedSave.current(title);
 
-		return () => clearTimeout(timeout);
-	}, [title, listingId]);
+		return () => debouncedSave.current?.cancel();
+	}, [title, listingId, navigations]);
+
+	let disableAll: (v: boolean) => void = () => {};
+	let setButtonLoading: (b: "next" | "back" | "save" | null) => void = () => {};
 
 	const onSubmit = async (data: FormData) => {
+		disableAll(true);
+		setButtonLoading("next");
+
 		try {
-			await api.patch(`/listings/${listingId}`, {
-				title: data.title,
-				currentStep: navigations.next, // update progress
-			});
+			// cancel pending autosave to avoid double-save
+			debouncedSave.current?.cancel();
+
+			// Save only if changed since last save
+			if (data.title && data.title !== lastSavedTitle.current) {
+				await api.patch(`/listings/${listingId}`, {
+					title: data.title,
+					currentStep: navigations.current,
+				});
+				lastSavedTitle.current = data.title;
+			}
 
 			if (navigations.next) {
 				router.push(`/become-a-host/${listingId}/${navigations.next}`);
 			}
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			console.error(err);
-			toast.error(err?.response?.data?.error || err.message || "Something went wrong");
+			toast.error(err?.response?.data?.error || err.message || "Oops, something went wrong");
+		} finally {
+			setButtonLoading(null);
+			disableAll(false);
 		}
 	};
 
+	if (isError) {
+		return (
+			<div className="w-full min-h-svh h-full flex items-center">
+				<div className="p-4 bg-red-50 text-red-700 rounded-xl text-center">
+					<p className="text-sm font-medium">Failed to load listing.</p>
+					<p className="text-xs">{error?.message ?? "Please try again."}</p>
+					<button
+						onClick={() => refetch()}
+						className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+						disabled={isLoading}
+					>
+						{isLoading ? "Retrying..." : "Retry"}
+					</button>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<StepLayout onNext={handleSubmit(onSubmit)} isNextLoading={isSubmitting}>
+			<StepLayout
+				onNext={handleSubmit(onSubmit)}
+				onMount={(setDisabled, setLoadingButton) => {
+					disableAll = setDisabled;
+					setButtonLoading = setLoadingButton;
+				}}
+				isPrefetching={isLoading}
+				canProceed={formValid}
+			>
 				<div className="px-4 max-w-2xl mx-auto w-full min-h-svh py-20 h-full md:flex items-center justify-center">
 					<div className="w-full py-6">
 						<div className="w-full pb-3 animate-list-stagger">
@@ -94,9 +167,12 @@ const Page = () => {
 							<textarea
 								{...register("title", {
 									required: "Title is required",
-									maxLength: { value: MAX_LENGTH, message: `Max ${MAX_LENGTH} characters` },
+									maxLength: {
+										value: MAX_LENGTH,
+										message: `Max ${MAX_LENGTH} characters`,
+									},
 								})}
-								maxLength={MAX_LENGTH} // ⬅️ Prevent typing beyond limit
+								maxLength={MAX_LENGTH}
 								className={cn(
 									"outline-none border font-semibold text-base md:text-xl rounded-xl w-full min-h-44 p-3 md:p-4 transition",
 									errors.title
@@ -110,6 +186,9 @@ const Page = () => {
 						<div className={cn("animate-list-stagger delay-500 mt-1", errors.title ? "text-red-600" : "text-black/70")}>
 							{title?.length || 0}/{MAX_LENGTH}
 						</div>
+
+						{/* Saving indicator */}
+						{isSaving && <div className="text-sm text-gray-500 mt-2 animate-pulse">Saving...</div>}
 					</div>
 				</div>
 			</StepLayout>
@@ -118,6 +197,9 @@ const Page = () => {
 };
 
 export default Page;
+
+
+
 
 // "use client";
 

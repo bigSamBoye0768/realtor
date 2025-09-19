@@ -17,3 +17,5 @@ export const steps = [
 	"review",
 	"publish",
 ];
+
+export type LoadingButton = "next" | "back" | "save" | null;

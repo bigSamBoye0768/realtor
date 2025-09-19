@@ -8,6 +8,8 @@ import StepLayout from "../../_components/stepLayout";
 import { usePathname, useRouter } from "next/navigation";
 import { useStepNavigation } from "@/hooks/use-step-navigation";
 import { api } from "@/lib/axios-instance";
+import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 
 type BookingType = "REQUEST" | "INSTANT";
 
@@ -29,27 +31,53 @@ const bookOptions = [
 const Page = () => {
 	const pathname = usePathname();
 	const listingId = pathname.split("/")[2];
-	const [isLoading, setIsLoading] = useState(false);
-	const [isDisabled, setIsDisabled] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
+	// const [isDisabled, setIsDisabled] = useState(false);
 	const navigations = useStepNavigation();
 	const router = useRouter();
+	const [formValid, setFormValid] = useState(false);
 
 	const [selected, setSelected] = useState<BookingType | null>(null);
 
-	// Prefill existing bookingType
+	const { data, isLoading, isError, error, refetch } = useQuery({
+		queryKey: ["listing", listingId],
+		queryFn: async () => {
+			const res = await api.get(`/listings/${listingId}`);
+			return res.data;
+		},
+		enabled: !!listingId,
+	});
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await api.get(`/listings/${listingId}`);
-				if (res.data?.bookingType) {
-					setSelected(res.data.bookingType);
-				}
-			} catch (err) {
-				console.error("Error fetching bookingType", err);
-			}
-		};
-		fetchData();
-	}, [listingId]);
+		if (data?.bookingType) {
+			setSelected(data.bookingType);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		if (isError) {
+			console.error("Failed to fetch listing", error);
+		}
+	}, [isError, error]);
+
+	useEffect(() => {
+		setFormValid(!!selected);
+	}, [selected]);
+
+	// // Prefill existing bookingType
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			const res = await api.get(`/listings/${listingId}`);
+	// 			if (res.data?.bookingType) {
+	// 				setSelected(res.data.bookingType);
+	// 			}
+	// 		} catch (err) {
+	// 			console.error("Error fetching bookingType", err);
+	// 		}
+	// 	};
+	// 	fetchData();
+	// }, [listingId]);
 
 	// Autosave on change
 	const handleChange = async (value: BookingType) => {
@@ -61,20 +89,66 @@ const Page = () => {
 		}
 	};
 
+	let disableAll: (v: boolean) => void = () => {};
+	let setButtonLoading: (b: "next" | "back" | "save" | null) => void = () => {};
+
 	const handleNext = async () => {
-		setIsLoading(true);
-		setIsDisabled(true);
+		if (!selected) {
+			toast.error("Please select a booking type");
+			return;
+		}
+
+		disableAll(true);
+		setButtonLoading("next");
+
 		try {
+			await api.patch(`/listings/${listingId}`, {
+				bookingType: selected,
+				currentStep: navigations.next,
+			});
+
 			if (navigations.next) {
 				router.push(`/become-a-host/${listingId}/${navigations.next}`);
 			}
-		} catch (err) {
-			console.error(err);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+					console.error(err);
+					toast.error(err?.response?.data?.error || err.message || "Oops, something went wrong");
+		}finally {
+			setButtonLoading(null);
+			disableAll(false);
 		}
 	};
 
+	if (isError) {
+		return (
+			<div className="w-full min-h-svh h-full flex items-center">
+				<div className="p-4 bg-red-50 text-red-700 rounded-xl text-center">
+					<p className="text-sm font-medium">Failed to load listing.</p>
+					<p className="text-xs">{error?.message ?? "Please try again."}</p>
+					<button
+						onClick={() => refetch()}
+						className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+						disabled={isLoading}
+					>
+						{/* <AlertCircle className=""/> */}
+						{isLoading ? "Retrying..." : "Retry"}
+					</button>
+				</div>
+			</div>
+		);
+	}
+
 	return (
-		<StepLayout onNext={handleNext} isNextLoading={isLoading} isNextDisabled={isDisabled}>
+		<StepLayout
+			onNext={handleNext}
+			onMount={(setDisabled, setLoadingButton) => {
+				disableAll = setDisabled;
+				setButtonLoading = setLoadingButton;
+			}}
+			isPrefetching={isLoading}
+			canProceed={formValid}
+		>
 			<div className="w-full min-h-svh py-20 h-full px-4 flex items-center justify-center">
 				<div className="max-w-screen-sm w-full mx-auto pt-2">
 					<h1 className="text-2xl md:text-3xl font-[550] py-4 animate-list-stagger">Decide how you&apos;ll confirm reservations</h1>

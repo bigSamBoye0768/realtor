@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import {
-	ClerkProvider,
-  } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
+import { Providers } from "@/components/provider/providers";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -17,12 +15,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<ClerkProvider>
-		<html lang="en">
-			<body className={`antialiased`}>
-				{children}
-				<Toaster />
-			</body>
-		</html>
+			<html lang="en">
+				<body className={`antialiased`}>
+					<Providers>{children}</Providers>
+				</body>
+			</html>
 		</ClerkProvider>
 	);
 }

@@ -1,4 +1,4 @@
-import { Categories } from "@/components/categories";
+import { Categories, CategoriesSkeleton } from "@/components/categories";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { MobileFooterBar } from "@/components/mobile-footer-bar";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Listings, ListingsSkeleton } from "@/components/listing";
 import { Suspense } from "react";
 import { Filter } from "@/components/filter";
-import { Drawer } from "./_components/drawer";
+// import { Drawer } from "./_components/drawer";
 // import { Filter } from "@/components/filter";
 
 const Page = () => {
@@ -17,7 +17,9 @@ const Page = () => {
 				<div className="w-full md:border-t">
 					<div className="flex items-center w-full max-w-screen-3xl mx-auto 2xl:px-20 lg:px-10 md:px-8 px-0">
 						<div className="flex-1 overflow-hidden">
-							<Categories />
+							<Suspense fallback={<CategoriesSkeleton />}>
+								<Categories />
+							</Suspense>
 						</div>
 						<div className="md:flex pl-10 hidden">
 							<Filter trigger={<Button className="rounded-xlh-10 font-semibold text-sm shadow-none">Filter</Button>} />
@@ -45,7 +47,7 @@ const Page = () => {
 				{/* <ListingDrawer /> */}
 			</section>
 
-			<Drawer />
+			{/* <Drawer /> */}
 
 			<MobileFooterBar />
 			<Footer />

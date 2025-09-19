@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { api } from "@/lib/axios-instance";
 import { IncompleteListingDTO } from "@/app/api/listings/incomplete/route";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import { properties } from "@/lib/constants";
 import { PropertyType } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 function labelForPropertyType(pt?: PropertyType | null) {
 	if (!pt) return "place";
@@ -21,31 +22,48 @@ function formatStarted(dateISO: string | Date) {
 	return `started ${s}`;
 }
 
+async function fetchDrafts(): Promise<IncompleteListingDTO[]> {
+	const res = await api.get<IncompleteListingDTO[]>("/listings/incomplete");
+	return res.data;
+  }
+
 export default function DraftsSection() {
 	const router = useRouter();
-	const [drafts, setDrafts] = useState<IncompleteListingDTO[]>([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<Error | null>(null);
 
-	if (error) throw error;
+	const {
+		data: drafts,
+		isLoading,
+		isError,
+		error,
+	  } = useQuery({
+		queryKey: ["incomplete-listings"],
+		queryFn: fetchDrafts,
+	  });
 
-	useEffect(() => {
-		async function fetchDrafts() {
-			try {
-				const res = await api.get<IncompleteListingDTO[]>("/listings/incomplete");
-				console.log(res.data);
-				setDrafts(res.data);
-			} catch (err) {
-				console.error(err);
-				setError(err as Error);
-			} finally {
-				setLoading(false);
-			}
-		}
-		fetchDrafts();
-	}, []);
 
-	if (loading)
+	// const [drafts, setDrafts] = useState<IncompleteListingDTO[]>([]);
+	// const [loading, setLoading] = useState(true);
+	// const [error, setError] = useState<Error | null>(null);
+
+	if (isError) throw error;
+
+	// useEffect(() => {
+	// 	async function fetchDrafts() {
+	// 		try {
+	// 			const res = await api.get<IncompleteListingDTO[]>("/listings/incomplete");
+	// 			console.log(res.data);
+	// 			setDrafts(res.data);
+	// 		} catch (err) {
+	// 			console.error(err);
+	// 			setError(err as Error);
+	// 		} finally {
+	// 			setLoading(false);
+	// 		}
+	// 	}
+	// 	fetchDrafts();
+	// }, []);
+
+	if (isLoading)
 		return (
 			<div className="uncomplete-listings w-full  mb-[75px]">
 				<Skeleton className="mt-[25px] mb-3 w-full h-7 max-w-72" />
@@ -60,7 +78,7 @@ export default function DraftsSection() {
 				</div>
 			</div>
 		);
-	if (drafts.length === 0) return null;
+		if (!drafts || drafts.length === 0) return null;
 
 	return (
 		<div className="uncomplete-listings w-full  mb-[75px]">
@@ -68,9 +86,11 @@ export default function DraftsSection() {
 
 			{drafts.map((l, i) => {
 				const label = labelForPropertyType(l.propertyType as PropertyType | null);
-				const img = l.photoUrls?.[0] ?? "/assets/photos/listing-placeholder.jpg";
+				const coverPhoto = l.photos.find((p) => p.isCover) ?? l.photos[0];
+				const img = coverPhoto?.url ?? "/assets/photos/listing-placeholder.jpg";
 				const step = l.currentStep || "overview";
 				const href = `/become-a-host/${l.id}/${step}`;
+				const description = l.title ?? `Your ${label} listing ${formatStarted(l.postedDate)}`
 				return (
 					<button
 						key={i}
@@ -87,7 +107,7 @@ export default function DraftsSection() {
 									height={160}
 								/>
 							</div>
-							<div className="ucl-started text-[16px] font-semibold text-neutral-700">{`Your ${label} listing ${formatStarted(l.postedDate)}`}</div>
+							<div className="ucl-started text-[16px] font-semibold text-neutral-700">{description}</div>
 						</div>
 					</button>
 				);

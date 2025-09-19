@@ -216,6 +216,7 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
 import { Progress } from "@/components/ui/progress";
 import { steps } from "@/lib/constants";
+import { LoadingButton } from "@/lib/constants/steps";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -224,13 +225,20 @@ const startPages = ["overview", "about-your-place", "stand-out", "finish-setup"]
 
 type StepFooterProps = {
 	onNext?: () => void;
-	isNextDisabled?: boolean;
-	isNextLoading?: boolean;
 	backStep?: string;
 	nextStep?: string;
+	isDisabled?: boolean;
+	canProceed?: boolean;
+	loadingButton?: LoadingButton;
 };
 
-export const Footer = ({ onNext, isNextDisabled, isNextLoading, backStep }: StepFooterProps) => {
+const getNextButtonText = (slug: string) => {
+	if (slug === "overview") return "Get started";
+	if (slug === "review") return "Publish";
+	return "Next";
+};
+
+export const Footer = ({ onNext, backStep, loadingButton, canProceed, isDisabled }: StepFooterProps) => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const pathSegments = pathname.split("/").filter(Boolean);
@@ -315,15 +323,28 @@ export const Footer = ({ onNext, isNextDisabled, isNextLoading, backStep }: Step
 			<div className="flex items-center justify-between w-full mt-1.5">
 				<div>
 					{currentSlug !== startPages[0] && (
-						<Button variant="ghost" className="underline font-bold rounded-xl" onClick={() => backStep && router.push(buildPath(backStep))}>
-							Back
+						<Button
+							disabled={isDisabled || loadingButton === "back"}
+							variant="ghost"
+							className="underline font-bold rounded-xl"
+							onClick={() => backStep && router.push(buildPath(backStep))}
+						>
+							<div className={cn(loadingButton === "back" && "flex invisible")}>Back</div>
+							<div className={cn("absolute inset-0 flex items-center justify-center", loadingButton !== "back" && "opacity-0")}>
+								<Loader className="bg-black" />
+							</div>
 						</Button>
 					)}
 				</div>
 				<div className="flex items-center gap-x-2">
-					<Button disabled={isNextDisabled} size="lg" className="font-bold relative h-12 rounded-xl disabled:cursor-not-allowed" onClick={onNext}>
-						<div className={cn(isNextLoading && "flex invisible")}>{currentSlug === "overview" ? "Get started" : "Next"}</div>
-						<div className={cn("absolute inset-0 flex items-center justify-center", !isNextLoading && "opacity-0")}>
+					<Button
+						disabled={!canProceed || isDisabled || loadingButton === "next"}
+						size="lg"
+						className="font-bold relative h-12 rounded-xl disabled:cursor-not-allowed"
+						onClick={onNext}
+					>
+						<div className={cn(loadingButton === "next" && "flex invisible")}>{getNextButtonText(currentSlug)}</div>
+						<div className={cn("absolute inset-0 flex items-center justify-center", loadingButton !== "next" && "opacity-0")}>
 							<Loader className="bg-white" />
 						</div>
 					</Button>

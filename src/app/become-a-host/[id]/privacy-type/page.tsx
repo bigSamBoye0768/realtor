@@ -10,6 +10,7 @@ import { useStepNavigation } from "@/hooks/use-step-navigation";
 import { api } from "@/lib/axios-instance";
 import { toast } from "sonner";
 import debounce from "lodash.debounce";
+import { useQuery } from "@tanstack/react-query";
 
 const privacyOptions = [
 	{
@@ -19,7 +20,7 @@ const privacyOptions = [
 		icon: Icons.house,
 	},
 	{
-		value: "PrivateRoom",
+		value: "Room",
 		label: "A room",
 		description: "Guests have their own room in a home, plus access to shared spaces.",
 		icon: Icons.room,
@@ -34,30 +35,56 @@ const privacyOptions = [
 
 const Page = () => {
 	const [selected, setSelected] = useState<string>("");
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
+	const [formValid, setFormValid] = useState(false);
 
 	const pathname = usePathname();
 	const router = useRouter();
 	const navigations = useStepNavigation();
 	const listingId = pathname.split("/")[2];
 
-	/**
-	 * ✅ Prefill: fetch listing data
-	 */
+	const { data, isLoading, isError, error, refetch } = useQuery({
+		queryKey: ["listing", listingId],
+		queryFn: async () => {
+			const res = await api.get(`/listings/${listingId}`);
+			return res.data;
+		},
+		enabled: !!listingId,
+	});
+
 	useEffect(() => {
-		const fetchListing = async () => {
-			try {
-				const { data } = await api.get(`/listings/${listingId}`);
-				if (data?.privacyType) {
-					setSelected(data.privacyType);
-				}
-			} catch (err) {
-				console.error("Failed to fetch listing", err);
-			}
-		};
-		fetchListing();
-	}, [listingId]);
+		if (data?.privacyType) {
+			setSelected(data.privacyType);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		if (isError) {
+			console.error("Failed to fetch listing", error);
+		}
+	}, [isError, error]);
+
+	useEffect(() => {
+		setFormValid(!!selected);
+	}, [selected]);
+
+	// /**
+	//  * Prefill: fetch listing data
+	//  */
+	// useEffect(() => {
+	// 	const fetchListing = async () => {
+	// 		try {
+	// 			const { data } = await api.get(`/listings/${listingId}`);
+	// 			if (data?.privacyType) {
+	// 				setSelected(data.privacyType);
+	// 			}
+	// 		} catch (err) {
+	// 			console.error("Failed to fetch listing", err);
+	// 		}
+	// 	};
+	// 	fetchListing();
+	// }, [listingId]);
 
 	/**
 	 * ✅ Debounced autosave with dynamic currentStep
@@ -87,10 +114,18 @@ const Page = () => {
 		if (selected) {
 			debouncedSave(selected, navigations.current ?? "privacy-type");
 		}
-	}, [selected, debouncedSave, navigations]);
+
+		return () => {
+			debouncedSave.cancel(); // cleanup on unmount or re-run
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selected, debouncedSave, navigations.current]);
+
+	let disableAll: (v: boolean) => void = () => {};
+	let setButtonLoading: (b: "next" | "back" | "save" | null) => void = () => {};
 
 	/**
-	 * ✅ Handle "Next" button
+	 * Handle "Next" button
 	 */
 	const handleNext = async () => {
 		if (!selected) {
@@ -98,7 +133,9 @@ const Page = () => {
 			return;
 		}
 
-		setIsLoading(true);
+		disableAll(true);
+		setButtonLoading("next");
+
 		try {
 			await api.patch(`/listings/${listingId}`, {
 				privacyType: selected,
@@ -111,14 +148,42 @@ const Page = () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			console.error(err);
-			toast.error(err?.response?.data?.error || err.message || "Something went wrong");
+			toast.error(err?.response?.data?.error || err.message || "Oops, something went wrong");
 		} finally {
-			setIsLoading(false);
+			setButtonLoading(null);
+			disableAll(false);
 		}
 	};
 
+	if (isError) {
+		return (
+			<div className="w-full min-h-svh h-full flex items-center">
+				<div className="p-4 bg-red-50 text-red-700 rounded-xl text-center">
+					<p className="text-sm font-medium">Failed to load listing.</p>
+					<p className="text-xs">{error?.message ?? "Please try again."}</p>
+					<button
+						onClick={() => refetch()}
+						className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+						disabled={isLoading}
+					>
+						{/* <AlertCircle className=""/> */}
+						{isLoading ? "Retrying..." : "Retry"}
+					</button>
+				</div>
+			</div>
+		);
+	}
+
 	return (
-		<StepLayout onNext={handleNext} isNextLoading={isLoading}>
+		<StepLayout
+			onNext={handleNext}
+			onMount={(setDisabled, setLoadingButton) => {
+				disableAll = setDisabled;
+				setButtonLoading = setLoadingButton;
+			}}
+			isPrefetching={isLoading}
+			canProceed={formValid}
+		>
 			<div className="w-full min-h-svh py-20 h-full px-4">
 				<div className="max-w-screen-sm w-full mx-auto pt-2">
 					<h1 className="text-2xl md:text-3xl font-[550] py-4 animate-list-stagger">Which type of place will guests have?</h1>

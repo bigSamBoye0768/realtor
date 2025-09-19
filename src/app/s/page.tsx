@@ -6,10 +6,10 @@ import { Header } from "@/components/header";
 import { MobileFooterBar } from "@/components/mobile-footer-bar";
 import { Button } from "@/components/ui/button";
 import { ListingSkeleton } from "@/components/listing";
-import Map from "@/components/map";
 import ErrorBoundary from "@/components/map/error-boundary";
 import { MapErrorFallback } from "@/components/map/map-error-fallback";
 import { useState } from "react";
+import Map from "@/components/map/index";
 
 // import dynamic from "next/dynamic";
 

@@ -106,9 +106,9 @@ export type OccupancyOption = {
 // ];
 
 export const steps = [
-	["about-your-place", "structure", "privacy-type", "location", "floor-plan", "bathrooms", "occupancy"], // Step 0
+	["about-your-place", "structure", "privacy-type", "location", "floor-plan"], // Step 0
 	["stand-out", "amenities", "photos", "title", "description"], // Step 1
-	["finish-setup", "instant-book", "pricing", "review", "publish"], // Step 2
+	["finish-setup", "instant-book", "pricing", "review"], // Step 2
 ];
 
 export const flatPages = ["overview", ...steps.flat()];

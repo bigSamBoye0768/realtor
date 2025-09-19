@@ -137,7 +137,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
 	const listing = await prisma.listing.findUnique({
 		where: { id },
-		include: { host: true, location: true },
+		include: { host: true, location: true, photos:true },
 	});
 	if (!listing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 	if (listing.host.userId !== user.id) return NextResponse.json({ error: "Forbidden" }, { status: 403 });

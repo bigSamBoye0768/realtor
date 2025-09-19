@@ -6,10 +6,11 @@ import { NextResponse } from "next/server";
 
 export type IncompleteListingDTO = {
 	id: string;
-	photoUrls: string[];
+	photos: { id: string; url: string; isCover: boolean }[];
 	postedDate: string; // ISO string for client
 	propertyType: PropertyType | null;
 	currentStep: string | null;
+	title: string | null;
 };
 
 export async function GET() {
@@ -28,20 +29,29 @@ export async function GET() {
 		orderBy: { postedDate: "desc" },
 		select: {
 			id: true,
-			photoUrls: true,
 			postedDate: true,
 			propertyType: true,
 			currentStep: true,
+			title:true,
+			photos: {
+				select: {
+				  id: true,
+				  url: true,
+				  isCover: true,
+				},
+				orderBy: { position: "asc" }, // maintain photo order if you added an `order` column
+			  },
 		},
 	});
 
 	// Normalize dates to ISO strings for the client
 	const dto: IncompleteListingDTO[] = listings.map((l) => ({
 		id: l.id,
-		photoUrls: l.photoUrls ?? [],
+		photos: l.photos,
 		postedDate: l.postedDate.toISOString(),
 		propertyType: l.propertyType,
 		currentStep: l.currentStep ?? null,
+		title: l.title ?? null,
 	}));
 
 	return NextResponse.json(dto);

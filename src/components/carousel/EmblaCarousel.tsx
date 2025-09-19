@@ -8,14 +8,20 @@ import "./embla.css";
 import { Icons } from "../icons";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { WishlistHeart } from "../wishlist-heart";
 
 type PropType = {
-	slides: number[];
+	images: string[];
 	options?: EmblaOptionsType;
+	listing: {
+		id: string;
+		hostId: string;
+	};
+	currentUserId?: string;
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-	const { slides, options } = props;
+	const { images, options, listing, currentUserId } = props;
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
 	const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -25,6 +31,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
 	const [canScrollPrev, setCanScrollPrev] = useState(false);
 	const [canScrollNext, setCanScrollNext] = useState(true);
+
+
 
 	const onThumbClick = useCallback(
 		(index: number) => {
@@ -73,28 +81,29 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		[emblaMainApi]
 	);
 
+
 	return (
 		<div className="embla rounded-2xl w-full group relative">
 			<div className="embla__viewport w-full rounded-2xl" ref={emblaMainRef}>
 				<div className="embla__container w-full rounded-2xl">
-					{slides.map((index) => (
+					{images.map((url, index) => (
 						<div className="embla__slide rounded-2xl relative w-full h-full gap-0" key={index}>
 							<Image
-								src="/assets/photos/b9ae0435-0527-459c-a181-e006654e470a.webp"
-								alt="b9ae0435-0527-459c-a181-e006654e470a.webp"
+								src={url}
+								alt={`Listing image ${index + 1}`}
 								className="aspect-square object-cover w-full"
-								width={800}
-								height={800}
+								width={400}
+								height={400}
+								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 							/>
 						</div>
 					))}
 				</div>
-				<div className="absolute top-0 right-0 m-4">
-					<Button className="rounded-full aspect-square p-1 shadow-none bg-transparent border-none outline-none h-fit hover:bg-transparent">
-						{Icons.wish()}
-					</Button>
-				</div>
+					<div className="absolute top-0 right-0 m-4">
+						<WishlistHeart listingId={listing.id} hostId={listing.hostId} currentUserId={currentUserId}/>
+					</div>
 			</div>
+
 
 			{canScrollPrev && (
 				<Button
@@ -141,7 +150,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 			<div className="embla-thumbs absolute bottom-2 left-1/2 -translate-x-1/2">
 				<div className="embla-thumbs__viewport w-full max-w-16" ref={emblaThumbsRef}>
 					<div className="embla-thumbs__container flex-nowrap">
-						{slides.map((index) => (
+						{images.map((_, index) => (
 							<Thumb key={index} onClick={() => onThumbClick(index)} selected={index === selectedIndex} index={index} />
 						))}
 					</div>

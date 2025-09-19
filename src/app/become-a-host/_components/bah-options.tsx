@@ -7,10 +7,12 @@ import { Listing } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const BahOptions = () => {
 	const [isPending, startTransition] = useTransition();
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	const createNewListing = () => {
 		startTransition(async () => {
@@ -18,6 +20,7 @@ export const BahOptions = () => {
 				const res = await api.post<Listing>("/listings", {});
 				const listing = res.data;
 				router.push(`/become-a-host/${listing.id}/overview`);
+				queryClient.invalidateQueries({ queryKey: ["incomplete-listings"] });
 			} catch {
 				toast.error("Something went wrong");
 			}

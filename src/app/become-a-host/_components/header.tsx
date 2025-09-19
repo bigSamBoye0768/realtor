@@ -6,7 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-export const Header = () => {
+type StepHeaderProps = {
+	onSaveExit?: () => void;
+	loading?: boolean;
+	isDisabled?: boolean;
+};
+
+export const Header = ({ onSaveExit, loading, isDisabled }: StepHeaderProps) => {
 	const pathname = usePathname();
 
 	return (
@@ -28,7 +34,7 @@ export const Header = () => {
 						Exit
 					</Button>
 					{pathname !== "/become-a-host" && (
-						<Button variant="outline" className="rounded-full font-semibold">
+						<Button disabled={isDisabled || loading} onClick={onSaveExit} variant="outline" className="rounded-full font-semibold">
 							Save & Exit
 						</Button>
 					)}

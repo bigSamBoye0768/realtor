@@ -16,7 +16,7 @@ export function useNavLinks(): NavItem[] {
 			return [
 				{ label: `${name} • Account`, href: "/account-settings" },
 				{ label: "Become a host", href: "/become-a-host" },
-				{ label: "Wishlist", href: "/wishlist" },
+				{ label: "Wishlist", href: "/wishlists" },
 				{ label: "Log out", onClick: () => signOut({ redirectUrl: "/" }) },
 			];
 		}
