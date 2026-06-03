@@ -230,7 +230,7 @@ export const Categories = () => {
 		<div className="">
 			<div className="embla 2xl:px-20 lg:px-10 md:px-8 px-0 w-full max-w-screen-2xl mx-auto relative bg-white">
 				<div className="embla__viewport h-full w-full" ref={emblaRef}>
-					<div className="embla__container gap-10">
+					<div className="embla__container gap-7 md:gap-10">
 						{categoriesOptions.map((category, i) => (
 							<Link href={`/${category.name.toLowerCase()}`} key={i} className="flex-grow-0 text-sm shrink-0 basis-auto max-w-[100%] min-w-0">
 								<Button

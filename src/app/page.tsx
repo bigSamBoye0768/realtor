@@ -62,7 +62,7 @@ const explore = [
 export default function Home() {
 	return (
 		<div className="min-h-[100vh] h-full w-full">
-			<div className="w-full fixed top-0  px-4 bg-transparent z-50">
+			<div className="w-full fixed top-0 bg-transparent z-50">
 				<Header />
 			</div>
 			<div className="min-h-svh h-full pb-20">
@@ -70,11 +70,11 @@ export default function Home() {
 					<Banner />
 				</Suspense>
 
-				<main className="max-w-screen-lg  mx-auto px-4">
-					<section className="pt-8">
-						<h2 className="text-3xl font-semibold pb-5">Explore Nearby</h2>
+				<main className="max-w-screen-lg  mx-auto ">
+					<section className="pt-8 px-4">
+						<h2 className="text-2xl md:text-3xl font-semibold pb-4 md:pb-5">Explore Nearby</h2>
 
-						<div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-3">
+						<div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-1 md:gap-3">
 							{explore.map((item, i) => (
 								<div
 									key={i}
@@ -92,8 +92,8 @@ export default function Home() {
 						</div>
 					</section>
 
-					<section className="pt-8 mt-6">
-						<h2 className="text-3xl font-semibold pb-5">Live Anywhere</h2>
+					<section className="pt-8 mt-6 px-4">
+						<h2 className="text-2xl md:text-3xl font-semibold pb-5">Live Anywhere</h2>
 
 						<div className="flex flex-nowrap gap-x-6 overflow-auto no-scrollbar">
 							{liveAnywhere.map((item, i) => (
@@ -114,13 +114,13 @@ export default function Home() {
 						</div>
 					</section>
 
-					<section className="mt-24 mb-4  relative">
+					<section className="mt-24 mb-4  md:mx-4 relative">
 						<div className="relative  h-96">
-							<Image src="/assets/photos/2da67c1c-0c61-4629-8798-1d4de1ac9291.jpeg" alt="something" className="rounded-xl object-cover" fill />
+							<Image src="/assets/photos/2da67c1c-0c61-4629-8798-1d4de1ac9291.jpeg" alt="something" className="md:rounded-xl object-cover" fill />
 						</div>
-						<div className="absolute inset-0 bg-black opacity-5"></div>
+						<div className="absolute inset-0 md:rounded-xl bg-black opacity-5"></div>
 						<div className="absolute top-1/4 left-10">
-							<h2 className="text-4xl font-semibold mb-3">The Greatest Outdoors</h2>
+							<h2 className="text-2xl md:text-4xl font-semibold mb-3">The Greatest Outdoors</h2>
 							<p>Whislists curated by Nestquest</p>
 							<Button className="rounded-lg font-bold my-2 transition-all duration-200">Get inspired</Button>
 						</div>

@@ -22,21 +22,21 @@ const overview = [
 const Page = () => {
 	return (
 		<div className=" px-4 max-w-7xl mx-auto w-full min-h-svh py-20 h-full md:flex items-center justify-center">
-			<div className="flex flex-col md:flex-row py-4 gap-4">
+			<div className="flex flex-col md:flex-row py-4 md:gap-4">
 				<div className="font-[550] flex-1 flex flex-col justify-center items-start">
-					<h1 className="md:text-5xl py-4 text-3xl  md:max-w-lg w-full">It’s easy to get started on nestQuest</h1>
+					<h1 className=" lg:text-5xl md:text-4xl py-4 text-2xl  md:max-w-lg w-full">It’s easy to get started on nestQuest</h1>
 				</div>
 				<div className="flex-1">
 					{overview.map((item, i) => (
-						<div key={i} className="flex flex-nowrap border-b py-6 md:py-8 gap-x-3">
+						<div key={i} className="flex flex-nowrap border-b py-5 md:py-8 gap-x-3">
 							<div className="flex items-baseline gap-x-3 flex-nowrap">
-								<div className="font-semibold text-xl">{i + 1}</div>
+								<div className="font-semibold text-lg md:text-xl">{i + 1}</div>
 								<div className="flex-1">
-									<h3 className="font-semibold text-xl !leading-10">{item.title}</h3>
-									<p className="text-base pt-1 text-black/70">{item.description}</p>
+									<h3 className="font-semibold text-lg md:text-xl">{item.title}</h3>
+									<p className="text-sm md:text-base pt-1 text-black/70">{item.description}</p>
 								</div>
 							</div>
-							<div className="relative aspect-square w-32">
+							<div className="relative aspect-square w-20 h-20 md:w-32 md:h-32">
 								<Image src={item.image} alt={item.title} className="object-cover" fill />
 							</div>
 						</div>

@@ -8,7 +8,7 @@ export const Icons = {
 			height="45"
 			preserveAspectRatio="xMidYMid meet"
 			viewBox="0 0 45 45"
-			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
+			style={{ width: "45px", height: "45px", contentVisibility: "visible" }}
 			{...props}
 		>
 			<defs>
@@ -39,7 +39,7 @@ export const Icons = {
 			height="45"
 			preserveAspectRatio="xMidYMid meet"
 			viewBox="0 0 45 45"
-			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
+			style={{ width: "45px", height: "45px", contentVisibility: "visible" }}
 			{...props}
 		>
 			<defs>

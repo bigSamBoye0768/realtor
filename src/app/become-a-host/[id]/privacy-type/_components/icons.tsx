@@ -10,7 +10,7 @@ export const Icons = {
 			className="snipcss0-9-15-16"
 			preserveAspectRatio="xMidYMid meet"
 			viewBox="0 0 35 35"
-			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
+			style={{ width: "35px", height: "35px", contentVisibility: "visible" }}
 		>
 			<defs className="snipcss0-10-16-17">
 				<clipPath id="__lottie_element_2210" className="snipcss0-11-17-18">
@@ -127,7 +127,7 @@ export const Icons = {
 			className="snipcss0-9-45-46"
 			preserveAspectRatio="xMidYMid meet"
 			viewBox="0 0 35 35"
-			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
+			style={{ width: "35px", height: "35px", contentVisibility: "visible" }}
 			{...props}
 		>
 			<defs className="snipcss0-10-46-47">
@@ -267,7 +267,7 @@ export const Icons = {
 			className="snipcss0-9-77-78"
 			preserveAspectRatio="xMidYMid meet"
 			viewBox="0 0 35 35"
-			style={{ width: "100%", height: "100%", contentVisibility: "visible" }}
+			style={{ width: "35px", height: "35px", contentVisibility: "visible" }}
 			{...props}
 		>
 			<defs className="snipcss0-10-78-79">
