@@ -310,6 +310,27 @@ export const Icons = {
 			<path d="M5 20a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5Z" fill="black"></path>
 		</svg>
 	),
+	houseWhite: (props?: IconProps) => (
+		<svg
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			xmlns="http://www.w3.org/2000/svg"
+			data-testid="icon-mobile-home"
+			viewBox="0 0 24 24"
+			aria-hidden="true"
+			focusable="false"
+			width="28"
+			height="28"
+			{...props}
+		>
+			<path
+				fillRule="evenodd"
+				d="m3.614 9.789.386-.3V15a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V9.488l.386.3a1 1 0 1 0 1.228-1.578L14.916 3a4.75 4.75 0 0 0-5.832 0L2.386 8.21a1 1 0 0 0 1.228 1.579Zm10.074-5.21a2.75 2.75 0 0 0-3.376 0L5.998 7.934 6 8v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8c0-.022 0-.044.002-.066L13.688 4.58Z"
+				clipRule="evenodd"
+				fill="white"
+			></path>
+			<path d="M5 20a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5Z" fill="white"></path>
+		</svg>
+	),
 	bad: () => (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

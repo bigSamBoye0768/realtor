@@ -23,8 +23,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		dragFree: true,
 	});
 
-	// const [canScrollPrev, setCanScrollPrev] = useState(false);
-	// const [canScrollNext, setCanScrollNext] = useState(true);
+	const [canScrollPrev, setCanScrollPrev] = useState(false);
+	const [canScrollNext, setCanScrollNext] = useState(true);
 
 	const onThumbClick = useCallback(
 		(index: number) => {
@@ -51,7 +51,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 			e.preventDefault();
 
-			if (emblaMainApi) emblaMainApi.scrollPrev();
+			if (!emblaMainApi) return;
+			emblaMainApi.scrollPrev();
+
+			setCanScrollNext(emblaMainApi?.canScrollNext());
+			setCanScrollPrev(emblaMainApi?.canScrollPrev());
 		},
 		[emblaMainApi]
 	);
@@ -60,7 +64,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 		(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 			e.preventDefault();
 
-			if (emblaMainApi) emblaMainApi.scrollNext();
+			if (!emblaMainApi) return;
+			emblaMainApi.scrollNext();
+
+			setCanScrollNext(emblaMainApi?.canScrollNext());
+			setCanScrollPrev(emblaMainApi?.canScrollPrev());
 		},
 		[emblaMainApi]
 	);
@@ -83,42 +91,47 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 				</div>
 			</div>
 
-			<Button
-				variant="ghost"
-				size="sm"
-				className="embla__prev bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
-				onClick={scrollPrev}
-			>
-				{Icons.leftArrow({
-					style: {
-						display: "block",
-						fill: "none",
-						height: "16px",
-						width: "16px",
-						stroke: "currentcolor",
-						strokeWidth: "4.33333",
-						overflow: "visible",
-					},
-				})}
-			</Button>
-			<Button
-				variant="ghost"
-				size="sm"
-				className="embla__next bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
-				onClick={scrollNext}
-			>
-				{Icons.rightArrow({
-					style: {
-						display: "block",
-						fill: "none",
-						height: "16px",
-						width: "16px",
-						stroke: "currentcolor",
-						strokeWidth: "4.33333",
-						overflow: "visible",
-					},
-				})}
-			</Button>
+			{canScrollPrev && (
+				<Button
+					variant="ghost"
+					size="sm"
+					className="embla__prev bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 left-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+					onClick={scrollPrev}
+				>
+					{Icons.leftArrow({
+						style: {
+							display: "block",
+							fill: "none",
+							height: "16px",
+							width: "16px",
+							stroke: "currentcolor",
+							strokeWidth: "4.33333",
+							overflow: "visible",
+						},
+					})}
+				</Button>
+			)}
+
+			{canScrollNext && (
+				<Button
+					variant="ghost"
+					size="sm"
+					className="embla__next bg-white shadow-md absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 duration-300 hover:bg-transparent top-1/2 z-10 right-2 -translate-y-1/2 rounded-full p-0 aspect-square"
+					onClick={scrollNext}
+				>
+					{Icons.rightArrow({
+						style: {
+							display: "block",
+							fill: "none",
+							height: "16px",
+							width: "16px",
+							stroke: "currentcolor",
+							strokeWidth: "4.33333",
+							overflow: "visible",
+						},
+					})}
+				</Button>
+			)}
 
 			<div className="embla-thumbs absolute bottom-2 left-1/2 -translate-x-1/2">
 				<div className="embla-thumbs__viewport w-full max-w-20" ref={emblaThumbsRef}>

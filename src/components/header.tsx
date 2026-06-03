@@ -246,7 +246,7 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 			</header>
 
 			<header className="h-[70px]  w-full md:hidden max-w-screen-2xl 2xl:px-20 lg:px-10 md:px-8 px-4 mx-auto">
-				<div className=" w-full h-full flex items-center justify-center">
+				<div className=" w-full h-full flex flex-nowrap items-center justify-center">
 					<Button
 						variant="outline"
 						className="rounded-full bg-transparent hover:bg-transparent overflow-hidden h-[48px] border-[#DDDDDD] border py-0 px-2 w-full justify-between shadow-[0_3px_10px_rgba(0,0,0,0.1)]"
@@ -269,8 +269,8 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 								></path>
 							</svg>
 						</div>
-						<div className="truncate font-semibold flex-1 text-left">{placeholder}</div>
-						<div className="bg-transparent border w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
+						<div className="truncate font-semibold flex-1 text-left mr-4">{placeholder}</div>
+						{/* <div className="bg-transparent border w-[32px] h-[32px] aspect-square rounded-full flex items-center justify-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 16 16"
@@ -286,7 +286,28 @@ export const Header = ({ showSearch = true }: { showSearch?: boolean }) => {
 									fill="#222222"
 								></path>
 							</svg>
-						</div>
+						</div> */}
+					</Button>
+					<Button
+						variant="outline"
+						className="rounded-full bg-transparent hover:bg-transparent overflow-hidden ml-2 h-[48px] w-[48px] border-[#DDDDDD] border aspect-square justify-between shadow-[0_3px_10px_rgba(0,0,0,0.1)]"
+						title="Filter"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 16 16"
+							aria-hidden="true"
+							role="presentation"
+							focusable="false"
+							style={{ display: "block", height: "16px", width: "16px", fill: "#2222222" }}
+							width="16"
+							height="16"
+						>
+							<path
+								d="M5 8a3 3 0 0 1 2.83 2H14v2H7.83A3 3 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.83 4H2V4h6.17A3 3 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+								fill="#222222"
+							></path>
+						</svg>
 					</Button>
 				</div>
 			</header>
